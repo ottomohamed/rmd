@@ -3,11 +3,9 @@
   
   if (req.method === 'POST') {
     const { prompt } = req.body || {};
-    
-    // محاكاة استجابة الذكاء الاصطناعي
-    res.status(200).json({
+    res.status(200).json({ 
       id: Date.now().toString(),
-      content: \هذا محتوى تم توليده بناء على: "\".\,
+      content: `تم التوليد بناء على: "${prompt || 'طلب عام'}".`,
       model: 'claude-3-haiku',
       created: new Date().toISOString()
     });
