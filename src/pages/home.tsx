@@ -1,4 +1,4 @@
-import { useListMeridianArticles, useListMeridianAuthors } from "@workspace/api-client-react";
+import { useListMAGHREB24Articles, useListMAGHREB24Authors } from "@workspace/api-client-react";
 import { ArticleCard } from "@/components/article-card";
 import { Link } from "wouter";
 import { getAuthorImage, translateAuthorName, translateAuthorTitle, getTranslatedSection, formatDate, cn, usePageTitle } from "@/lib/utils";
@@ -9,8 +9,8 @@ export default function Home() {
   // ✅ كل Hooks في البداية (قبل أي if أو return)
   usePageTitle('');
   const { ads } = useAds();
-  const { data: articlesData, isLoading: isLoadingArticles } = useListMeridianArticles({ limit: 12 });
-  const { data: authors, isLoading: isLoadingAuthors } = useListMeridianAuthors();
+  const { data: articlesData, isLoading: isLoadingArticles } = useListMAGHREB24Articles({ limit: 12 });
+  const { data: authors, isLoading: isLoadingAuthors } = useListMAGHREB24Authors();
 
   // الآن يمكننا استخدام الشرطيات
   const headerAds = ads?.filter((ad: any) => ad.position === 'header_home' && ad.active) || [];

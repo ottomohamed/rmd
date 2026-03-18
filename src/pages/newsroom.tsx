@@ -1,20 +1,22 @@
+import { supabase } from '@/lib/supabase'
 import { useState, useEffect, useRef } from "react";
 import { 
-  useGetMeridianNewsroom, 
-  useTriggerMeridianGeneration, 
-  useMeridianNewsroomDiscuss, 
-  useListMeridianSubmissions, 
-  useApproveMeridianSubmission, 
-  useRejectMeridianSubmission, 
-  useAnalyzeMeridianTrends, 
-  useGetMeridianTrendsLatest 
+  useGetMAGHREB24Newsroom, 
+  useTriggerMAGHREB24Generation, 
+  useMAGHREB24NewsroomDiscuss, 
+  useListMAGHREB24Submissions, 
+  useApproveMAGHREB24Submission, 
+  useRejectMAGHREB24Submission, 
+  useAnalyzeMAGHREB24Trends, 
+  useGetMAGHREB24TrendsLatest 
 } from "@workspace/api-client-react";
 import { 
   Loader2, Terminal, ShieldAlert, Play, RefreshCw, Activity, 
   Crosshair, Send, Mic, Inbox, Check, X, ChevronDown, ChevronUp, 
   TrendingUp, Zap, BarChart2, Eye, Megaphone, Image as ImageIcon, 
   Layout, ImagePlus, UserX, Settings, Save, Trash2, MessageSquare, 
-  ShieldBan, Users, AlertCircle, PenLine, ToggleLeft, ToggleRight, Plus 
+  ShieldBan, Users, AlertCircle, PenLine, ToggleLeft, ToggleRight, Plus,
+  Upload
 } from "lucide-react";
 import { formatDateTime } from "@/lib/utils";
 import { useAds } from "@/hooks/use-ads";
@@ -203,9 +205,9 @@ export default function Newsroom() {
 }
 
 function NewsroomDashboard() {
-  const { data: logs, isLoading, refetch } = useGetMeridianNewsroom({ limit: 100 });
+  const { data: logs, isLoading, refetch } = useGetMAGHREB24Newsroom({ limit: 100 });
   const logEntries = Array.isArray(logs) ? logs : [];
-  const triggerGen = useTriggerMeridianGeneration();
+  const triggerGen = useTriggerMAGHREB24Generation();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const [selectedJournalist, setSelectedJournalist] = useState("");
@@ -213,9 +215,9 @@ function NewsroomDashboard() {
   const [briefSent, setBriefSent] = useState(false);
   const [publisherMsg, setPublisherMsg] = useState("");
   const [discussing, setDiscussing] = useState(false);
-  const discuss = useMeridianNewsroomDiscuss();
+  const discuss = useMAGHREB24NewsroomDiscuss();
 
-  const { data: trendLogsData } = useGetMeridianTrendsLatest({ limit: 1 });
+  const { data: trendLogsData } = useGetMAGHREB24TrendsLatest({ limit: 1 });
   const trendLogs = Array.isArray(trendLogsData) ? trendLogsData : [];
 
   useEffect(() => {
@@ -438,8 +440,8 @@ function NewsroomDashboard() {
             {/* مدير الإعلانات */}
             <AdManagerPanel />
             
-            {/* مكتبة الوسائط */}
-            <MediaLibraryPanel />
+            {/* مكتبة الوسائط - تم تحديثها مع رفع الصور */}
+            <EnhancedMediaLibrary />
             
             {/* إدارة التعليقات */}
             <CommentsModerationPanel />
@@ -450,7 +452,7 @@ function NewsroomDashboard() {
             {/* إعدادات الموقع */}
             <SiteSettingsPanel />
             
-            {/* بيانات التشخيص - هذا كان يخبرك بسبب عدم الرد */}
+            {/* بيانات التشخيص */}
             <DiagnosticsPanel triggerGen={triggerGen} />
           </div>
         </div>
@@ -497,7 +499,7 @@ function AgentRosterPanel() {
 function TrendIntelPanel() {
   const [mode, setMode] = useState<"scan" | "predict" | "brief">("scan");
   const [triggerArticles, setTriggerArticles] = useState(false);
-  const analyze = useAnalyzeMeridianTrends();
+  const analyze = useAnalyzeMAGHREB24Trends();
 
   return (
     <div className="bg-black border border-violet-900/40 p-5">
@@ -667,9 +669,9 @@ function SubmissionsPanel() {
   const [filter, setFilter] = useState<'pending' | 'approved' | 'rejected'>('pending');
   const [editorNote, setEditorNote] = useState("");
 
-  const { data: submissions, isLoading, refetch } = useListMeridianSubmissions({ adminKey: ADMIN_KEY });
-  const approve = useApproveMeridianSubmission();
-  const reject = useRejectMeridianSubmission();
+  const { data: submissions, isLoading, refetch } = useListMAGHREB24Submissions({ adminKey: ADMIN_KEY });
+  const approve = useApproveMAGHREB24Submission();
+  const reject = useRejectMAGHREB24Submission();
 
   const submissionEntries = Array.isArray(submissions) ? submissions : [];
   const pendingCount = submissionEntries.filter((s: any) => s.status === 'pending').length;
@@ -819,16 +821,69 @@ function AdManagerPanel() {
   );
 }
 
-function MediaLibraryPanel() {
+// =================== مكون رفع الصور المتقدم (مضاف دون مساس) ===================
+function EnhancedMediaLibrary() {
+  const [uploading, setUploading] = useState(false);
+  const [preview, setPreview] = useState<string | null>(null);
+  const [images, setImages] = useState<string[]>([]);
+  
+  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setUploading(true);
+    const fileName = `${Date.now()}-${file.name}`;
+    
+    const { data, error } = await supabase.storage
+      .from('article-images')
+      .upload(fileName, file);
+    
+    if (error) {
+      alert('❌ خطأ: ' + error.message);
+    } else {
+      const { data: { publicUrl } } = supabase.storage
+        .from('article-images')
+        .getPublicUrl(fileName);
+      
+      setPreview(publicUrl);
+      setImages(prev => [publicUrl, ...prev]);
+      alert('✅ تم الرفع بنجاح');
+    }
+    setUploading(false);
+  };
+
   return (
     <div className="bg-black border border-emerald-900/40 p-5">
-      <h3 className="text-xs font-bold text-emerald-500 uppercase mb-1 flex items-center gap-2 justify-end">
-        مكتبة الوسائط
+      <h3 className="text-xs font-bold text-emerald-500 uppercase mb-4 flex items-center gap-2 justify-end">
+        مكتبة الوسائط المتقدمة
         <ImageIcon className="w-3.5 h-3.5" />
       </h3>
-      <div className="text-center text-zinc-600 text-xs py-4">قريباً...</div>
+      
+      {preview && (
+        <div className="mb-4">
+          <img src={preview} alt="Preview" className="w-full h-32 object-cover rounded-lg border border-emerald-500" />
+        </div>
+      )}
+      
+      <label className="flex items-center justify-center gap-2 w-full py-3 bg-emerald-600/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600/20 cursor-pointer mb-4">
+        <Upload className="w-4 h-4" />
+        <span className="text-xs font-bold">{uploading ? 'جاري الرفع...' : 'اختر صورة للرفع'}</span>
+        <input type="file" accept="image/*" onChange={uploadImage} disabled={uploading} className="hidden" />
+      </label>
+
+      {images.length > 0 && (
+        <div className="grid grid-cols-2 gap-2 mt-4">
+          {images.map((url, idx) => (
+            <img key={idx} src={url} alt="" className="w-full h-20 object-cover rounded border border-zinc-800" />
+          ))}
+        </div>
+      )}
     </div>
   );
+}
+
+function MediaLibraryPanel() {
+  return <EnhancedMediaLibrary />;
 }
 
 function CommentsModerationPanel() {

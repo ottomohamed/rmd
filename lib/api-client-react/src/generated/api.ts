@@ -17,17 +17,17 @@ import type {
 } from "@tanstack/react-query";
 
 import type {
-  AddMeridianCommentBody,
+  AddMAGHREB24CommentBody,
   AdminListDisputesParams,
   AdminListVendorsParams,
   AdminRejectVendorBody,
   AdminResolveDisputeBody,
   AdminStats,
   AdminVendor,
-  AnalyzeMeridianTrends200,
-  AnalyzeMeridianTrendsBody,
-  ApproveMeridianSubmission200,
-  ApproveMeridianSubmissionBody,
+  AnalyzeMAGHREB24Trends200,
+  AnalyzeMAGHREB24TrendsBody,
+  ApproveMAGHREB24Submission200,
+  ApproveMAGHREB24SubmissionBody,
   Category,
   CreateDisputeRequest,
   CreateOrderRequest,
@@ -36,38 +36,38 @@ import type {
   CreateVendorRequest,
   Dispute,
   ErrorResponse,
-  GetMeridianNewsroomParams,
-  GetMeridianTrendsLatestParams,
+  GetMAGHREB24NewsroomParams,
+  GetMAGHREB24TrendsLatestParams,
   HealthStatus,
   ListDisputesParams,
-  ListMeridianArticles200,
-  ListMeridianArticlesParams,
-  ListMeridianSubmissionsParams,
+  ListMAGHREB24Articles200,
+  ListMAGHREB24ArticlesParams,
+  ListMAGHREB24SubmissionsParams,
   ListOrdersParams,
   ListProductsParams,
   ListReviewsParams,
   ListVendorsParams,
   MarketplaceStats,
-  MeridianArticle,
-  MeridianAuthor,
-  MeridianComment,
-  MeridianNewsroomDiscuss200,
-  MeridianNewsroomDiscussBody,
-  MeridianNewsroomLog,
-  MeridianSubmission,
+  MAGHREB24Article,
+  MAGHREB24Author,
+  MAGHREB24Comment,
+  MAGHREB24NewsroomDiscuss200,
+  MAGHREB24NewsroomDiscussBody,
+  MAGHREB24NewsroomLog,
+  MAGHREB24Submission,
   Order,
   Product,
   ProductDetail,
   ProductListResponse,
-  RejectMeridianSubmission200,
-  RejectMeridianSubmissionBody,
+  RejectMAGHREB24Submission200,
+  RejectMAGHREB24SubmissionBody,
   RequestUploadUrlBody,
   RequestUploadUrlResponse,
   Review,
-  SubmitMeridianArticle200,
-  SubmitMeridianArticleBody,
-  TriggerMeridianGeneration200,
-  TriggerMeridianGenerationBody,
+  SubmitMAGHREB24Article200,
+  SubmitMAGHREB24ArticleBody,
+  TriggerMAGHREB24Generation200,
+  TriggerMAGHREB24GenerationBody,
   UpdateProductRequest,
   Vendor,
   VendorDetail,
@@ -2080,8 +2080,8 @@ export const useRequestUploadUrl = <
 /**
  * @summary List articles
  */
-export const getListMeridianArticlesUrl = (
-  params?: ListMeridianArticlesParams,
+export const getListMAGHREB24ArticlesUrl = (
+  params?: ListMAGHREB24ArticlesParams,
 ) => {
   const normalizedParams = new URLSearchParams();
 
@@ -2094,16 +2094,16 @@ export const getListMeridianArticlesUrl = (
   const stringifiedParams = normalizedParams.toString();
 
   return stringifiedParams.length > 0
-    ? `/api/meridian/articles?${stringifiedParams}`
-    : `/api/meridian/articles`;
+    ? `/api/MAGHREB24/articles?${stringifiedParams}`
+    : `/api/MAGHREB24/articles`;
 };
 
-export const listMeridianArticles = async (
-  params?: ListMeridianArticlesParams,
+export const listMAGHREB24Articles = async (
+  params?: ListMAGHREB24ArticlesParams,
   options?: RequestInit,
-): Promise<ListMeridianArticles200> => {
-  return customFetch<ListMeridianArticles200>(
-    getListMeridianArticlesUrl(params),
+): Promise<ListMAGHREB24Articles200> => {
+  return customFetch<ListMAGHREB24Articles200>(
+    getListMAGHREB24ArticlesUrl(params),
     {
       ...options,
       method: "GET",
@@ -2111,20 +2111,20 @@ export const listMeridianArticles = async (
   );
 };
 
-export const getListMeridianArticlesQueryKey = (
-  params?: ListMeridianArticlesParams,
+export const getListMAGHREB24ArticlesQueryKey = (
+  params?: ListMAGHREB24ArticlesParams,
 ) => {
-  return [`/api/meridian/articles`, ...(params ? [params] : [])] as const;
+  return [`/api/MAGHREB24/articles`, ...(params ? [params] : [])] as const;
 };
 
-export const getListMeridianArticlesQueryOptions = <
-  TData = Awaited<ReturnType<typeof listMeridianArticles>>,
+export const getListMAGHREB24ArticlesQueryOptions = <
+  TData = Awaited<ReturnType<typeof listMAGHREB24Articles>>,
   TError = ErrorType<unknown>,
 >(
-  params?: ListMeridianArticlesParams,
+  params?: ListMAGHREB24ArticlesParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof listMeridianArticles>>,
+      Awaited<ReturnType<typeof listMAGHREB24Articles>>,
       TError,
       TData
     >;
@@ -2134,44 +2134,44 @@ export const getListMeridianArticlesQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getListMeridianArticlesQueryKey(params);
+    queryOptions?.queryKey ?? getListMAGHREB24ArticlesQueryKey(params);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof listMeridianArticles>>
+    Awaited<ReturnType<typeof listMAGHREB24Articles>>
   > = ({ signal }) =>
-    listMeridianArticles(params, { signal, ...requestOptions });
+    listMAGHREB24Articles(params, { signal, ...requestOptions });
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof listMeridianArticles>>,
+    Awaited<ReturnType<typeof listMAGHREB24Articles>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type ListMeridianArticlesQueryResult = NonNullable<
-  Awaited<ReturnType<typeof listMeridianArticles>>
+export type ListMAGHREB24ArticlesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listMAGHREB24Articles>>
 >;
-export type ListMeridianArticlesQueryError = ErrorType<unknown>;
+export type ListMAGHREB24ArticlesQueryError = ErrorType<unknown>;
 
 /**
  * @summary List articles
  */
 
-export function useListMeridianArticles<
-  TData = Awaited<ReturnType<typeof listMeridianArticles>>,
+export function useListMAGHREB24Articles<
+  TData = Awaited<ReturnType<typeof listMAGHREB24Articles>>,
   TError = ErrorType<unknown>,
 >(
-  params?: ListMeridianArticlesParams,
+  params?: ListMAGHREB24ArticlesParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof listMeridianArticles>>,
+      Awaited<ReturnType<typeof listMAGHREB24Articles>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getListMeridianArticlesQueryOptions(params, options);
+  const queryOptions = getListMAGHREB24ArticlesQueryOptions(params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2183,32 +2183,32 @@ export function useListMeridianArticles<
 /**
  * @summary Get article by slug
  */
-export const getGetMeridianArticleUrl = (slug: string) => {
-  return `/api/meridian/articles/${slug}`;
+export const getGetMAGHREB24ArticleUrl = (slug: string) => {
+  return `/api/MAGHREB24/articles/${slug}`;
 };
 
-export const getMeridianArticle = async (
+export const getMAGHREB24Article = async (
   slug: string,
   options?: RequestInit,
-): Promise<MeridianArticle> => {
-  return customFetch<MeridianArticle>(getGetMeridianArticleUrl(slug), {
+): Promise<MAGHREB24Article> => {
+  return customFetch<MAGHREB24Article>(getGetMAGHREB24ArticleUrl(slug), {
     ...options,
     method: "GET",
   });
 };
 
-export const getGetMeridianArticleQueryKey = (slug: string) => {
-  return [`/api/meridian/articles/${slug}`] as const;
+export const getGetMAGHREB24ArticleQueryKey = (slug: string) => {
+  return [`/api/MAGHREB24/articles/${slug}`] as const;
 };
 
-export const getGetMeridianArticleQueryOptions = <
-  TData = Awaited<ReturnType<typeof getMeridianArticle>>,
+export const getGetMAGHREB24ArticleQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMAGHREB24Article>>,
   TError = ErrorType<void>,
 >(
   slug: string,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMeridianArticle>>,
+      Awaited<ReturnType<typeof getMAGHREB24Article>>,
       TError,
       TData
     >;
@@ -2218,11 +2218,11 @@ export const getGetMeridianArticleQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getGetMeridianArticleQueryKey(slug);
+    queryOptions?.queryKey ?? getGetMAGHREB24ArticleQueryKey(slug);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getMeridianArticle>>
-  > = ({ signal }) => getMeridianArticle(slug, { signal, ...requestOptions });
+    Awaited<ReturnType<typeof getMAGHREB24Article>>
+  > = ({ signal }) => getMAGHREB24Article(slug, { signal, ...requestOptions });
 
   return {
     queryKey,
@@ -2230,36 +2230,36 @@ export const getGetMeridianArticleQueryOptions = <
     enabled: !!slug,
     ...queryOptions,
   } as UseQueryOptions<
-    Awaited<ReturnType<typeof getMeridianArticle>>,
+    Awaited<ReturnType<typeof getMAGHREB24Article>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type GetMeridianArticleQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getMeridianArticle>>
+export type GetMAGHREB24ArticleQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMAGHREB24Article>>
 >;
-export type GetMeridianArticleQueryError = ErrorType<void>;
+export type GetMAGHREB24ArticleQueryError = ErrorType<void>;
 
 /**
  * @summary Get article by slug
  */
 
-export function useGetMeridianArticle<
-  TData = Awaited<ReturnType<typeof getMeridianArticle>>,
+export function useGetMAGHREB24Article<
+  TData = Awaited<ReturnType<typeof getMAGHREB24Article>>,
   TError = ErrorType<void>,
 >(
   slug: string,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMeridianArticle>>,
+      Awaited<ReturnType<typeof getMAGHREB24Article>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getGetMeridianArticleQueryOptions(slug, options);
+  const queryOptions = getGetMAGHREB24ArticleQueryOptions(slug, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2268,32 +2268,32 @@ export function useGetMeridianArticle<
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getGetMeridianCommentsUrl = (id: number) => {
-  return `/api/meridian/articles/${id}/comments`;
+export const getGetMAGHREB24CommentsUrl = (id: number) => {
+  return `/api/MAGHREB24/articles/${id}/comments`;
 };
 
-export const getMeridianComments = async (
+export const getMAGHREB24Comments = async (
   id: number,
   options?: RequestInit,
-): Promise<MeridianComment[]> => {
-  return customFetch<MeridianComment[]>(getGetMeridianCommentsUrl(id), {
+): Promise<MAGHREB24Comment[]> => {
+  return customFetch<MAGHREB24Comment[]>(getGetMAGHREB24CommentsUrl(id), {
     ...options,
     method: "GET",
   });
 };
 
-export const getGetMeridianCommentsQueryKey = (id: number) => {
-  return [`/api/meridian/articles/${id}/comments`] as const;
+export const getGetMAGHREB24CommentsQueryKey = (id: number) => {
+  return [`/api/MAGHREB24/articles/${id}/comments`] as const;
 };
 
-export const getGetMeridianCommentsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getMeridianComments>>,
+export const getGetMAGHREB24CommentsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMAGHREB24Comments>>,
   TError = ErrorType<unknown>,
 >(
   id: number,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMeridianComments>>,
+      Awaited<ReturnType<typeof getMAGHREB24Comments>>,
       TError,
       TData
     >;
@@ -2302,11 +2302,11 @@ export const getGetMeridianCommentsQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetMeridianCommentsQueryKey(id);
+  const queryKey = queryOptions?.queryKey ?? getGetMAGHREB24CommentsQueryKey(id);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getMeridianComments>>
-  > = ({ signal }) => getMeridianComments(id, { signal, ...requestOptions });
+    Awaited<ReturnType<typeof getMAGHREB24Comments>>
+  > = ({ signal }) => getMAGHREB24Comments(id, { signal, ...requestOptions });
 
   return {
     queryKey,
@@ -2314,32 +2314,32 @@ export const getGetMeridianCommentsQueryOptions = <
     enabled: !!id,
     ...queryOptions,
   } as UseQueryOptions<
-    Awaited<ReturnType<typeof getMeridianComments>>,
+    Awaited<ReturnType<typeof getMAGHREB24Comments>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type GetMeridianCommentsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getMeridianComments>>
+export type GetMAGHREB24CommentsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMAGHREB24Comments>>
 >;
-export type GetMeridianCommentsQueryError = ErrorType<unknown>;
+export type GetMAGHREB24CommentsQueryError = ErrorType<unknown>;
 
-export function useGetMeridianComments<
-  TData = Awaited<ReturnType<typeof getMeridianComments>>,
+export function useGetMAGHREB24Comments<
+  TData = Awaited<ReturnType<typeof getMAGHREB24Comments>>,
   TError = ErrorType<unknown>,
 >(
   id: number,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMeridianComments>>,
+      Awaited<ReturnType<typeof getMAGHREB24Comments>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getGetMeridianCommentsQueryOptions(id, options);
+  const queryOptions = getGetMAGHREB24CommentsQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2348,41 +2348,41 @@ export function useGetMeridianComments<
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getAddMeridianCommentUrl = (id: number) => {
-  return `/api/meridian/articles/${id}/comments`;
+export const getAddMAGHREB24CommentUrl = (id: number) => {
+  return `/api/MAGHREB24/articles/${id}/comments`;
 };
 
-export const addMeridianComment = async (
+export const addMAGHREB24Comment = async (
   id: number,
-  addMeridianCommentBody: AddMeridianCommentBody,
+  addMAGHREB24CommentBody: AddMAGHREB24CommentBody,
   options?: RequestInit,
-): Promise<MeridianComment> => {
-  return customFetch<MeridianComment>(getAddMeridianCommentUrl(id), {
+): Promise<MAGHREB24Comment> => {
+  return customFetch<MAGHREB24Comment>(getAddMAGHREB24CommentUrl(id), {
     ...options,
     method: "POST",
     headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(addMeridianCommentBody),
+    body: JSON.stringify(addMAGHREB24CommentBody),
   });
 };
 
-export const getAddMeridianCommentMutationOptions = <
+export const getAddMAGHREB24CommentMutationOptions = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof addMeridianComment>>,
+    Awaited<ReturnType<typeof addMAGHREB24Comment>>,
     TError,
-    { id: number; data: BodyType<AddMeridianCommentBody> },
+    { id: number; data: BodyType<AddMAGHREB24CommentBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof addMeridianComment>>,
+  Awaited<ReturnType<typeof addMAGHREB24Comment>>,
   TError,
-  { id: number; data: BodyType<AddMeridianCommentBody> },
+  { id: number; data: BodyType<AddMAGHREB24CommentBody> },
   TContext
 > => {
-  const mutationKey = ["addMeridianComment"];
+  const mutationKey = ["addMAGHREB24Comment"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -2392,66 +2392,66 @@ export const getAddMeridianCommentMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof addMeridianComment>>,
-    { id: number; data: BodyType<AddMeridianCommentBody> }
+    Awaited<ReturnType<typeof addMAGHREB24Comment>>,
+    { id: number; data: BodyType<AddMAGHREB24CommentBody> }
   > = (props) => {
     const { id, data } = props ?? {};
 
-    return addMeridianComment(id, data, requestOptions);
+    return addMAGHREB24Comment(id, data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type AddMeridianCommentMutationResult = NonNullable<
-  Awaited<ReturnType<typeof addMeridianComment>>
+export type AddMAGHREB24CommentMutationResult = NonNullable<
+  Awaited<ReturnType<typeof addMAGHREB24Comment>>
 >;
-export type AddMeridianCommentMutationBody = BodyType<AddMeridianCommentBody>;
-export type AddMeridianCommentMutationError = ErrorType<unknown>;
+export type AddMAGHREB24CommentMutationBody = BodyType<AddMAGHREB24CommentBody>;
+export type AddMAGHREB24CommentMutationError = ErrorType<unknown>;
 
-export const useAddMeridianComment = <
+export const useAddMAGHREB24Comment = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof addMeridianComment>>,
+    Awaited<ReturnType<typeof addMAGHREB24Comment>>,
     TError,
-    { id: number; data: BodyType<AddMeridianCommentBody> },
+    { id: number; data: BodyType<AddMAGHREB24CommentBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof addMeridianComment>>,
+  Awaited<ReturnType<typeof addMAGHREB24Comment>>,
   TError,
-  { id: number; data: BodyType<AddMeridianCommentBody> },
+  { id: number; data: BodyType<AddMAGHREB24CommentBody> },
   TContext
 > => {
-  return useMutation(getAddMeridianCommentMutationOptions(options));
+  return useMutation(getAddMAGHREB24CommentMutationOptions(options));
 };
 
-export const getListMeridianAuthorsUrl = () => {
-  return `/api/meridian/authors`;
+export const getListMAGHREB24AuthorsUrl = () => {
+  return `/api/MAGHREB24/authors`;
 };
 
-export const listMeridianAuthors = async (
+export const listMAGHREB24Authors = async (
   options?: RequestInit,
-): Promise<MeridianAuthor[]> => {
-  return customFetch<MeridianAuthor[]>(getListMeridianAuthorsUrl(), {
+): Promise<MAGHREB24Author[]> => {
+  return customFetch<MAGHREB24Author[]>(getListMAGHREB24AuthorsUrl(), {
     ...options,
     method: "GET",
   });
 };
 
-export const getListMeridianAuthorsQueryKey = () => {
-  return [`/api/meridian/authors`] as const;
+export const getListMAGHREB24AuthorsQueryKey = () => {
+  return [`/api/MAGHREB24/authors`] as const;
 };
 
-export const getListMeridianAuthorsQueryOptions = <
-  TData = Awaited<ReturnType<typeof listMeridianAuthors>>,
+export const getListMAGHREB24AuthorsQueryOptions = <
+  TData = Awaited<ReturnType<typeof listMAGHREB24Authors>>,
   TError = ErrorType<unknown>,
 >(options?: {
   query?: UseQueryOptions<
-    Awaited<ReturnType<typeof listMeridianAuthors>>,
+    Awaited<ReturnType<typeof listMAGHREB24Authors>>,
     TError,
     TData
   >;
@@ -2459,36 +2459,36 @@ export const getListMeridianAuthorsQueryOptions = <
 }) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getListMeridianAuthorsQueryKey();
+  const queryKey = queryOptions?.queryKey ?? getListMAGHREB24AuthorsQueryKey();
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof listMeridianAuthors>>
-  > = ({ signal }) => listMeridianAuthors({ signal, ...requestOptions });
+    Awaited<ReturnType<typeof listMAGHREB24Authors>>
+  > = ({ signal }) => listMAGHREB24Authors({ signal, ...requestOptions });
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof listMeridianAuthors>>,
+    Awaited<ReturnType<typeof listMAGHREB24Authors>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type ListMeridianAuthorsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof listMeridianAuthors>>
+export type ListMAGHREB24AuthorsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listMAGHREB24Authors>>
 >;
-export type ListMeridianAuthorsQueryError = ErrorType<unknown>;
+export type ListMAGHREB24AuthorsQueryError = ErrorType<unknown>;
 
-export function useListMeridianAuthors<
-  TData = Awaited<ReturnType<typeof listMeridianAuthors>>,
+export function useListMAGHREB24Authors<
+  TData = Awaited<ReturnType<typeof listMAGHREB24Authors>>,
   TError = ErrorType<unknown>,
 >(options?: {
   query?: UseQueryOptions<
-    Awaited<ReturnType<typeof listMeridianAuthors>>,
+    Awaited<ReturnType<typeof listMAGHREB24Authors>>,
     TError,
     TData
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getListMeridianAuthorsQueryOptions(options);
+  const queryOptions = getListMAGHREB24AuthorsQueryOptions(options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2497,32 +2497,32 @@ export function useListMeridianAuthors<
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getGetMeridianAuthorUrl = (slug: string) => {
-  return `/api/meridian/authors/${slug}`;
+export const getGetMAGHREB24AuthorUrl = (slug: string) => {
+  return `/api/MAGHREB24/authors/${slug}`;
 };
 
-export const getMeridianAuthor = async (
+export const getMAGHREB24Author = async (
   slug: string,
   options?: RequestInit,
-): Promise<MeridianAuthor> => {
-  return customFetch<MeridianAuthor>(getGetMeridianAuthorUrl(slug), {
+): Promise<MAGHREB24Author> => {
+  return customFetch<MAGHREB24Author>(getGetMAGHREB24AuthorUrl(slug), {
     ...options,
     method: "GET",
   });
 };
 
-export const getGetMeridianAuthorQueryKey = (slug: string) => {
-  return [`/api/meridian/authors/${slug}`] as const;
+export const getGetMAGHREB24AuthorQueryKey = (slug: string) => {
+  return [`/api/MAGHREB24/authors/${slug}`] as const;
 };
 
-export const getGetMeridianAuthorQueryOptions = <
-  TData = Awaited<ReturnType<typeof getMeridianAuthor>>,
+export const getGetMAGHREB24AuthorQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMAGHREB24Author>>,
   TError = ErrorType<void>,
 >(
   slug: string,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMeridianAuthor>>,
+      Awaited<ReturnType<typeof getMAGHREB24Author>>,
       TError,
       TData
     >;
@@ -2531,11 +2531,11 @@ export const getGetMeridianAuthorQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetMeridianAuthorQueryKey(slug);
+  const queryKey = queryOptions?.queryKey ?? getGetMAGHREB24AuthorQueryKey(slug);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getMeridianAuthor>>
-  > = ({ signal }) => getMeridianAuthor(slug, { signal, ...requestOptions });
+    Awaited<ReturnType<typeof getMAGHREB24Author>>
+  > = ({ signal }) => getMAGHREB24Author(slug, { signal, ...requestOptions });
 
   return {
     queryKey,
@@ -2543,32 +2543,32 @@ export const getGetMeridianAuthorQueryOptions = <
     enabled: !!slug,
     ...queryOptions,
   } as UseQueryOptions<
-    Awaited<ReturnType<typeof getMeridianAuthor>>,
+    Awaited<ReturnType<typeof getMAGHREB24Author>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type GetMeridianAuthorQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getMeridianAuthor>>
+export type GetMAGHREB24AuthorQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMAGHREB24Author>>
 >;
-export type GetMeridianAuthorQueryError = ErrorType<void>;
+export type GetMAGHREB24AuthorQueryError = ErrorType<void>;
 
-export function useGetMeridianAuthor<
-  TData = Awaited<ReturnType<typeof getMeridianAuthor>>,
+export function useGetMAGHREB24Author<
+  TData = Awaited<ReturnType<typeof getMAGHREB24Author>>,
   TError = ErrorType<void>,
 >(
   slug: string,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMeridianAuthor>>,
+      Awaited<ReturnType<typeof getMAGHREB24Author>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getGetMeridianAuthorQueryOptions(slug, options);
+  const queryOptions = getGetMAGHREB24AuthorQueryOptions(slug, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2577,8 +2577,8 @@ export function useGetMeridianAuthor<
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getGetMeridianNewsroomUrl = (
-  params?: GetMeridianNewsroomParams,
+export const getGetMAGHREB24NewsroomUrl = (
+  params?: GetMAGHREB24NewsroomParams,
 ) => {
   const normalizedParams = new URLSearchParams();
 
@@ -2591,34 +2591,34 @@ export const getGetMeridianNewsroomUrl = (
   const stringifiedParams = normalizedParams.toString();
 
   return stringifiedParams.length > 0
-    ? `/api/meridian/newsroom?${stringifiedParams}`
-    : `/api/meridian/newsroom`;
+    ? `/api/MAGHREB24/newsroom?${stringifiedParams}`
+    : `/api/MAGHREB24/newsroom`;
 };
 
-export const getMeridianNewsroom = async (
-  params?: GetMeridianNewsroomParams,
+export const getMAGHREB24Newsroom = async (
+  params?: GetMAGHREB24NewsroomParams,
   options?: RequestInit,
-): Promise<MeridianNewsroomLog[]> => {
-  return customFetch<MeridianNewsroomLog[]>(getGetMeridianNewsroomUrl(params), {
+): Promise<MAGHREB24NewsroomLog[]> => {
+  return customFetch<MAGHREB24NewsroomLog[]>(getGetMAGHREB24NewsroomUrl(params), {
     ...options,
     method: "GET",
   });
 };
 
-export const getGetMeridianNewsroomQueryKey = (
-  params?: GetMeridianNewsroomParams,
+export const getGetMAGHREB24NewsroomQueryKey = (
+  params?: GetMAGHREB24NewsroomParams,
 ) => {
-  return [`/api/meridian/newsroom`, ...(params ? [params] : [])] as const;
+  return [`/api/MAGHREB24/newsroom`, ...(params ? [params] : [])] as const;
 };
 
-export const getGetMeridianNewsroomQueryOptions = <
-  TData = Awaited<ReturnType<typeof getMeridianNewsroom>>,
+export const getGetMAGHREB24NewsroomQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMAGHREB24Newsroom>>,
   TError = ErrorType<unknown>,
 >(
-  params?: GetMeridianNewsroomParams,
+  params?: GetMAGHREB24NewsroomParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMeridianNewsroom>>,
+      Awaited<ReturnType<typeof getMAGHREB24Newsroom>>,
       TError,
       TData
     >;
@@ -2628,40 +2628,40 @@ export const getGetMeridianNewsroomQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getGetMeridianNewsroomQueryKey(params);
+    queryOptions?.queryKey ?? getGetMAGHREB24NewsroomQueryKey(params);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getMeridianNewsroom>>
+    Awaited<ReturnType<typeof getMAGHREB24Newsroom>>
   > = ({ signal }) =>
-    getMeridianNewsroom(params, { signal, ...requestOptions });
+    getMAGHREB24Newsroom(params, { signal, ...requestOptions });
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getMeridianNewsroom>>,
+    Awaited<ReturnType<typeof getMAGHREB24Newsroom>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type GetMeridianNewsroomQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getMeridianNewsroom>>
+export type GetMAGHREB24NewsroomQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMAGHREB24Newsroom>>
 >;
-export type GetMeridianNewsroomQueryError = ErrorType<unknown>;
+export type GetMAGHREB24NewsroomQueryError = ErrorType<unknown>;
 
-export function useGetMeridianNewsroom<
-  TData = Awaited<ReturnType<typeof getMeridianNewsroom>>,
+export function useGetMAGHREB24Newsroom<
+  TData = Awaited<ReturnType<typeof getMAGHREB24Newsroom>>,
   TError = ErrorType<unknown>,
 >(
-  params?: GetMeridianNewsroomParams,
+  params?: GetMAGHREB24NewsroomParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMeridianNewsroom>>,
+      Awaited<ReturnType<typeof getMAGHREB24Newsroom>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getGetMeridianNewsroomQueryOptions(params, options);
+  const queryOptions = getGetMAGHREB24NewsroomQueryOptions(params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2673,43 +2673,43 @@ export function useGetMeridianNewsroom<
 /**
  * @summary Trigger AI article generation
  */
-export const getTriggerMeridianGenerationUrl = () => {
-  return `/api/meridian/agents/generate`;
+export const getTriggerMAGHREB24GenerationUrl = () => {
+  return `/api/MAGHREB24/agents/generate`;
 };
 
-export const triggerMeridianGeneration = async (
-  triggerMeridianGenerationBody: TriggerMeridianGenerationBody,
+export const triggerMAGHREB24Generation = async (
+  triggerMAGHREB24GenerationBody: TriggerMAGHREB24GenerationBody,
   options?: RequestInit,
-): Promise<TriggerMeridianGeneration200> => {
-  return customFetch<TriggerMeridianGeneration200>(
-    getTriggerMeridianGenerationUrl(),
+): Promise<TriggerMAGHREB24Generation200> => {
+  return customFetch<TriggerMAGHREB24Generation200>(
+    getTriggerMAGHREB24GenerationUrl(),
     {
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(triggerMeridianGenerationBody),
+      body: JSON.stringify(triggerMAGHREB24GenerationBody),
     },
   );
 };
 
-export const getTriggerMeridianGenerationMutationOptions = <
+export const getTriggerMAGHREB24GenerationMutationOptions = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof triggerMeridianGeneration>>,
+    Awaited<ReturnType<typeof triggerMAGHREB24Generation>>,
     TError,
-    { data: BodyType<TriggerMeridianGenerationBody> },
+    { data: BodyType<TriggerMAGHREB24GenerationBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof triggerMeridianGeneration>>,
+  Awaited<ReturnType<typeof triggerMAGHREB24Generation>>,
   TError,
-  { data: BodyType<TriggerMeridianGenerationBody> },
+  { data: BodyType<TriggerMAGHREB24GenerationBody> },
   TContext
 > => {
-  const mutationKey = ["triggerMeridianGeneration"];
+  const mutationKey = ["triggerMAGHREB24Generation"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -2719,87 +2719,87 @@ export const getTriggerMeridianGenerationMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof triggerMeridianGeneration>>,
-    { data: BodyType<TriggerMeridianGenerationBody> }
+    Awaited<ReturnType<typeof triggerMAGHREB24Generation>>,
+    { data: BodyType<TriggerMAGHREB24GenerationBody> }
   > = (props) => {
     const { data } = props ?? {};
 
-    return triggerMeridianGeneration(data, requestOptions);
+    return triggerMAGHREB24Generation(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type TriggerMeridianGenerationMutationResult = NonNullable<
-  Awaited<ReturnType<typeof triggerMeridianGeneration>>
+export type TriggerMAGHREB24GenerationMutationResult = NonNullable<
+  Awaited<ReturnType<typeof triggerMAGHREB24Generation>>
 >;
-export type TriggerMeridianGenerationMutationBody =
-  BodyType<TriggerMeridianGenerationBody>;
-export type TriggerMeridianGenerationMutationError = ErrorType<void>;
+export type TriggerMAGHREB24GenerationMutationBody =
+  BodyType<TriggerMAGHREB24GenerationBody>;
+export type TriggerMAGHREB24GenerationMutationError = ErrorType<void>;
 
 /**
  * @summary Trigger AI article generation
  */
-export const useTriggerMeridianGeneration = <
+export const useTriggerMAGHREB24Generation = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof triggerMeridianGeneration>>,
+    Awaited<ReturnType<typeof triggerMAGHREB24Generation>>,
     TError,
-    { data: BodyType<TriggerMeridianGenerationBody> },
+    { data: BodyType<TriggerMAGHREB24GenerationBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof triggerMeridianGeneration>>,
+  Awaited<ReturnType<typeof triggerMAGHREB24Generation>>,
   TError,
-  { data: BodyType<TriggerMeridianGenerationBody> },
+  { data: BodyType<TriggerMAGHREB24GenerationBody> },
   TContext
 > => {
-  return useMutation(getTriggerMeridianGenerationMutationOptions(options));
+  return useMutation(getTriggerMAGHREB24GenerationMutationOptions(options));
 };
 
 /**
  * @summary Publisher sends a message to the newsroom; journalists respond in character
  */
-export const getMeridianNewsroomDiscussUrl = () => {
-  return `/api/meridian/newsroom/discuss`;
+export const getMAGHREB24NewsroomDiscussUrl = () => {
+  return `/api/MAGHREB24/newsroom/discuss`;
 };
 
-export const meridianNewsroomDiscuss = async (
-  meridianNewsroomDiscussBody: MeridianNewsroomDiscussBody,
+export const MAGHREB24NewsroomDiscuss = async (
+  MAGHREB24NewsroomDiscussBody: MAGHREB24NewsroomDiscussBody,
   options?: RequestInit,
-): Promise<MeridianNewsroomDiscuss200> => {
-  return customFetch<MeridianNewsroomDiscuss200>(
-    getMeridianNewsroomDiscussUrl(),
+): Promise<MAGHREB24NewsroomDiscuss200> => {
+  return customFetch<MAGHREB24NewsroomDiscuss200>(
+    getMAGHREB24NewsroomDiscussUrl(),
     {
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(meridianNewsroomDiscussBody),
+      body: JSON.stringify(MAGHREB24NewsroomDiscussBody),
     },
   );
 };
 
-export const getMeridianNewsroomDiscussMutationOptions = <
+export const getMAGHREB24NewsroomDiscussMutationOptions = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof meridianNewsroomDiscuss>>,
+    Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>,
     TError,
-    { data: BodyType<MeridianNewsroomDiscussBody> },
+    { data: BodyType<MAGHREB24NewsroomDiscussBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof meridianNewsroomDiscuss>>,
+  Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>,
   TError,
-  { data: BodyType<MeridianNewsroomDiscussBody> },
+  { data: BodyType<MAGHREB24NewsroomDiscussBody> },
   TContext
 > => {
-  const mutationKey = ["meridianNewsroomDiscuss"];
+  const mutationKey = ["MAGHREB24NewsroomDiscuss"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -2809,84 +2809,84 @@ export const getMeridianNewsroomDiscussMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof meridianNewsroomDiscuss>>,
-    { data: BodyType<MeridianNewsroomDiscussBody> }
+    Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>,
+    { data: BodyType<MAGHREB24NewsroomDiscussBody> }
   > = (props) => {
     const { data } = props ?? {};
 
-    return meridianNewsroomDiscuss(data, requestOptions);
+    return MAGHREB24NewsroomDiscuss(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type MeridianNewsroomDiscussMutationResult = NonNullable<
-  Awaited<ReturnType<typeof meridianNewsroomDiscuss>>
+export type MAGHREB24NewsroomDiscussMutationResult = NonNullable<
+  Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>
 >;
-export type MeridianNewsroomDiscussMutationBody =
-  BodyType<MeridianNewsroomDiscussBody>;
-export type MeridianNewsroomDiscussMutationError = ErrorType<void>;
+export type MAGHREB24NewsroomDiscussMutationBody =
+  BodyType<MAGHREB24NewsroomDiscussBody>;
+export type MAGHREB24NewsroomDiscussMutationError = ErrorType<void>;
 
 /**
  * @summary Publisher sends a message to the newsroom; journalists respond in character
  */
-export const useMeridianNewsroomDiscuss = <
+export const useMAGHREB24NewsroomDiscuss = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof meridianNewsroomDiscuss>>,
+    Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>,
     TError,
-    { data: BodyType<MeridianNewsroomDiscussBody> },
+    { data: BodyType<MAGHREB24NewsroomDiscussBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof meridianNewsroomDiscuss>>,
+  Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>,
   TError,
-  { data: BodyType<MeridianNewsroomDiscussBody> },
+  { data: BodyType<MAGHREB24NewsroomDiscussBody> },
   TContext
 > => {
-  return useMutation(getMeridianNewsroomDiscussMutationOptions(options));
+  return useMutation(getMAGHREB24NewsroomDiscussMutationOptions(options));
 };
 
 /**
  * @summary Submit a reader article for editorial review
  */
-export const getSubmitMeridianArticleUrl = () => {
-  return `/api/meridian/submissions`;
+export const getSubmitMAGHREB24ArticleUrl = () => {
+  return `/api/MAGHREB24/submissions`;
 };
 
-export const submitMeridianArticle = async (
-  submitMeridianArticleBody: SubmitMeridianArticleBody,
+export const submitMAGHREB24Article = async (
+  submitMAGHREB24ArticleBody: SubmitMAGHREB24ArticleBody,
   options?: RequestInit,
-): Promise<SubmitMeridianArticle200> => {
-  return customFetch<SubmitMeridianArticle200>(getSubmitMeridianArticleUrl(), {
+): Promise<SubmitMAGHREB24Article200> => {
+  return customFetch<SubmitMAGHREB24Article200>(getSubmitMAGHREB24ArticleUrl(), {
     ...options,
     method: "POST",
     headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(submitMeridianArticleBody),
+    body: JSON.stringify(submitMAGHREB24ArticleBody),
   });
 };
 
-export const getSubmitMeridianArticleMutationOptions = <
+export const getSubmitMAGHREB24ArticleMutationOptions = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof submitMeridianArticle>>,
+    Awaited<ReturnType<typeof submitMAGHREB24Article>>,
     TError,
-    { data: BodyType<SubmitMeridianArticleBody> },
+    { data: BodyType<SubmitMAGHREB24ArticleBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof submitMeridianArticle>>,
+  Awaited<ReturnType<typeof submitMAGHREB24Article>>,
   TError,
-  { data: BodyType<SubmitMeridianArticleBody> },
+  { data: BodyType<SubmitMAGHREB24ArticleBody> },
   TContext
 > => {
-  const mutationKey = ["submitMeridianArticle"];
+  const mutationKey = ["submitMAGHREB24Article"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -2896,52 +2896,52 @@ export const getSubmitMeridianArticleMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof submitMeridianArticle>>,
-    { data: BodyType<SubmitMeridianArticleBody> }
+    Awaited<ReturnType<typeof submitMAGHREB24Article>>,
+    { data: BodyType<SubmitMAGHREB24ArticleBody> }
   > = (props) => {
     const { data } = props ?? {};
 
-    return submitMeridianArticle(data, requestOptions);
+    return submitMAGHREB24Article(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type SubmitMeridianArticleMutationResult = NonNullable<
-  Awaited<ReturnType<typeof submitMeridianArticle>>
+export type SubmitMAGHREB24ArticleMutationResult = NonNullable<
+  Awaited<ReturnType<typeof submitMAGHREB24Article>>
 >;
-export type SubmitMeridianArticleMutationBody =
-  BodyType<SubmitMeridianArticleBody>;
-export type SubmitMeridianArticleMutationError = ErrorType<unknown>;
+export type SubmitMAGHREB24ArticleMutationBody =
+  BodyType<SubmitMAGHREB24ArticleBody>;
+export type SubmitMAGHREB24ArticleMutationError = ErrorType<unknown>;
 
 /**
  * @summary Submit a reader article for editorial review
  */
-export const useSubmitMeridianArticle = <
+export const useSubmitMAGHREB24Article = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof submitMeridianArticle>>,
+    Awaited<ReturnType<typeof submitMAGHREB24Article>>,
     TError,
-    { data: BodyType<SubmitMeridianArticleBody> },
+    { data: BodyType<SubmitMAGHREB24ArticleBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof submitMeridianArticle>>,
+  Awaited<ReturnType<typeof submitMAGHREB24Article>>,
   TError,
-  { data: BodyType<SubmitMeridianArticleBody> },
+  { data: BodyType<SubmitMAGHREB24ArticleBody> },
   TContext
 > => {
-  return useMutation(getSubmitMeridianArticleMutationOptions(options));
+  return useMutation(getSubmitMAGHREB24ArticleMutationOptions(options));
 };
 
 /**
  * @summary Admin list of reader submissions
  */
-export const getListMeridianSubmissionsUrl = (
-  params: ListMeridianSubmissionsParams,
+export const getListMAGHREB24SubmissionsUrl = (
+  params: ListMAGHREB24SubmissionsParams,
 ) => {
   const normalizedParams = new URLSearchParams();
 
@@ -2954,16 +2954,16 @@ export const getListMeridianSubmissionsUrl = (
   const stringifiedParams = normalizedParams.toString();
 
   return stringifiedParams.length > 0
-    ? `/api/meridian/submissions?${stringifiedParams}`
-    : `/api/meridian/submissions`;
+    ? `/api/MAGHREB24/submissions?${stringifiedParams}`
+    : `/api/MAGHREB24/submissions`;
 };
 
-export const listMeridianSubmissions = async (
-  params: ListMeridianSubmissionsParams,
+export const listMAGHREB24Submissions = async (
+  params: ListMAGHREB24SubmissionsParams,
   options?: RequestInit,
-): Promise<MeridianSubmission[]> => {
-  return customFetch<MeridianSubmission[]>(
-    getListMeridianSubmissionsUrl(params),
+): Promise<MAGHREB24Submission[]> => {
+  return customFetch<MAGHREB24Submission[]>(
+    getListMAGHREB24SubmissionsUrl(params),
     {
       ...options,
       method: "GET",
@@ -2971,20 +2971,20 @@ export const listMeridianSubmissions = async (
   );
 };
 
-export const getListMeridianSubmissionsQueryKey = (
-  params?: ListMeridianSubmissionsParams,
+export const getListMAGHREB24SubmissionsQueryKey = (
+  params?: ListMAGHREB24SubmissionsParams,
 ) => {
-  return [`/api/meridian/submissions`, ...(params ? [params] : [])] as const;
+  return [`/api/MAGHREB24/submissions`, ...(params ? [params] : [])] as const;
 };
 
-export const getListMeridianSubmissionsQueryOptions = <
-  TData = Awaited<ReturnType<typeof listMeridianSubmissions>>,
+export const getListMAGHREB24SubmissionsQueryOptions = <
+  TData = Awaited<ReturnType<typeof listMAGHREB24Submissions>>,
   TError = ErrorType<void>,
 >(
-  params: ListMeridianSubmissionsParams,
+  params: ListMAGHREB24SubmissionsParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof listMeridianSubmissions>>,
+      Awaited<ReturnType<typeof listMAGHREB24Submissions>>,
       TError,
       TData
     >;
@@ -2994,44 +2994,44 @@ export const getListMeridianSubmissionsQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getListMeridianSubmissionsQueryKey(params);
+    queryOptions?.queryKey ?? getListMAGHREB24SubmissionsQueryKey(params);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof listMeridianSubmissions>>
+    Awaited<ReturnType<typeof listMAGHREB24Submissions>>
   > = ({ signal }) =>
-    listMeridianSubmissions(params, { signal, ...requestOptions });
+    listMAGHREB24Submissions(params, { signal, ...requestOptions });
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof listMeridianSubmissions>>,
+    Awaited<ReturnType<typeof listMAGHREB24Submissions>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type ListMeridianSubmissionsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof listMeridianSubmissions>>
+export type ListMAGHREB24SubmissionsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listMAGHREB24Submissions>>
 >;
-export type ListMeridianSubmissionsQueryError = ErrorType<void>;
+export type ListMAGHREB24SubmissionsQueryError = ErrorType<void>;
 
 /**
  * @summary Admin list of reader submissions
  */
 
-export function useListMeridianSubmissions<
-  TData = Awaited<ReturnType<typeof listMeridianSubmissions>>,
+export function useListMAGHREB24Submissions<
+  TData = Awaited<ReturnType<typeof listMAGHREB24Submissions>>,
   TError = ErrorType<void>,
 >(
-  params: ListMeridianSubmissionsParams,
+  params: ListMAGHREB24SubmissionsParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof listMeridianSubmissions>>,
+      Awaited<ReturnType<typeof listMAGHREB24Submissions>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getListMeridianSubmissionsQueryOptions(params, options);
+  const queryOptions = getListMAGHREB24SubmissionsQueryOptions(params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -3043,44 +3043,44 @@ export function useListMeridianSubmissions<
 /**
  * @summary Admin approves a reader submission and publishes it
  */
-export const getApproveMeridianSubmissionUrl = (id: number) => {
-  return `/api/meridian/submissions/${id}/approve`;
+export const getApproveMAGHREB24SubmissionUrl = (id: number) => {
+  return `/api/MAGHREB24/submissions/${id}/approve`;
 };
 
-export const approveMeridianSubmission = async (
+export const approveMAGHREB24Submission = async (
   id: number,
-  approveMeridianSubmissionBody: ApproveMeridianSubmissionBody,
+  approveMAGHREB24SubmissionBody: ApproveMAGHREB24SubmissionBody,
   options?: RequestInit,
-): Promise<ApproveMeridianSubmission200> => {
-  return customFetch<ApproveMeridianSubmission200>(
-    getApproveMeridianSubmissionUrl(id),
+): Promise<ApproveMAGHREB24Submission200> => {
+  return customFetch<ApproveMAGHREB24Submission200>(
+    getApproveMAGHREB24SubmissionUrl(id),
     {
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(approveMeridianSubmissionBody),
+      body: JSON.stringify(approveMAGHREB24SubmissionBody),
     },
   );
 };
 
-export const getApproveMeridianSubmissionMutationOptions = <
+export const getApproveMAGHREB24SubmissionMutationOptions = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof approveMeridianSubmission>>,
+    Awaited<ReturnType<typeof approveMAGHREB24Submission>>,
     TError,
-    { id: number; data: BodyType<ApproveMeridianSubmissionBody> },
+    { id: number; data: BodyType<ApproveMAGHREB24SubmissionBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof approveMeridianSubmission>>,
+  Awaited<ReturnType<typeof approveMAGHREB24Submission>>,
   TError,
-  { id: number; data: BodyType<ApproveMeridianSubmissionBody> },
+  { id: number; data: BodyType<ApproveMAGHREB24SubmissionBody> },
   TContext
 > => {
-  const mutationKey = ["approveMeridianSubmission"];
+  const mutationKey = ["approveMAGHREB24Submission"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -3090,88 +3090,88 @@ export const getApproveMeridianSubmissionMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof approveMeridianSubmission>>,
-    { id: number; data: BodyType<ApproveMeridianSubmissionBody> }
+    Awaited<ReturnType<typeof approveMAGHREB24Submission>>,
+    { id: number; data: BodyType<ApproveMAGHREB24SubmissionBody> }
   > = (props) => {
     const { id, data } = props ?? {};
 
-    return approveMeridianSubmission(id, data, requestOptions);
+    return approveMAGHREB24Submission(id, data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type ApproveMeridianSubmissionMutationResult = NonNullable<
-  Awaited<ReturnType<typeof approveMeridianSubmission>>
+export type ApproveMAGHREB24SubmissionMutationResult = NonNullable<
+  Awaited<ReturnType<typeof approveMAGHREB24Submission>>
 >;
-export type ApproveMeridianSubmissionMutationBody =
-  BodyType<ApproveMeridianSubmissionBody>;
-export type ApproveMeridianSubmissionMutationError = ErrorType<void>;
+export type ApproveMAGHREB24SubmissionMutationBody =
+  BodyType<ApproveMAGHREB24SubmissionBody>;
+export type ApproveMAGHREB24SubmissionMutationError = ErrorType<void>;
 
 /**
  * @summary Admin approves a reader submission and publishes it
  */
-export const useApproveMeridianSubmission = <
+export const useApproveMAGHREB24Submission = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof approveMeridianSubmission>>,
+    Awaited<ReturnType<typeof approveMAGHREB24Submission>>,
     TError,
-    { id: number; data: BodyType<ApproveMeridianSubmissionBody> },
+    { id: number; data: BodyType<ApproveMAGHREB24SubmissionBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof approveMeridianSubmission>>,
+  Awaited<ReturnType<typeof approveMAGHREB24Submission>>,
   TError,
-  { id: number; data: BodyType<ApproveMeridianSubmissionBody> },
+  { id: number; data: BodyType<ApproveMAGHREB24SubmissionBody> },
   TContext
 > => {
-  return useMutation(getApproveMeridianSubmissionMutationOptions(options));
+  return useMutation(getApproveMAGHREB24SubmissionMutationOptions(options));
 };
 
 /**
  * @summary Admin rejects a reader submission
  */
-export const getRejectMeridianSubmissionUrl = (id: number) => {
-  return `/api/meridian/submissions/${id}/reject`;
+export const getRejectMAGHREB24SubmissionUrl = (id: number) => {
+  return `/api/MAGHREB24/submissions/${id}/reject`;
 };
 
-export const rejectMeridianSubmission = async (
+export const rejectMAGHREB24Submission = async (
   id: number,
-  rejectMeridianSubmissionBody: RejectMeridianSubmissionBody,
+  rejectMAGHREB24SubmissionBody: RejectMAGHREB24SubmissionBody,
   options?: RequestInit,
-): Promise<RejectMeridianSubmission200> => {
-  return customFetch<RejectMeridianSubmission200>(
-    getRejectMeridianSubmissionUrl(id),
+): Promise<RejectMAGHREB24Submission200> => {
+  return customFetch<RejectMAGHREB24Submission200>(
+    getRejectMAGHREB24SubmissionUrl(id),
     {
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(rejectMeridianSubmissionBody),
+      body: JSON.stringify(rejectMAGHREB24SubmissionBody),
     },
   );
 };
 
-export const getRejectMeridianSubmissionMutationOptions = <
+export const getRejectMAGHREB24SubmissionMutationOptions = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof rejectMeridianSubmission>>,
+    Awaited<ReturnType<typeof rejectMAGHREB24Submission>>,
     TError,
-    { id: number; data: BodyType<RejectMeridianSubmissionBody> },
+    { id: number; data: BodyType<RejectMAGHREB24SubmissionBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof rejectMeridianSubmission>>,
+  Awaited<ReturnType<typeof rejectMAGHREB24Submission>>,
   TError,
-  { id: number; data: BodyType<RejectMeridianSubmissionBody> },
+  { id: number; data: BodyType<RejectMAGHREB24SubmissionBody> },
   TContext
 > => {
-  const mutationKey = ["rejectMeridianSubmission"];
+  const mutationKey = ["rejectMAGHREB24Submission"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -3181,84 +3181,84 @@ export const getRejectMeridianSubmissionMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof rejectMeridianSubmission>>,
-    { id: number; data: BodyType<RejectMeridianSubmissionBody> }
+    Awaited<ReturnType<typeof rejectMAGHREB24Submission>>,
+    { id: number; data: BodyType<RejectMAGHREB24SubmissionBody> }
   > = (props) => {
     const { id, data } = props ?? {};
 
-    return rejectMeridianSubmission(id, data, requestOptions);
+    return rejectMAGHREB24Submission(id, data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type RejectMeridianSubmissionMutationResult = NonNullable<
-  Awaited<ReturnType<typeof rejectMeridianSubmission>>
+export type RejectMAGHREB24SubmissionMutationResult = NonNullable<
+  Awaited<ReturnType<typeof rejectMAGHREB24Submission>>
 >;
-export type RejectMeridianSubmissionMutationBody =
-  BodyType<RejectMeridianSubmissionBody>;
-export type RejectMeridianSubmissionMutationError = ErrorType<void>;
+export type RejectMAGHREB24SubmissionMutationBody =
+  BodyType<RejectMAGHREB24SubmissionBody>;
+export type RejectMAGHREB24SubmissionMutationError = ErrorType<void>;
 
 /**
  * @summary Admin rejects a reader submission
  */
-export const useRejectMeridianSubmission = <
+export const useRejectMAGHREB24Submission = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof rejectMeridianSubmission>>,
+    Awaited<ReturnType<typeof rejectMAGHREB24Submission>>,
     TError,
-    { id: number; data: BodyType<RejectMeridianSubmissionBody> },
+    { id: number; data: BodyType<RejectMAGHREB24SubmissionBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof rejectMeridianSubmission>>,
+  Awaited<ReturnType<typeof rejectMAGHREB24Submission>>,
   TError,
-  { id: number; data: BodyType<RejectMeridianSubmissionBody> },
+  { id: number; data: BodyType<RejectMAGHREB24SubmissionBody> },
   TContext
 > => {
-  return useMutation(getRejectMeridianSubmissionMutationOptions(options));
+  return useMutation(getRejectMAGHREB24SubmissionMutationOptions(options));
 };
 
 /**
  * @summary Victoria Chambers performs a trend intelligence analysis and briefs journalists
  */
-export const getAnalyzeMeridianTrendsUrl = () => {
-  return `/api/meridian/trends/analyze`;
+export const getAnalyzeMAGHREB24TrendsUrl = () => {
+  return `/api/MAGHREB24/trends/analyze`;
 };
 
-export const analyzeMeridianTrends = async (
-  analyzeMeridianTrendsBody: AnalyzeMeridianTrendsBody,
+export const analyzeMAGHREB24Trends = async (
+  analyzeMAGHREB24TrendsBody: AnalyzeMAGHREB24TrendsBody,
   options?: RequestInit,
-): Promise<AnalyzeMeridianTrends200> => {
-  return customFetch<AnalyzeMeridianTrends200>(getAnalyzeMeridianTrendsUrl(), {
+): Promise<AnalyzeMAGHREB24Trends200> => {
+  return customFetch<AnalyzeMAGHREB24Trends200>(getAnalyzeMAGHREB24TrendsUrl(), {
     ...options,
     method: "POST",
     headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(analyzeMeridianTrendsBody),
+    body: JSON.stringify(analyzeMAGHREB24TrendsBody),
   });
 };
 
-export const getAnalyzeMeridianTrendsMutationOptions = <
+export const getAnalyzeMAGHREB24TrendsMutationOptions = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof analyzeMeridianTrends>>,
+    Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>,
     TError,
-    { data: BodyType<AnalyzeMeridianTrendsBody> },
+    { data: BodyType<AnalyzeMAGHREB24TrendsBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof analyzeMeridianTrends>>,
+  Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>,
   TError,
-  { data: BodyType<AnalyzeMeridianTrendsBody> },
+  { data: BodyType<AnalyzeMAGHREB24TrendsBody> },
   TContext
 > => {
-  const mutationKey = ["analyzeMeridianTrends"];
+  const mutationKey = ["analyzeMAGHREB24Trends"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -3268,52 +3268,52 @@ export const getAnalyzeMeridianTrendsMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof analyzeMeridianTrends>>,
-    { data: BodyType<AnalyzeMeridianTrendsBody> }
+    Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>,
+    { data: BodyType<AnalyzeMAGHREB24TrendsBody> }
   > = (props) => {
     const { data } = props ?? {};
 
-    return analyzeMeridianTrends(data, requestOptions);
+    return analyzeMAGHREB24Trends(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type AnalyzeMeridianTrendsMutationResult = NonNullable<
-  Awaited<ReturnType<typeof analyzeMeridianTrends>>
+export type AnalyzeMAGHREB24TrendsMutationResult = NonNullable<
+  Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>
 >;
-export type AnalyzeMeridianTrendsMutationBody =
-  BodyType<AnalyzeMeridianTrendsBody>;
-export type AnalyzeMeridianTrendsMutationError = ErrorType<void>;
+export type AnalyzeMAGHREB24TrendsMutationBody =
+  BodyType<AnalyzeMAGHREB24TrendsBody>;
+export type AnalyzeMAGHREB24TrendsMutationError = ErrorType<void>;
 
 /**
  * @summary Victoria Chambers performs a trend intelligence analysis and briefs journalists
  */
-export const useAnalyzeMeridianTrends = <
+export const useAnalyzeMAGHREB24Trends = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof analyzeMeridianTrends>>,
+    Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>,
     TError,
-    { data: BodyType<AnalyzeMeridianTrendsBody> },
+    { data: BodyType<AnalyzeMAGHREB24TrendsBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof analyzeMeridianTrends>>,
+  Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>,
   TError,
-  { data: BodyType<AnalyzeMeridianTrendsBody> },
+  { data: BodyType<AnalyzeMAGHREB24TrendsBody> },
   TContext
 > => {
-  return useMutation(getAnalyzeMeridianTrendsMutationOptions(options));
+  return useMutation(getAnalyzeMAGHREB24TrendsMutationOptions(options));
 };
 
 /**
  * @summary Get latest trend intelligence logs from Victoria Chambers
  */
-export const getGetMeridianTrendsLatestUrl = (
-  params: GetMeridianTrendsLatestParams,
+export const getGetMAGHREB24TrendsLatestUrl = (
+  params: GetMAGHREB24TrendsLatestParams,
 ) => {
   const normalizedParams = new URLSearchParams();
 
@@ -3326,16 +3326,16 @@ export const getGetMeridianTrendsLatestUrl = (
   const stringifiedParams = normalizedParams.toString();
 
   return stringifiedParams.length > 0
-    ? `/api/meridian/trends/latest?${stringifiedParams}`
-    : `/api/meridian/trends/latest`;
+    ? `/api/MAGHREB24/trends/latest?${stringifiedParams}`
+    : `/api/MAGHREB24/trends/latest`;
 };
 
-export const getMeridianTrendsLatest = async (
-  params: GetMeridianTrendsLatestParams,
+export const getMAGHREB24TrendsLatest = async (
+  params: GetMAGHREB24TrendsLatestParams,
   options?: RequestInit,
-): Promise<MeridianNewsroomLog[]> => {
-  return customFetch<MeridianNewsroomLog[]>(
-    getGetMeridianTrendsLatestUrl(params),
+): Promise<MAGHREB24NewsroomLog[]> => {
+  return customFetch<MAGHREB24NewsroomLog[]>(
+    getGetMAGHREB24TrendsLatestUrl(params),
     {
       ...options,
       method: "GET",
@@ -3343,20 +3343,20 @@ export const getMeridianTrendsLatest = async (
   );
 };
 
-export const getGetMeridianTrendsLatestQueryKey = (
-  params?: GetMeridianTrendsLatestParams,
+export const getGetMAGHREB24TrendsLatestQueryKey = (
+  params?: GetMAGHREB24TrendsLatestParams,
 ) => {
-  return [`/api/meridian/trends/latest`, ...(params ? [params] : [])] as const;
+  return [`/api/MAGHREB24/trends/latest`, ...(params ? [params] : [])] as const;
 };
 
-export const getGetMeridianTrendsLatestQueryOptions = <
-  TData = Awaited<ReturnType<typeof getMeridianTrendsLatest>>,
+export const getGetMAGHREB24TrendsLatestQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>,
   TError = ErrorType<void>,
 >(
-  params: GetMeridianTrendsLatestParams,
+  params: GetMAGHREB24TrendsLatestParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMeridianTrendsLatest>>,
+      Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>,
       TError,
       TData
     >;
@@ -3366,44 +3366,44 @@ export const getGetMeridianTrendsLatestQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getGetMeridianTrendsLatestQueryKey(params);
+    queryOptions?.queryKey ?? getGetMAGHREB24TrendsLatestQueryKey(params);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getMeridianTrendsLatest>>
+    Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>
   > = ({ signal }) =>
-    getMeridianTrendsLatest(params, { signal, ...requestOptions });
+    getMAGHREB24TrendsLatest(params, { signal, ...requestOptions });
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getMeridianTrendsLatest>>,
+    Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type GetMeridianTrendsLatestQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getMeridianTrendsLatest>>
+export type GetMAGHREB24TrendsLatestQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>
 >;
-export type GetMeridianTrendsLatestQueryError = ErrorType<void>;
+export type GetMAGHREB24TrendsLatestQueryError = ErrorType<void>;
 
 /**
  * @summary Get latest trend intelligence logs from Victoria Chambers
  */
 
-export function useGetMeridianTrendsLatest<
-  TData = Awaited<ReturnType<typeof getMeridianTrendsLatest>>,
+export function useGetMAGHREB24TrendsLatest<
+  TData = Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>,
   TError = ErrorType<void>,
 >(
-  params: GetMeridianTrendsLatestParams,
+  params: GetMAGHREB24TrendsLatestParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMeridianTrendsLatest>>,
+      Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getGetMeridianTrendsLatestQueryOptions(params, options);
+  const queryOptions = getGetMAGHREB24TrendsLatestQueryOptions(params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;

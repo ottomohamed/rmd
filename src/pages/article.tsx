@@ -1,5 +1,5 @@
 import { useParams, Link } from "wouter";
-import { useGetMeridianArticle, useGetMeridianComments, useAddMeridianComment, useListMeridianArticles } from "@workspace/api-client-react";
+import { useGetMAGHREB24Article, useGetMAGHREB24Comments, useAddMAGHREB24Comment, useListMAGHREB24Articles } from "@workspace/api-client-react";
 import { formatDate, formatDateTime, getAuthorImage, translateAuthorName, translateAuthorTitle, translateAuthorBio, getTranslatedSection, usePageTitle } from "@/lib/utils";
 import { Loader2, MessageSquare, Pen, Share2, Bookmark, TrendingUp, MapPin, Mail } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -22,10 +22,10 @@ export default function ArticleDetail() {
   const [replyReceived, setReplyReceived] = useState(false);
   const pollCountRef = useRef(0);
 
-  const { data: article, isLoading, error } = useGetMeridianArticle(slug || "");
-  const { data: sidebarArticlesData } = useListMeridianArticles({ limit: 6 });
+  const { data: article, isLoading, error } = useGetMAGHREB24Article(slug || "");
+  const { data: sidebarArticlesData } = useListMAGHREB24Articles({ limit: 6 });
   
-  const { data: comments, isLoading: isLoadingComments } = useGetMeridianComments(article?.id || 0, { 
+  const { data: comments, isLoading: isLoadingComments } = useGetMAGHREB24Comments(article?.id || 0, { 
     query: { 
       enabled: !!article?.id,
       refetchInterval: awaitingReply ? 3000 : false,
@@ -49,10 +49,10 @@ export default function ArticleDetail() {
     }
   }, [comments, awaitingReply]);
 
-  const addComment = useAddMeridianComment({
+  const addComment = useAddMAGHREB24Comment({
     mutation: {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: [`/api/meridian/articles/${article?.id}/comments`] });
+        queryClient.invalidateQueries({ queryKey: [`/api/MAGHREB24/articles/${article?.id}/comments`] });
         form.reset();
         pollCountRef.current = 0;
         setAwaitingReply(true);

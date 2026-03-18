@@ -1,10 +1,10 @@
 import { Link } from "wouter";
-import { type MeridianArticleSummary } from "@workspace/api-client-react/src/generated/api.schemas";
+import { type MAGHREB24ArticleSummary } from "@workspace/api-client-react/src/generated/api.schemas";
 import { cn, formatDate, getTranslatedSection, translateAuthorName } from "@/lib/utils";
 import { Clock } from "lucide-react";
 
 interface ArticleCardProps {
-  article: MeridianArticleSummary;
+  article: MAGHREB24ArticleSummary;
   featured?: boolean;
   className?: string;
 }

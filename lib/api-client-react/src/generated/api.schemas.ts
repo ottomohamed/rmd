@@ -238,47 +238,47 @@ export interface RequestUploadUrlResponse {
   metadata: RequestUploadUrlResponseMetadata;
 }
 
-export type MeridianAuthorSection =
-  (typeof MeridianAuthorSection)[keyof typeof MeridianAuthorSection];
+export type MAGHREB24AuthorSection =
+  (typeof MAGHREB24AuthorSection)[keyof typeof MAGHREB24AuthorSection];
 
-export const MeridianAuthorSection = {
+export const MAGHREB24AuthorSection = {
   politics: "politics",
   economics: "economics",
   sports: "sports",
   editorial: "editorial",
 } as const;
 
-export interface MeridianAuthor {
+export interface MAGHREB24Author {
   id: number;
   slug: string;
   name: string;
   title: string;
   bio: string;
   avatarUrl?: string | null;
-  section: MeridianAuthorSection;
+  section: MAGHREB24AuthorSection;
   isEditorInChief: boolean;
   scheduleFrequency: string;
   articlesWritten: number;
 }
 
-export type MeridianArticleSection =
-  (typeof MeridianArticleSection)[keyof typeof MeridianArticleSection];
+export type MAGHREB24ArticleSection =
+  (typeof MAGHREB24ArticleSection)[keyof typeof MAGHREB24ArticleSection];
 
-export const MeridianArticleSection = {
+export const MAGHREB24ArticleSection = {
   politics: "politics",
   economics: "economics",
   sports: "sports",
   editorial: "editorial",
 } as const;
 
-export interface MeridianArticle {
+export interface MAGHREB24Article {
   id: number;
   slug: string;
   title: string;
   subtitle?: string | null;
   body: string;
-  section: MeridianArticleSection;
-  author: MeridianAuthor;
+  section: MAGHREB24ArticleSection;
+  author: MAGHREB24Author;
   featured: boolean;
   imageUrl?: string | null;
   readingTimeMinutes: number;
@@ -286,23 +286,23 @@ export interface MeridianArticle {
   commentCount: number;
 }
 
-export type MeridianArticleSummarySection =
-  (typeof MeridianArticleSummarySection)[keyof typeof MeridianArticleSummarySection];
+export type MAGHREB24ArticleSummarySection =
+  (typeof MAGHREB24ArticleSummarySection)[keyof typeof MAGHREB24ArticleSummarySection];
 
-export const MeridianArticleSummarySection = {
+export const MAGHREB24ArticleSummarySection = {
   politics: "politics",
   economics: "economics",
   sports: "sports",
   editorial: "editorial",
 } as const;
 
-export interface MeridianArticleSummary {
+export interface MAGHREB24ArticleSummary {
   id: number;
   slug: string;
   title: string;
   subtitle?: string | null;
-  section: MeridianArticleSummarySection;
-  author: MeridianAuthor;
+  section: MAGHREB24ArticleSummarySection;
+  author: MAGHREB24Author;
   featured: boolean;
   imageUrl?: string | null;
   readingTimeMinutes: number;
@@ -310,7 +310,7 @@ export interface MeridianArticleSummary {
   commentCount: number;
 }
 
-export interface MeridianComment {
+export interface MAGHREB24Comment {
   id: number;
   articleId: number;
   authorName: string;
@@ -321,7 +321,7 @@ export interface MeridianComment {
   createdAt: string;
 }
 
-export interface MeridianNewsroomLog {
+export interface MAGHREB24NewsroomLog {
   id: number;
   speakerName: string;
   speakerId?: number | null;
@@ -331,26 +331,26 @@ export interface MeridianNewsroomLog {
   createdAt: string;
 }
 
-export type MeridianSubmissionSection =
-  (typeof MeridianSubmissionSection)[keyof typeof MeridianSubmissionSection];
+export type MAGHREB24SubmissionSection =
+  (typeof MAGHREB24SubmissionSection)[keyof typeof MAGHREB24SubmissionSection];
 
-export const MeridianSubmissionSection = {
+export const MAGHREB24SubmissionSection = {
   politics: "politics",
   economics: "economics",
   sports: "sports",
   editorial: "editorial",
 } as const;
 
-export type MeridianSubmissionStatus =
-  (typeof MeridianSubmissionStatus)[keyof typeof MeridianSubmissionStatus];
+export type MAGHREB24SubmissionStatus =
+  (typeof MAGHREB24SubmissionStatus)[keyof typeof MAGHREB24SubmissionStatus];
 
-export const MeridianSubmissionStatus = {
+export const MAGHREB24SubmissionStatus = {
   pending: "pending",
   approved: "approved",
   rejected: "rejected",
 } as const;
 
-export interface MeridianSubmission {
+export interface MAGHREB24Submission {
   id: number;
   authorName: string;
   authorEmail: string;
@@ -358,8 +358,8 @@ export interface MeridianSubmission {
   authorPhotoUrl?: string | null;
   title: string;
   body: string;
-  section: MeridianSubmissionSection;
-  status: MeridianSubmissionStatus;
+  section: MAGHREB24SubmissionSection;
+  status: MAGHREB24SubmissionStatus;
   editorNote?: string | null;
   publishedArticleId?: number | null;
   submittedAt: string;
@@ -414,138 +414,138 @@ export type AdminResolveDisputeBody = {
   adminNote?: string;
 };
 
-export type ListMeridianArticlesParams = {
-  section?: ListMeridianArticlesSection;
+export type ListMAGHREB24ArticlesParams = {
+  section?: ListMAGHREB24ArticlesSection;
   featured?: boolean;
   limit?: number;
   offset?: number;
 };
 
-export type ListMeridianArticlesSection =
-  (typeof ListMeridianArticlesSection)[keyof typeof ListMeridianArticlesSection];
+export type ListMAGHREB24ArticlesSection =
+  (typeof ListMAGHREB24ArticlesSection)[keyof typeof ListMAGHREB24ArticlesSection];
 
-export const ListMeridianArticlesSection = {
+export const ListMAGHREB24ArticlesSection = {
   politics: "politics",
   economics: "economics",
   sports: "sports",
   editorial: "editorial",
 } as const;
 
-export type ListMeridianArticles200 = {
-  articles: MeridianArticleSummary[];
+export type ListMAGHREB24Articles200 = {
+  articles: MAGHREB24ArticleSummary[];
   total: number;
 };
 
-export type AddMeridianCommentBody = {
+export type AddMAGHREB24CommentBody = {
   authorName: string;
   body: string;
 };
 
-export type GetMeridianNewsroomParams = {
+export type GetMAGHREB24NewsroomParams = {
   limit?: number;
 };
 
-export type TriggerMeridianGenerationBody = {
+export type TriggerMAGHREB24GenerationBody = {
   adminKey: string;
   authorSlug?: string;
   topicHint?: string;
 };
 
-export type TriggerMeridianGeneration200 = {
+export type TriggerMAGHREB24Generation200 = {
   message: string;
   articlesGenerated: number;
 };
 
-export type MeridianNewsroomDiscussBody = {
+export type MAGHREB24NewsroomDiscussBody = {
   adminKey: string;
   message: string;
   respondentSlugs?: string[];
 };
 
-export type MeridianNewsroomDiscuss200 = {
+export type MAGHREB24NewsroomDiscuss200 = {
   ok: boolean;
 };
 
-export type SubmitMeridianArticleBodySection =
-  (typeof SubmitMeridianArticleBodySection)[keyof typeof SubmitMeridianArticleBodySection];
+export type SubmitMAGHREB24ArticleBodySection =
+  (typeof SubmitMAGHREB24ArticleBodySection)[keyof typeof SubmitMAGHREB24ArticleBodySection];
 
-export const SubmitMeridianArticleBodySection = {
+export const SubmitMAGHREB24ArticleBodySection = {
   politics: "politics",
   economics: "economics",
   sports: "sports",
   editorial: "editorial",
 } as const;
 
-export type SubmitMeridianArticleBody = {
+export type SubmitMAGHREB24ArticleBody = {
   authorName: string;
   authorEmail: string;
   authorBio?: string;
   authorPhotoUrl?: string;
   title: string;
   body: string;
-  section?: SubmitMeridianArticleBodySection;
+  section?: SubmitMAGHREB24ArticleBodySection;
 };
 
-export type SubmitMeridianArticle200 = {
+export type SubmitMAGHREB24Article200 = {
   ok: boolean;
   id: number;
 };
 
-export type ListMeridianSubmissionsParams = {
+export type ListMAGHREB24SubmissionsParams = {
   adminKey: string;
-  status?: ListMeridianSubmissionsStatus;
+  status?: ListMAGHREB24SubmissionsStatus;
 };
 
-export type ListMeridianSubmissionsStatus =
-  (typeof ListMeridianSubmissionsStatus)[keyof typeof ListMeridianSubmissionsStatus];
+export type ListMAGHREB24SubmissionsStatus =
+  (typeof ListMAGHREB24SubmissionsStatus)[keyof typeof ListMAGHREB24SubmissionsStatus];
 
-export const ListMeridianSubmissionsStatus = {
+export const ListMAGHREB24SubmissionsStatus = {
   pending: "pending",
   approved: "approved",
   rejected: "rejected",
 } as const;
 
-export type ApproveMeridianSubmissionBody = {
+export type ApproveMAGHREB24SubmissionBody = {
   adminKey: string;
   editorNote?: string;
 };
 
-export type ApproveMeridianSubmission200 = {
+export type ApproveMAGHREB24Submission200 = {
   ok: boolean;
   articleSlug: string;
 };
 
-export type RejectMeridianSubmissionBody = {
+export type RejectMAGHREB24SubmissionBody = {
   adminKey: string;
   editorNote?: string;
 };
 
-export type RejectMeridianSubmission200 = {
+export type RejectMAGHREB24Submission200 = {
   ok: boolean;
 };
 
-export type AnalyzeMeridianTrendsBodyMode =
-  (typeof AnalyzeMeridianTrendsBodyMode)[keyof typeof AnalyzeMeridianTrendsBodyMode];
+export type AnalyzeMAGHREB24TrendsBodyMode =
+  (typeof AnalyzeMAGHREB24TrendsBodyMode)[keyof typeof AnalyzeMAGHREB24TrendsBodyMode];
 
-export const AnalyzeMeridianTrendsBodyMode = {
+export const AnalyzeMAGHREB24TrendsBodyMode = {
   scan: "scan",
   predict: "predict",
   brief: "brief",
 } as const;
 
-export type AnalyzeMeridianTrendsBody = {
+export type AnalyzeMAGHREB24TrendsBody = {
   adminKey: string;
-  mode?: AnalyzeMeridianTrendsBodyMode;
+  mode?: AnalyzeMAGHREB24TrendsBodyMode;
   triggerArticles?: boolean;
 };
 
-export type AnalyzeMeridianTrends200Report = { [key: string]: unknown };
+export type AnalyzeMAGHREB24Trends200Report = { [key: string]: unknown };
 
-export type AnalyzeMeridianTrends200 = {
+export type AnalyzeMAGHREB24Trends200 = {
   ok: boolean;
-  report: AnalyzeMeridianTrends200Report;
+  report: AnalyzeMAGHREB24Trends200Report;
 };
 
-export type GetMeridianTrendsLatestParams = {
+export type GetMAGHREB24TrendsLatestParams = {
   adminKey: string;
 };

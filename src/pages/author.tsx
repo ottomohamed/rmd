@@ -1,14 +1,14 @@
 import { useParams } from "wouter";
-import { useGetMeridianAuthor, useListMeridianArticles } from "@workspace/api-client-react";
+import { useGetMAGHREB24Author, useListMAGHREB24Articles } from "@workspace/api-client-react";
 import { ArticleCard } from "@/components/article-card";
 import { getAuthorImage, getSectionColor, translateAuthorName, translateAuthorTitle, translateAuthorBio, getTranslatedSection, getTranslatedFrequency } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
 export default function AuthorPage() {
   const { slug } = useParams();
-  const { data: author, isLoading: isLoadingAuthor } = useGetMeridianAuthor(slug || "");
+  const { data: author, isLoading: isLoadingAuthor } = useGetMAGHREB24Author(slug || "");
   
-  const { data: articlesData, isLoading: isLoadingArticles } = useListMeridianArticles({ limit: 100 });
+  const { data: articlesData, isLoading: isLoadingArticles } = useListMAGHREB24Articles({ limit: 100 });
   
   if (isLoadingAuthor || isLoadingArticles) return <div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="w-10 h-10 animate-spin text-muted-foreground" /></div>;
   if (!author) return <div className="py-32 text-center font-sans text-3xl italic">الكاتب غير موجود في سجلاتنا.</div>;

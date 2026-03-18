@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useSubmitMeridianArticle, useRequestUploadUrl } from "@workspace/api-client-react";
+import { useSubmitMAGHREB24Article, useRequestUploadUrl } from "@workspace/api-client-react";
 import { CheckCircle, Upload, AlertCircle, Loader2, PenLine, User, Mail, FileText, BookOpen, Image as ImageIcon, Send, Sparkles, AlertTriangle } from "lucide-react";
 import { cn, usePageTitle } from "@/lib/utils";
 
@@ -33,7 +33,7 @@ export default function SubmitArticle() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const requestUpload = useRequestUploadUrl();
-  const submitArticle = useSubmitMeridianArticle();
+  const submitArticle = useSubmitMAGHREB24Article();
 
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

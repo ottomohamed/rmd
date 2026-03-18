@@ -1,5 +1,5 @@
 import { useParams, Link } from "wouter";
-import { useListMeridianArticles, useListMeridianAuthors } from "@workspace/api-client-react";
+import { useListMAGHREB24Articles, useListMAGHREB24Authors } from "@workspace/api-client-react";
 import { ArticleCard } from "@/components/article-card";
 import { getSectionBgColor, getTranslatedSection, translateAuthorName, getAuthorImage, translateAuthorTitle, formatDate, usePageTitle } from "@/lib/utils";
 import { Loader2, PenBox, MessageSquare, TrendingUp, Sparkles, UserCheck } from "lucide-react";
@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 
 export default function SectionPage() {
   const { section } = useParams();
-  const { data: articlesData, isLoading: isLoadingArticles } = useListMeridianArticles({ section: section as any, limit: 20 });
-  const { data: authors, isLoading: isLoadingAuthors } = useListMeridianAuthors();
+  const { data: articlesData, isLoading: isLoadingArticles } = useListMAGHREB24Articles({ section: section as any, limit: 20 });
+  const { data: authors, isLoading: isLoadingAuthors } = useListMAGHREB24Authors();
 
   if (isLoadingArticles || isLoadingAuthors) {
     return (
