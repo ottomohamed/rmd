@@ -6,3 +6,5 @@ dist
 .DS_Store
 .vercel
 .vscode
+.vercel
+.env*.local
