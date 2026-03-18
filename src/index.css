@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme inline {
+  --font-sans: 'Almarai', sans-serif;
+  
+  --color-background: hsl(210 20% 98%); 
+  --color-foreground: hsl(224 71% 4%); 
+  
+  --color-emerald-700: hsl(151 93% 22%); /* #046A38 */
+  --color-emerald-800: hsl(151 93% 17%); /* #03562d */
+  --color-gold-500: hsl(39 49% 56%);    /* #C5A059 */
+  --color-gold-600: hsl(39 49% 46%);    /* #A38448 */
+
+  --color-primary: var(--color-emerald-700);
+  --color-primary-foreground: hsl(210 20% 98%);
+  
+  --color-accent: var(--color-gold-500);
+  
+  --color-border: hsl(220 13% 91%);
+  
+  @keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-emerald-500/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    direction: rtl;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans font-bold tracking-tight text-foreground;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Selection color */
+  ::selection {
+    background-color: hsl(151 93% 22% / 0.15);
+    color: hsl(151 93% 22%);
+  }
+
+  /* Focus visible */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-emerald-700;
+  }
+}
+
+/* Ticker Animation Classes */
+.ticker-content {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: ticker-scroll 40s linear infinite;
+}
+.ticker-content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Lazy-loaded images fade in */
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+img[loading="lazy"].loaded,
+img[loading="lazy"]:not([data-src]) {
+  opacity: 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(151 93% 22% / 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(151 93% 22% / 0.5);
+}
