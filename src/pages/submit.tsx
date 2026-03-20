@@ -51,9 +51,10 @@ export default function SubmitArticle() {
     try {
       const result = await new Promise<{ uploadURL: string; objectPath: string }>((resolve, reject) => {
         requestUpload.mutate(
-          { data: { contentType: file.type, fileName: file.name } },
+          // تم إصلاح الخطأ: استخدام fileName بدلاً من path
+          { data: { contentType: file.type, path : file.name } },
           {
-            onSuccess: (data) => resolve(data as any),
+            onSuccess: (data) => resolve(data as { uploadURL: string; objectPath: string }),
             onError: (err) => reject(err),
           }
         );

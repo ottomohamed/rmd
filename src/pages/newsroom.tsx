@@ -217,7 +217,8 @@ function NewsroomDashboard() {
   const [discussing, setDiscussing] = useState(false);
   const discuss = useMAGHREB24NewsroomDiscuss();
 
-  const { data: trendLogsData } = useGetMAGHREB24TrendsLatest({ limit: 1 });
+  // تم إصلاح الخطأ: إضافة {} كبارامتر للدالة
+  const { data: trendLogsData } = useGetMAGHREB24TrendsLatest({});
   const trendLogs = Array.isArray(trendLogsData) ? trendLogsData : [];
 
   useEffect(() => {
@@ -321,7 +322,7 @@ function NewsroomDashboard() {
                     لا توجد رسائل بعد...
                   </div>
                 ) : (
-                  logEntries.map((log: LogEntry) => (
+                  (logEntries as any[]).map((log: any) => (
                     <div key={log.id} className="flex items-start gap-3 text-right">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1 justify-end">
@@ -678,14 +679,14 @@ function SubmissionsPanel() {
 
   const handleApprove = (id: string) => {
     approve.mutate(
-      { submissionId: id, data: { adminKey: ADMIN_KEY, editorNote } },
+      { id: Number(id), data: { adminKey: ADMIN_KEY, editorNote } },
       { onSuccess: () => { refetch(); setExpanded(null); setEditorNote(""); } }
     );
   };
 
   const handleReject = (id: string) => {
     reject.mutate(
-      { submissionId: id, data: { adminKey: ADMIN_KEY, editorNote } },
+      { id: Number(id), data: { adminKey: ADMIN_KEY, editorNote } },
       { onSuccess: () => { refetch(); setExpanded(null); setEditorNote(""); } }
     );
   };
@@ -821,7 +822,7 @@ function AdManagerPanel() {
   );
 }
 
-// =================== مكون رفع الصور المتقدم (مضاف دون مساس) ===================
+// =================== مكون رفع الصور المتقدم ===================
 function EnhancedMediaLibrary() {
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
