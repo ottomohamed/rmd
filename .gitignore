@@ -8,3 +8,5 @@ dist
 .vscode
 .vercel
 .env*.local
+
+fix-types.ps1
