@@ -51,11 +51,10 @@ export default function SubmitArticle() {
     try {
       const result = await new Promise<{ uploadURL: string; objectPath: string }>((resolve, reject) => {
         requestUpload.mutate(
-          // تم إصلاح الخطأ: استخدام fileName بدلاً من path
-          { data: { contentType: file.type, path : file.name } },
+          { data: { contentType: file.type, name: file.name, size: file.size } },
           {
-            onSuccess: (data) => resolve(data as { uploadURL: string; objectPath: string }),
-            onError: (err) => reject(err),
+            onSuccess: (data: { uploadURL: string; objectPath: string; }) => resolve(data),
+            onError: (err: Error) => reject(err),
           }
         );
       });
@@ -103,12 +102,12 @@ export default function SubmitArticle() {
         },
       },
       {
-        onSuccess: (data: any) => {
+        onSuccess: (data: { id: number; }) => {
           setSubmissionId(data.id);
           setStep("success");
           window.scrollTo({ top: 0, behavior: "smooth" });
         },
-        onError: () => {
+        onError: (err: Error) => {
           setFormError("فشل الإرسال بسبب خطأ تقني. يرجى مراجعة اتصالك والمحاولة مرة أخرى.");
         },
       }

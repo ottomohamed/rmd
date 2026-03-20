@@ -8,7 +8,8 @@ import {
   useApproveMAGHREB24Submission, 
   useRejectMAGHREB24Submission, 
   useAnalyzeMAGHREB24Trends, 
-  useGetMAGHREB24TrendsLatest 
+  useGetMAGHREB24TrendsLatest,
+  MAGHREB24NewsroomLog
 } from "@workspace/api-client-react";
 import { 
   Loader2, Terminal, ShieldAlert, Play, RefreshCw, Activity, 
@@ -23,31 +24,6 @@ import { useAds } from "@/hooks/use-ads";
 import { useBreakingNews } from "@/hooks/use-breaking-news";
 
 const ADMIN_KEY = "meridian2024";
-
-// أنواع البيانات
-interface Submission {
-  id: string;
-  title: string;
-  author: string;
-  authorName: string;
-  authorEmail: string;
-  authorBio?: string;
-  authorPhotoUrl?: string;
-  body: string;
-  section: string;
-  status: 'pending' | 'approved' | 'rejected';
-  submittedAt: string;
-  createdAt: string;
-}
-
-interface LogEntry {
-  id: string;
-  message: string;
-  messageType?: string;
-  author: string;
-  createdAt: string;
-  relatedArticleId?: string;
-}
 
 // ── مراسلو مغرب 24 — ذكاء اصطناعي متخصص لكل قسم ──────────────────
 export const JOURNALISTS = [
@@ -206,7 +182,7 @@ export default function Newsroom() {
 
 function NewsroomDashboard() {
   const { data: logs, isLoading, refetch } = useGetMAGHREB24Newsroom({ limit: 100 });
-  const logEntries = Array.isArray(logs) ? logs : [];
+  const logEntries: MAGHREB24NewsroomLog[] = Array.isArray(logs) ? logs : [];
   const triggerGen = useTriggerMAGHREB24Generation();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -217,8 +193,7 @@ function NewsroomDashboard() {
   const [discussing, setDiscussing] = useState(false);
   const discuss = useMAGHREB24NewsroomDiscuss();
 
-  // تم إصلاح الخطأ: إضافة {} كبارامتر للدالة
-  const { data: trendLogsData } = useGetMAGHREB24TrendsLatest({});
+  const { data: trendLogsData } = useGetMAGHREB24TrendsLatest({ adminKey: ADMIN_KEY });
   const trendLogs = Array.isArray(trendLogsData) ? trendLogsData : [];
 
   useEffect(() => {
@@ -322,11 +297,11 @@ function NewsroomDashboard() {
                     لا توجد رسائل بعد...
                   </div>
                 ) : (
-                  (logEntries as any[]).map((log: any) => (
+                  logEntries.map((log) => (
                     <div key={log.id} className="flex items-start gap-3 text-right">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1 justify-end">
-                          <span className="text-xs font-bold text-emerald-500">{log.author}</span>
+                          <span className="text-xs font-bold text-emerald-500">{log.speakerName}</span>
                           <span className="text-[10px] text-zinc-700">{formatDateTime(log.createdAt)}</span>
                         </div>
                         <div className="bg-zinc-900/50 border border-zinc-800 p-3 text-sm text-zinc-300">
