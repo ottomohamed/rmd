@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
-  useGetMAGHREB24Newsroom,
-  useTriggerMAGHREB24Generation,
-  useMAGHREB24NewsroomDiscuss,
-  useListMAGHREB24Submissions,
-  useApproveMAGHREB24Submission,
-  useRejectMAGHREB24Submission,
-  useAnalyzeMAGHREB24Trends,
-  useGetMAGHREB24TrendsLatest
+  useGetMAROC24Newsroom,
+  useTriggerMAROC24Generation,
+  useMAROC24NewsroomDiscuss,
+  useListMAROC24Submissions,
+  useApproveMAROC24Submission,
+  useRejectMAROC24Submission,
+  useAnalyzeMAROC24Trends,
+  useGetMAROC24TrendsLatest
 } from "@workspace/api-client-react";
 import {
   Loader2, Terminal, Activity, Send, Mic, Crosshair, TrendingUp, BarChart2, Eye, Zap, ChevronUp, ChevronDown, Inbox, Trash2, Plus, ToggleLeft, ToggleRight, AlertCircle
@@ -103,16 +103,16 @@ function NewsroomDashboard() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // ===== Queries =====
-  const { data: logs = [], isLoading: logsLoading, refetch: refetchLogs } = useGetMAGHREB24Newsroom({ limit: 100 });
-  const { data: trendLogsData = [] } = useGetMAGHREB24TrendsLatest({});
-  const { data: submissionsData = [], isLoading: submissionsLoading } = useListMAGHREB24Submissions({ adminKey: 'meridian2024' });
+  const { data: logs = [], isLoading: logsLoading, refetch: refetchLogs } = useGetMAROC24Newsroom({ limit: 100 });
+  const { data: trendLogsData = [] } = useGetMAROC24TrendsLatest({ adminKey: 'meridian2024' });
+  const { data: submissionsData = [], isLoading: submissionsLoading } = useListMAROC24Submissions({ adminKey: 'meridian2024' });
 
   // ===== Mutations =====
-  const triggerGen = useTriggerMAGHREB24Generation();
-  const discuss = useMAGHREB24NewsroomDiscuss();
-  const approve = useApproveMAGHREB24Submission();
-  const reject = useRejectMAGHREB24Submission();
-  const analyze = useAnalyzeMAGHREB24Trends();
+  const triggerGen = useTriggerMAROC24Generation();
+  const discuss = useMAROC24NewsroomDiscuss();
+  const approve = useApproveMAROC24Submission();
+  const reject = useRejectMAROC24Submission();
+  const analyze = useAnalyzeMAROC24Trends();
 
   // ===== Local States =====
   const [publisherMsg, setPublisherMsg] = useState('');

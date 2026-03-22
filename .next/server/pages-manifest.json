@@ -1,0 +1,12 @@
+{
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/_error": "pages/_error.js",
+  "/api/MAGHREB24/agents/generate": "pages/api/MAGHREB24/agents/generate.js",
+  "/api/MAGHREB24/articles": "pages/api/MAGHREB24/articles.js",
+  "/api/MAGHREB24/authors": "pages/api/MAGHREB24/authors.js",
+  "/api/MAGHREB24/newsroom": "pages/api/MAGHREB24/newsroom.js",
+  "/api/MAGHREB24/newsroom/discuss": "pages/api/MAGHREB24/newsroom/discuss.js",
+  "/api/MAGHREB24/submissions": "pages/api/MAGHREB24/submissions.js",
+  "/api/MAGHREB24/trends": "pages/api/MAGHREB24/trends.js"
+}

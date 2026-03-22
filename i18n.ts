@@ -11,6 +11,7 @@ export default getRequestConfig(async ({ locale }) => {
   
   // تحميل ملف الترجمة
   return {
+    locale: locale as string,
     messages: (await import(`./messages/${locale}/common.json`)).default
   };
 });

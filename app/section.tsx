@@ -1,16 +1,16 @@
 import { useParams, Link } from "wouter";
-import { useListMAGHREB24Articles, useListMAGHREB24Authors, ListMAGHREB24ArticlesQueryResult } from "@workspace/api-client-react";
+import { useListMAROC24Articles, useListMAROC24Authors, ListMAROC24ArticlesQueryResult } from "@workspace/api-client-react";
 import { ArticleCard } from "@/components/article-card";
 import { getSectionBgColor, getTranslatedSection, translateAuthorName, getAuthorImage, translateAuthorTitle, formatDate, usePageTitle } from "@/lib/utils";
 import { Loader2, PenBox, MessageSquare, TrendingUp, Sparkles, UserCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type Article = ListMAGHREB24ArticlesQueryResult[0];
+type Article = NonNullable<ListMAROC24ArticlesQueryResult["articles"]>[number];
 
 export default function SectionPage() {
   const { section } = useParams();
-  const { data: articlesData, isLoading: isLoadingArticles } = useListMAGHREB24Articles({ section: section as any, limit: 20 });
-  const { data: authors, isLoading: isLoadingAuthors } = useListMAGHREB24Authors();
+  const { data: articlesData, isLoading: isLoadingArticles } = useListMAROC24Articles({ section: section as any, limit: 20 });
+  const { data: authors, isLoading: isLoadingAuthors } = useListMAROC24Authors();
 
   if (isLoadingArticles || isLoadingAuthors) {
     return (

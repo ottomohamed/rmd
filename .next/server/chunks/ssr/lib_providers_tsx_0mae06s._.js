@@ -1,0 +1,3 @@
+module.exports=[58708,a=>{"use strict";var b=a.i(87924),c=a.i(54289),d=a.i(37927),e=a.i(13902),f=a.i(72131);a.s(["Providers",0,function({children:a}){let[g]=(0,f.useState)(()=>new c.QueryClient({defaultOptions:{queries:{refetchOnWindowFocus:!1,retry:!1,staleTime:12e4}}}));return(0,b.jsx)(d.QueryClientProvider,{client:g,children:(0,b.jsx)(e.ThemeProvider,{attribute:"class",defaultTheme:"light",enableSystem:!1,disableTransitionOnChange:!0,children:a})})}])}];
+
+//# sourceMappingURL=lib_providers_tsx_0mae06s._.js.map

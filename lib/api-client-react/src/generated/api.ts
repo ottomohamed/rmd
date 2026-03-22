@@ -17,17 +17,17 @@ import type {
 } from "@tanstack/react-query";
 
 import type {
-  AddMAGHREB24CommentBody,
+  AddMAROC24CommentBody,
   AdminListDisputesParams,
   AdminListVendorsParams,
   AdminRejectVendorBody,
   AdminResolveDisputeBody,
   AdminStats,
   AdminVendor,
-  AnalyzeMAGHREB24Trends200,
-  AnalyzeMAGHREB24TrendsBody,
-  ApproveMAGHREB24Submission200,
-  ApproveMAGHREB24SubmissionBody,
+  AnalyzeMAROC24Trends200,
+  AnalyzeMAROC24TrendsBody,
+  ApproveMAROC24Submission200,
+  ApproveMAROC24SubmissionBody,
   Category,
   CreateDisputeRequest,
   CreateOrderRequest,
@@ -36,38 +36,38 @@ import type {
   CreateVendorRequest,
   Dispute,
   ErrorResponse,
-  GetMAGHREB24NewsroomParams,
-  GetMAGHREB24TrendsLatestParams,
+  GetMAROC24NewsroomParams,
+  GetMAROC24TrendsLatestParams,
   HealthStatus,
   ListDisputesParams,
-  ListMAGHREB24Articles200,
-  ListMAGHREB24ArticlesParams,
-  ListMAGHREB24SubmissionsParams,
+  ListMAROC24Articles200,
+  ListMAROC24ArticlesParams,
+  ListMAROC24SubmissionsParams,
   ListOrdersParams,
   ListProductsParams,
   ListReviewsParams,
   ListVendorsParams,
   MarketplaceStats,
-  MAGHREB24Article,
-  MAGHREB24Author,
-  MAGHREB24Comment,
-  MAGHREB24NewsroomDiscuss200,
-  MAGHREB24NewsroomDiscussBody,
-  MAGHREB24NewsroomLog,
-  MAGHREB24Submission,
+  MAROC24Article,
+  MAROC24Author,
+  MAROC24Comment,
+  MAROC24NewsroomDiscuss200,
+  MAROC24NewsroomDiscussBody,
+  MAROC24NewsroomLog,
+  MAROC24Submission,
   Order,
   Product,
   ProductDetail,
   ProductListResponse,
-  RejectMAGHREB24Submission200,
-  RejectMAGHREB24SubmissionBody,
+  RejectMAROC24Submission200,
+  RejectMAROC24SubmissionBody,
   RequestUploadUrlBody,
   RequestUploadUrlResponse,
   Review,
-  SubmitMAGHREB24Article200,
-  SubmitMAGHREB24ArticleBody,
-  TriggerMAGHREB24Generation200,
-  TriggerMAGHREB24GenerationBody,
+  SubmitMAROC24Article200,
+  SubmitMAROC24ArticleBody,
+  TriggerMAROC24Generation200,
+  TriggerMAROC24GenerationBody,
   UpdateProductRequest,
   Vendor,
   VendorDetail,
@@ -2080,8 +2080,8 @@ export const useRequestUploadUrl = <
 /**
  * @summary List articles
  */
-export const getListMAGHREB24ArticlesUrl = (
-  params?: ListMAGHREB24ArticlesParams,
+export const getListMAROC24ArticlesUrl = (
+  params?: ListMAROC24ArticlesParams,
 ) => {
   const normalizedParams = new URLSearchParams();
 
@@ -2094,16 +2094,16 @@ export const getListMAGHREB24ArticlesUrl = (
   const stringifiedParams = normalizedParams.toString();
 
   return stringifiedParams.length > 0
-    ? `/api/MAGHREB24/articles?${stringifiedParams}`
-    : `/api/MAGHREB24/articles`;
+    ? `/api/MAROC24/articles?${stringifiedParams}`
+    : `/api/MAROC24/articles`;
 };
 
-export const listMAGHREB24Articles = async (
-  params?: ListMAGHREB24ArticlesParams,
+export const listMAROC24Articles = async (
+  params?: ListMAROC24ArticlesParams,
   options?: RequestInit,
-): Promise<ListMAGHREB24Articles200> => {
-  return customFetch<ListMAGHREB24Articles200>(
-    getListMAGHREB24ArticlesUrl(params),
+): Promise<ListMAROC24Articles200> => {
+  return customFetch<ListMAROC24Articles200>(
+    getListMAROC24ArticlesUrl(params),
     {
       ...options,
       method: "GET",
@@ -2111,20 +2111,20 @@ export const listMAGHREB24Articles = async (
   );
 };
 
-export const getListMAGHREB24ArticlesQueryKey = (
-  params?: ListMAGHREB24ArticlesParams,
+export const getListMAROC24ArticlesQueryKey = (
+  params?: ListMAROC24ArticlesParams,
 ) => {
-  return [`/api/MAGHREB24/articles`, ...(params ? [params] : [])] as const;
+  return [`/api/MAROC24/articles`, ...(params ? [params] : [])] as const;
 };
 
-export const getListMAGHREB24ArticlesQueryOptions = <
-  TData = Awaited<ReturnType<typeof listMAGHREB24Articles>>,
+export const getListMAROC24ArticlesQueryOptions = <
+  TData = Awaited<ReturnType<typeof listMAROC24Articles>>,
   TError = ErrorType<unknown>,
 >(
-  params?: ListMAGHREB24ArticlesParams,
+  params?: ListMAROC24ArticlesParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof listMAGHREB24Articles>>,
+      Awaited<ReturnType<typeof listMAROC24Articles>>,
       TError,
       TData
     >;
@@ -2134,44 +2134,44 @@ export const getListMAGHREB24ArticlesQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getListMAGHREB24ArticlesQueryKey(params);
+    queryOptions?.queryKey ?? getListMAROC24ArticlesQueryKey(params);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof listMAGHREB24Articles>>
+    Awaited<ReturnType<typeof listMAROC24Articles>>
   > = ({ signal }) =>
-    listMAGHREB24Articles(params, { signal, ...requestOptions });
+    listMAROC24Articles(params, { signal, ...requestOptions });
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof listMAGHREB24Articles>>,
+    Awaited<ReturnType<typeof listMAROC24Articles>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type ListMAGHREB24ArticlesQueryResult = NonNullable<
-  Awaited<ReturnType<typeof listMAGHREB24Articles>>
+export type ListMAROC24ArticlesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listMAROC24Articles>>
 >;
-export type ListMAGHREB24ArticlesQueryError = ErrorType<unknown>;
+export type ListMAROC24ArticlesQueryError = ErrorType<unknown>;
 
 /**
  * @summary List articles
  */
 
-export function useListMAGHREB24Articles<
-  TData = Awaited<ReturnType<typeof listMAGHREB24Articles>>,
+export function useListMAROC24Articles<
+  TData = Awaited<ReturnType<typeof listMAROC24Articles>>,
   TError = ErrorType<unknown>,
 >(
-  params?: ListMAGHREB24ArticlesParams,
+  params?: ListMAROC24ArticlesParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof listMAGHREB24Articles>>,
+      Awaited<ReturnType<typeof listMAROC24Articles>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getListMAGHREB24ArticlesQueryOptions(params, options);
+  const queryOptions = getListMAROC24ArticlesQueryOptions(params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2183,32 +2183,32 @@ export function useListMAGHREB24Articles<
 /**
  * @summary Get article by slug
  */
-export const getGetMAGHREB24ArticleUrl = (slug: string) => {
-  return `/api/MAGHREB24/articles/${slug}`;
+export const getGetMAROC24ArticleUrl = (slug: string) => {
+  return `/api/MAROC24/articles/${slug}`;
 };
 
-export const getMAGHREB24Article = async (
+export const getMAROC24Article = async (
   slug: string,
   options?: RequestInit,
-): Promise<MAGHREB24Article> => {
-  return customFetch<MAGHREB24Article>(getGetMAGHREB24ArticleUrl(slug), {
+): Promise<MAROC24Article> => {
+  return customFetch<MAROC24Article>(getGetMAROC24ArticleUrl(slug), {
     ...options,
     method: "GET",
   });
 };
 
-export const getGetMAGHREB24ArticleQueryKey = (slug: string) => {
-  return [`/api/MAGHREB24/articles/${slug}`] as const;
+export const getGetMAROC24ArticleQueryKey = (slug: string) => {
+  return [`/api/MAROC24/articles/${slug}`] as const;
 };
 
-export const getGetMAGHREB24ArticleQueryOptions = <
-  TData = Awaited<ReturnType<typeof getMAGHREB24Article>>,
+export const getGetMAROC24ArticleQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMAROC24Article>>,
   TError = ErrorType<void>,
 >(
   slug: string,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMAGHREB24Article>>,
+      Awaited<ReturnType<typeof getMAROC24Article>>,
       TError,
       TData
     >;
@@ -2218,11 +2218,11 @@ export const getGetMAGHREB24ArticleQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getGetMAGHREB24ArticleQueryKey(slug);
+    queryOptions?.queryKey ?? getGetMAROC24ArticleQueryKey(slug);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getMAGHREB24Article>>
-  > = ({ signal }) => getMAGHREB24Article(slug, { signal, ...requestOptions });
+    Awaited<ReturnType<typeof getMAROC24Article>>
+  > = ({ signal }) => getMAROC24Article(slug, { signal, ...requestOptions });
 
   return {
     queryKey,
@@ -2230,36 +2230,36 @@ export const getGetMAGHREB24ArticleQueryOptions = <
     enabled: !!slug,
     ...queryOptions,
   } as UseQueryOptions<
-    Awaited<ReturnType<typeof getMAGHREB24Article>>,
+    Awaited<ReturnType<typeof getMAROC24Article>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type GetMAGHREB24ArticleQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getMAGHREB24Article>>
+export type GetMAROC24ArticleQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMAROC24Article>>
 >;
-export type GetMAGHREB24ArticleQueryError = ErrorType<void>;
+export type GetMAROC24ArticleQueryError = ErrorType<void>;
 
 /**
  * @summary Get article by slug
  */
 
-export function useGetMAGHREB24Article<
-  TData = Awaited<ReturnType<typeof getMAGHREB24Article>>,
+export function useGetMAROC24Article<
+  TData = Awaited<ReturnType<typeof getMAROC24Article>>,
   TError = ErrorType<void>,
 >(
   slug: string,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMAGHREB24Article>>,
+      Awaited<ReturnType<typeof getMAROC24Article>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getGetMAGHREB24ArticleQueryOptions(slug, options);
+  const queryOptions = getGetMAROC24ArticleQueryOptions(slug, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2268,32 +2268,32 @@ export function useGetMAGHREB24Article<
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getGetMAGHREB24CommentsUrl = (id: number) => {
-  return `/api/MAGHREB24/articles/${id}/comments`;
+export const getGetMAROC24CommentsUrl = (id: number) => {
+  return `/api/MAROC24/articles/${id}/comments`;
 };
 
-export const getMAGHREB24Comments = async (
+export const getMAROC24Comments = async (
   id: number,
   options?: RequestInit,
-): Promise<MAGHREB24Comment[]> => {
-  return customFetch<MAGHREB24Comment[]>(getGetMAGHREB24CommentsUrl(id), {
+): Promise<MAROC24Comment[]> => {
+  return customFetch<MAROC24Comment[]>(getGetMAROC24CommentsUrl(id), {
     ...options,
     method: "GET",
   });
 };
 
-export const getGetMAGHREB24CommentsQueryKey = (id: number) => {
-  return [`/api/MAGHREB24/articles/${id}/comments`] as const;
+export const getGetMAROC24CommentsQueryKey = (id: number) => {
+  return [`/api/MAROC24/articles/${id}/comments`] as const;
 };
 
-export const getGetMAGHREB24CommentsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getMAGHREB24Comments>>,
+export const getGetMAROC24CommentsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMAROC24Comments>>,
   TError = ErrorType<unknown>,
 >(
   id: number,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMAGHREB24Comments>>,
+      Awaited<ReturnType<typeof getMAROC24Comments>>,
       TError,
       TData
     >;
@@ -2302,11 +2302,11 @@ export const getGetMAGHREB24CommentsQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetMAGHREB24CommentsQueryKey(id);
+  const queryKey = queryOptions?.queryKey ?? getGetMAROC24CommentsQueryKey(id);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getMAGHREB24Comments>>
-  > = ({ signal }) => getMAGHREB24Comments(id, { signal, ...requestOptions });
+    Awaited<ReturnType<typeof getMAROC24Comments>>
+  > = ({ signal }) => getMAROC24Comments(id, { signal, ...requestOptions });
 
   return {
     queryKey,
@@ -2314,32 +2314,32 @@ export const getGetMAGHREB24CommentsQueryOptions = <
     enabled: !!id,
     ...queryOptions,
   } as UseQueryOptions<
-    Awaited<ReturnType<typeof getMAGHREB24Comments>>,
+    Awaited<ReturnType<typeof getMAROC24Comments>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type GetMAGHREB24CommentsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getMAGHREB24Comments>>
+export type GetMAROC24CommentsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMAROC24Comments>>
 >;
-export type GetMAGHREB24CommentsQueryError = ErrorType<unknown>;
+export type GetMAROC24CommentsQueryError = ErrorType<unknown>;
 
-export function useGetMAGHREB24Comments<
-  TData = Awaited<ReturnType<typeof getMAGHREB24Comments>>,
+export function useGetMAROC24Comments<
+  TData = Awaited<ReturnType<typeof getMAROC24Comments>>,
   TError = ErrorType<unknown>,
 >(
   id: number,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMAGHREB24Comments>>,
+      Awaited<ReturnType<typeof getMAROC24Comments>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getGetMAGHREB24CommentsQueryOptions(id, options);
+  const queryOptions = getGetMAROC24CommentsQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2348,41 +2348,41 @@ export function useGetMAGHREB24Comments<
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getAddMAGHREB24CommentUrl = (id: number) => {
-  return `/api/MAGHREB24/articles/${id}/comments`;
+export const getAddMAROC24CommentUrl = (id: number) => {
+  return `/api/MAROC24/articles/${id}/comments`;
 };
 
-export const addMAGHREB24Comment = async (
+export const addMAROC24Comment = async (
   id: number,
-  addMAGHREB24CommentBody: AddMAGHREB24CommentBody,
+  addMAROC24CommentBody: AddMAROC24CommentBody,
   options?: RequestInit,
-): Promise<MAGHREB24Comment> => {
-  return customFetch<MAGHREB24Comment>(getAddMAGHREB24CommentUrl(id), {
+): Promise<MAROC24Comment> => {
+  return customFetch<MAROC24Comment>(getAddMAROC24CommentUrl(id), {
     ...options,
     method: "POST",
     headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(addMAGHREB24CommentBody),
+    body: JSON.stringify(addMAROC24CommentBody),
   });
 };
 
-export const getAddMAGHREB24CommentMutationOptions = <
+export const getAddMAROC24CommentMutationOptions = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof addMAGHREB24Comment>>,
+    Awaited<ReturnType<typeof addMAROC24Comment>>,
     TError,
-    { id: number; data: BodyType<AddMAGHREB24CommentBody> },
+    { id: number; data: BodyType<AddMAROC24CommentBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof addMAGHREB24Comment>>,
+  Awaited<ReturnType<typeof addMAROC24Comment>>,
   TError,
-  { id: number; data: BodyType<AddMAGHREB24CommentBody> },
+  { id: number; data: BodyType<AddMAROC24CommentBody> },
   TContext
 > => {
-  const mutationKey = ["addMAGHREB24Comment"];
+  const mutationKey = ["addMAROC24Comment"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -2392,66 +2392,66 @@ export const getAddMAGHREB24CommentMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof addMAGHREB24Comment>>,
-    { id: number; data: BodyType<AddMAGHREB24CommentBody> }
+    Awaited<ReturnType<typeof addMAROC24Comment>>,
+    { id: number; data: BodyType<AddMAROC24CommentBody> }
   > = (props) => {
     const { id, data } = props ?? {};
 
-    return addMAGHREB24Comment(id, data, requestOptions);
+    return addMAROC24Comment(id, data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type AddMAGHREB24CommentMutationResult = NonNullable<
-  Awaited<ReturnType<typeof addMAGHREB24Comment>>
+export type AddMAROC24CommentMutationResult = NonNullable<
+  Awaited<ReturnType<typeof addMAROC24Comment>>
 >;
-export type AddMAGHREB24CommentMutationBody = BodyType<AddMAGHREB24CommentBody>;
-export type AddMAGHREB24CommentMutationError = ErrorType<unknown>;
+export type AddMAROC24CommentMutationBody = BodyType<AddMAROC24CommentBody>;
+export type AddMAROC24CommentMutationError = ErrorType<unknown>;
 
-export const useAddMAGHREB24Comment = <
+export const useAddMAROC24Comment = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof addMAGHREB24Comment>>,
+    Awaited<ReturnType<typeof addMAROC24Comment>>,
     TError,
-    { id: number; data: BodyType<AddMAGHREB24CommentBody> },
+    { id: number; data: BodyType<AddMAROC24CommentBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof addMAGHREB24Comment>>,
+  Awaited<ReturnType<typeof addMAROC24Comment>>,
   TError,
-  { id: number; data: BodyType<AddMAGHREB24CommentBody> },
+  { id: number; data: BodyType<AddMAROC24CommentBody> },
   TContext
 > => {
-  return useMutation(getAddMAGHREB24CommentMutationOptions(options));
+  return useMutation(getAddMAROC24CommentMutationOptions(options));
 };
 
-export const getListMAGHREB24AuthorsUrl = () => {
-  return `/api/MAGHREB24/authors`;
+export const getListMAROC24AuthorsUrl = () => {
+  return `/api/MAROC24/authors`;
 };
 
-export const listMAGHREB24Authors = async (
+export const listMAROC24Authors = async (
   options?: RequestInit,
-): Promise<MAGHREB24Author[]> => {
-  return customFetch<MAGHREB24Author[]>(getListMAGHREB24AuthorsUrl(), {
+): Promise<MAROC24Author[]> => {
+  return customFetch<MAROC24Author[]>(getListMAROC24AuthorsUrl(), {
     ...options,
     method: "GET",
   });
 };
 
-export const getListMAGHREB24AuthorsQueryKey = () => {
-  return [`/api/MAGHREB24/authors`] as const;
+export const getListMAROC24AuthorsQueryKey = () => {
+  return [`/api/MAROC24/authors`] as const;
 };
 
-export const getListMAGHREB24AuthorsQueryOptions = <
-  TData = Awaited<ReturnType<typeof listMAGHREB24Authors>>,
+export const getListMAROC24AuthorsQueryOptions = <
+  TData = Awaited<ReturnType<typeof listMAROC24Authors>>,
   TError = ErrorType<unknown>,
 >(options?: {
   query?: UseQueryOptions<
-    Awaited<ReturnType<typeof listMAGHREB24Authors>>,
+    Awaited<ReturnType<typeof listMAROC24Authors>>,
     TError,
     TData
   >;
@@ -2459,36 +2459,36 @@ export const getListMAGHREB24AuthorsQueryOptions = <
 }) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getListMAGHREB24AuthorsQueryKey();
+  const queryKey = queryOptions?.queryKey ?? getListMAROC24AuthorsQueryKey();
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof listMAGHREB24Authors>>
-  > = ({ signal }) => listMAGHREB24Authors({ signal, ...requestOptions });
+    Awaited<ReturnType<typeof listMAROC24Authors>>
+  > = ({ signal }) => listMAROC24Authors({ signal, ...requestOptions });
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof listMAGHREB24Authors>>,
+    Awaited<ReturnType<typeof listMAROC24Authors>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type ListMAGHREB24AuthorsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof listMAGHREB24Authors>>
+export type ListMAROC24AuthorsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listMAROC24Authors>>
 >;
-export type ListMAGHREB24AuthorsQueryError = ErrorType<unknown>;
+export type ListMAROC24AuthorsQueryError = ErrorType<unknown>;
 
-export function useListMAGHREB24Authors<
-  TData = Awaited<ReturnType<typeof listMAGHREB24Authors>>,
+export function useListMAROC24Authors<
+  TData = Awaited<ReturnType<typeof listMAROC24Authors>>,
   TError = ErrorType<unknown>,
 >(options?: {
   query?: UseQueryOptions<
-    Awaited<ReturnType<typeof listMAGHREB24Authors>>,
+    Awaited<ReturnType<typeof listMAROC24Authors>>,
     TError,
     TData
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getListMAGHREB24AuthorsQueryOptions(options);
+  const queryOptions = getListMAROC24AuthorsQueryOptions(options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2497,32 +2497,32 @@ export function useListMAGHREB24Authors<
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getGetMAGHREB24AuthorUrl = (slug: string) => {
-  return `/api/MAGHREB24/authors/${slug}`;
+export const getGetMAROC24AuthorUrl = (slug: string) => {
+  return `/api/MAROC24/authors/${slug}`;
 };
 
-export const getMAGHREB24Author = async (
+export const getMAROC24Author = async (
   slug: string,
   options?: RequestInit,
-): Promise<MAGHREB24Author> => {
-  return customFetch<MAGHREB24Author>(getGetMAGHREB24AuthorUrl(slug), {
+): Promise<MAROC24Author> => {
+  return customFetch<MAROC24Author>(getGetMAROC24AuthorUrl(slug), {
     ...options,
     method: "GET",
   });
 };
 
-export const getGetMAGHREB24AuthorQueryKey = (slug: string) => {
-  return [`/api/MAGHREB24/authors/${slug}`] as const;
+export const getGetMAROC24AuthorQueryKey = (slug: string) => {
+  return [`/api/MAROC24/authors/${slug}`] as const;
 };
 
-export const getGetMAGHREB24AuthorQueryOptions = <
-  TData = Awaited<ReturnType<typeof getMAGHREB24Author>>,
+export const getGetMAROC24AuthorQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMAROC24Author>>,
   TError = ErrorType<void>,
 >(
   slug: string,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMAGHREB24Author>>,
+      Awaited<ReturnType<typeof getMAROC24Author>>,
       TError,
       TData
     >;
@@ -2531,11 +2531,11 @@ export const getGetMAGHREB24AuthorQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetMAGHREB24AuthorQueryKey(slug);
+  const queryKey = queryOptions?.queryKey ?? getGetMAROC24AuthorQueryKey(slug);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getMAGHREB24Author>>
-  > = ({ signal }) => getMAGHREB24Author(slug, { signal, ...requestOptions });
+    Awaited<ReturnType<typeof getMAROC24Author>>
+  > = ({ signal }) => getMAROC24Author(slug, { signal, ...requestOptions });
 
   return {
     queryKey,
@@ -2543,32 +2543,32 @@ export const getGetMAGHREB24AuthorQueryOptions = <
     enabled: !!slug,
     ...queryOptions,
   } as UseQueryOptions<
-    Awaited<ReturnType<typeof getMAGHREB24Author>>,
+    Awaited<ReturnType<typeof getMAROC24Author>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type GetMAGHREB24AuthorQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getMAGHREB24Author>>
+export type GetMAROC24AuthorQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMAROC24Author>>
 >;
-export type GetMAGHREB24AuthorQueryError = ErrorType<void>;
+export type GetMAROC24AuthorQueryError = ErrorType<void>;
 
-export function useGetMAGHREB24Author<
-  TData = Awaited<ReturnType<typeof getMAGHREB24Author>>,
+export function useGetMAROC24Author<
+  TData = Awaited<ReturnType<typeof getMAROC24Author>>,
   TError = ErrorType<void>,
 >(
   slug: string,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMAGHREB24Author>>,
+      Awaited<ReturnType<typeof getMAROC24Author>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getGetMAGHREB24AuthorQueryOptions(slug, options);
+  const queryOptions = getGetMAROC24AuthorQueryOptions(slug, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2577,8 +2577,8 @@ export function useGetMAGHREB24Author<
   return { ...query, queryKey: queryOptions.queryKey };
 }
 
-export const getGetMAGHREB24NewsroomUrl = (
-  params?: GetMAGHREB24NewsroomParams,
+export const getGetMAROC24NewsroomUrl = (
+  params?: GetMAROC24NewsroomParams,
 ) => {
   const normalizedParams = new URLSearchParams();
 
@@ -2591,34 +2591,34 @@ export const getGetMAGHREB24NewsroomUrl = (
   const stringifiedParams = normalizedParams.toString();
 
   return stringifiedParams.length > 0
-    ? `/api/MAGHREB24/newsroom?${stringifiedParams}`
-    : `/api/MAGHREB24/newsroom`;
+    ? `/api/MAROC24/newsroom?${stringifiedParams}`
+    : `/api/MAROC24/newsroom`;
 };
 
-export const getMAGHREB24Newsroom = async (
-  params?: GetMAGHREB24NewsroomParams,
+export const getMAROC24Newsroom = async (
+  params?: GetMAROC24NewsroomParams,
   options?: RequestInit,
-): Promise<MAGHREB24NewsroomLog[]> => {
-  return customFetch<MAGHREB24NewsroomLog[]>(getGetMAGHREB24NewsroomUrl(params), {
+): Promise<MAROC24NewsroomLog[]> => {
+  return customFetch<MAROC24NewsroomLog[]>(getGetMAROC24NewsroomUrl(params), {
     ...options,
     method: "GET",
   });
 };
 
-export const getGetMAGHREB24NewsroomQueryKey = (
-  params?: GetMAGHREB24NewsroomParams,
+export const getGetMAROC24NewsroomQueryKey = (
+  params?: GetMAROC24NewsroomParams,
 ) => {
-  return [`/api/MAGHREB24/newsroom`, ...(params ? [params] : [])] as const;
+  return [`/api/MAROC24/newsroom`, ...(params ? [params] : [])] as const;
 };
 
-export const getGetMAGHREB24NewsroomQueryOptions = <
-  TData = Awaited<ReturnType<typeof getMAGHREB24Newsroom>>,
+export const getGetMAROC24NewsroomQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMAROC24Newsroom>>,
   TError = ErrorType<unknown>,
 >(
-  params?: GetMAGHREB24NewsroomParams,
+  params?: GetMAROC24NewsroomParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMAGHREB24Newsroom>>,
+      Awaited<ReturnType<typeof getMAROC24Newsroom>>,
       TError,
       TData
     >;
@@ -2628,40 +2628,40 @@ export const getGetMAGHREB24NewsroomQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getGetMAGHREB24NewsroomQueryKey(params);
+    queryOptions?.queryKey ?? getGetMAROC24NewsroomQueryKey(params);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getMAGHREB24Newsroom>>
+    Awaited<ReturnType<typeof getMAROC24Newsroom>>
   > = ({ signal }) =>
-    getMAGHREB24Newsroom(params, { signal, ...requestOptions });
+    getMAROC24Newsroom(params, { signal, ...requestOptions });
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getMAGHREB24Newsroom>>,
+    Awaited<ReturnType<typeof getMAROC24Newsroom>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type GetMAGHREB24NewsroomQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getMAGHREB24Newsroom>>
+export type GetMAROC24NewsroomQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMAROC24Newsroom>>
 >;
-export type GetMAGHREB24NewsroomQueryError = ErrorType<unknown>;
+export type GetMAROC24NewsroomQueryError = ErrorType<unknown>;
 
-export function useGetMAGHREB24Newsroom<
-  TData = Awaited<ReturnType<typeof getMAGHREB24Newsroom>>,
+export function useGetMAROC24Newsroom<
+  TData = Awaited<ReturnType<typeof getMAROC24Newsroom>>,
   TError = ErrorType<unknown>,
 >(
-  params?: GetMAGHREB24NewsroomParams,
+  params?: GetMAROC24NewsroomParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMAGHREB24Newsroom>>,
+      Awaited<ReturnType<typeof getMAROC24Newsroom>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getGetMAGHREB24NewsroomQueryOptions(params, options);
+  const queryOptions = getGetMAROC24NewsroomQueryOptions(params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -2673,43 +2673,43 @@ export function useGetMAGHREB24Newsroom<
 /**
  * @summary Trigger AI article generation
  */
-export const getTriggerMAGHREB24GenerationUrl = () => {
-  return `/api/MAGHREB24/agents/generate`;
+export const getTriggerMAROC24GenerationUrl = () => {
+  return `/api/MAROC24/agents/generate`;
 };
 
-export const triggerMAGHREB24Generation = async (
-  triggerMAGHREB24GenerationBody: TriggerMAGHREB24GenerationBody,
+export const triggerMAROC24Generation = async (
+  triggerMAROC24GenerationBody: TriggerMAROC24GenerationBody,
   options?: RequestInit,
-): Promise<TriggerMAGHREB24Generation200> => {
-  return customFetch<TriggerMAGHREB24Generation200>(
-    getTriggerMAGHREB24GenerationUrl(),
+): Promise<TriggerMAROC24Generation200> => {
+  return customFetch<TriggerMAROC24Generation200>(
+    getTriggerMAROC24GenerationUrl(),
     {
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(triggerMAGHREB24GenerationBody),
+      body: JSON.stringify(triggerMAROC24GenerationBody),
     },
   );
 };
 
-export const getTriggerMAGHREB24GenerationMutationOptions = <
+export const getTriggerMAROC24GenerationMutationOptions = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof triggerMAGHREB24Generation>>,
+    Awaited<ReturnType<typeof triggerMAROC24Generation>>,
     TError,
-    { data: BodyType<TriggerMAGHREB24GenerationBody> },
+    { data: BodyType<TriggerMAROC24GenerationBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof triggerMAGHREB24Generation>>,
+  Awaited<ReturnType<typeof triggerMAROC24Generation>>,
   TError,
-  { data: BodyType<TriggerMAGHREB24GenerationBody> },
+  { data: BodyType<TriggerMAROC24GenerationBody> },
   TContext
 > => {
-  const mutationKey = ["triggerMAGHREB24Generation"];
+  const mutationKey = ["triggerMAROC24Generation"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -2719,87 +2719,87 @@ export const getTriggerMAGHREB24GenerationMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof triggerMAGHREB24Generation>>,
-    { data: BodyType<TriggerMAGHREB24GenerationBody> }
+    Awaited<ReturnType<typeof triggerMAROC24Generation>>,
+    { data: BodyType<TriggerMAROC24GenerationBody> }
   > = (props) => {
     const { data } = props ?? {};
 
-    return triggerMAGHREB24Generation(data, requestOptions);
+    return triggerMAROC24Generation(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type TriggerMAGHREB24GenerationMutationResult = NonNullable<
-  Awaited<ReturnType<typeof triggerMAGHREB24Generation>>
+export type TriggerMAROC24GenerationMutationResult = NonNullable<
+  Awaited<ReturnType<typeof triggerMAROC24Generation>>
 >;
-export type TriggerMAGHREB24GenerationMutationBody =
-  BodyType<TriggerMAGHREB24GenerationBody>;
-export type TriggerMAGHREB24GenerationMutationError = ErrorType<void>;
+export type TriggerMAROC24GenerationMutationBody =
+  BodyType<TriggerMAROC24GenerationBody>;
+export type TriggerMAROC24GenerationMutationError = ErrorType<void>;
 
 /**
  * @summary Trigger AI article generation
  */
-export const useTriggerMAGHREB24Generation = <
+export const useTriggerMAROC24Generation = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof triggerMAGHREB24Generation>>,
+    Awaited<ReturnType<typeof triggerMAROC24Generation>>,
     TError,
-    { data: BodyType<TriggerMAGHREB24GenerationBody> },
+    { data: BodyType<TriggerMAROC24GenerationBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof triggerMAGHREB24Generation>>,
+  Awaited<ReturnType<typeof triggerMAROC24Generation>>,
   TError,
-  { data: BodyType<TriggerMAGHREB24GenerationBody> },
+  { data: BodyType<TriggerMAROC24GenerationBody> },
   TContext
 > => {
-  return useMutation(getTriggerMAGHREB24GenerationMutationOptions(options));
+  return useMutation(getTriggerMAROC24GenerationMutationOptions(options));
 };
 
 /**
  * @summary Publisher sends a message to the newsroom; journalists respond in character
  */
-export const getMAGHREB24NewsroomDiscussUrl = () => {
-  return `/api/MAGHREB24/newsroom/discuss`;
+export const getMAROC24NewsroomDiscussUrl = () => {
+  return `/api/MAROC24/newsroom/discuss`;
 };
 
-export const MAGHREB24NewsroomDiscuss = async (
-  MAGHREB24NewsroomDiscussBody: MAGHREB24NewsroomDiscussBody,
+export const MAROC24NewsroomDiscuss = async (
+  MAROC24NewsroomDiscussBody: MAROC24NewsroomDiscussBody,
   options?: RequestInit,
-): Promise<MAGHREB24NewsroomDiscuss200> => {
-  return customFetch<MAGHREB24NewsroomDiscuss200>(
-    getMAGHREB24NewsroomDiscussUrl(),
+): Promise<MAROC24NewsroomDiscuss200> => {
+  return customFetch<MAROC24NewsroomDiscuss200>(
+    getMAROC24NewsroomDiscussUrl(),
     {
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(MAGHREB24NewsroomDiscussBody),
+      body: JSON.stringify(MAROC24NewsroomDiscussBody),
     },
   );
 };
 
-export const getMAGHREB24NewsroomDiscussMutationOptions = <
+export const getMAROC24NewsroomDiscussMutationOptions = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>,
+    Awaited<ReturnType<typeof MAROC24NewsroomDiscuss>>,
     TError,
-    { data: BodyType<MAGHREB24NewsroomDiscussBody> },
+    { data: BodyType<MAROC24NewsroomDiscussBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>,
+  Awaited<ReturnType<typeof MAROC24NewsroomDiscuss>>,
   TError,
-  { data: BodyType<MAGHREB24NewsroomDiscussBody> },
+  { data: BodyType<MAROC24NewsroomDiscussBody> },
   TContext
 > => {
-  const mutationKey = ["MAGHREB24NewsroomDiscuss"];
+  const mutationKey = ["MAROC24NewsroomDiscuss"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -2809,84 +2809,84 @@ export const getMAGHREB24NewsroomDiscussMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>,
-    { data: BodyType<MAGHREB24NewsroomDiscussBody> }
+    Awaited<ReturnType<typeof MAROC24NewsroomDiscuss>>,
+    { data: BodyType<MAROC24NewsroomDiscussBody> }
   > = (props) => {
     const { data } = props ?? {};
 
-    return MAGHREB24NewsroomDiscuss(data, requestOptions);
+    return MAROC24NewsroomDiscuss(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type MAGHREB24NewsroomDiscussMutationResult = NonNullable<
-  Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>
+export type MAROC24NewsroomDiscussMutationResult = NonNullable<
+  Awaited<ReturnType<typeof MAROC24NewsroomDiscuss>>
 >;
-export type MAGHREB24NewsroomDiscussMutationBody =
-  BodyType<MAGHREB24NewsroomDiscussBody>;
-export type MAGHREB24NewsroomDiscussMutationError = ErrorType<void>;
+export type MAROC24NewsroomDiscussMutationBody =
+  BodyType<MAROC24NewsroomDiscussBody>;
+export type MAROC24NewsroomDiscussMutationError = ErrorType<void>;
 
 /**
  * @summary Publisher sends a message to the newsroom; journalists respond in character
  */
-export const useMAGHREB24NewsroomDiscuss = <
+export const useMAROC24NewsroomDiscuss = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>,
+    Awaited<ReturnType<typeof MAROC24NewsroomDiscuss>>,
     TError,
-    { data: BodyType<MAGHREB24NewsroomDiscussBody> },
+    { data: BodyType<MAROC24NewsroomDiscussBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof MAGHREB24NewsroomDiscuss>>,
+  Awaited<ReturnType<typeof MAROC24NewsroomDiscuss>>,
   TError,
-  { data: BodyType<MAGHREB24NewsroomDiscussBody> },
+  { data: BodyType<MAROC24NewsroomDiscussBody> },
   TContext
 > => {
-  return useMutation(getMAGHREB24NewsroomDiscussMutationOptions(options));
+  return useMutation(getMAROC24NewsroomDiscussMutationOptions(options));
 };
 
 /**
  * @summary Submit a reader article for editorial review
  */
-export const getSubmitMAGHREB24ArticleUrl = () => {
-  return `/api/MAGHREB24/submissions`;
+export const getSubmitMAROC24ArticleUrl = () => {
+  return `/api/MAROC24/submissions`;
 };
 
-export const submitMAGHREB24Article = async (
-  submitMAGHREB24ArticleBody: SubmitMAGHREB24ArticleBody,
+export const submitMAROC24Article = async (
+  submitMAROC24ArticleBody: SubmitMAROC24ArticleBody,
   options?: RequestInit,
-): Promise<SubmitMAGHREB24Article200> => {
-  return customFetch<SubmitMAGHREB24Article200>(getSubmitMAGHREB24ArticleUrl(), {
+): Promise<SubmitMAROC24Article200> => {
+  return customFetch<SubmitMAROC24Article200>(getSubmitMAROC24ArticleUrl(), {
     ...options,
     method: "POST",
     headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(submitMAGHREB24ArticleBody),
+    body: JSON.stringify(submitMAROC24ArticleBody),
   });
 };
 
-export const getSubmitMAGHREB24ArticleMutationOptions = <
+export const getSubmitMAROC24ArticleMutationOptions = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof submitMAGHREB24Article>>,
+    Awaited<ReturnType<typeof submitMAROC24Article>>,
     TError,
-    { data: BodyType<SubmitMAGHREB24ArticleBody> },
+    { data: BodyType<SubmitMAROC24ArticleBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof submitMAGHREB24Article>>,
+  Awaited<ReturnType<typeof submitMAROC24Article>>,
   TError,
-  { data: BodyType<SubmitMAGHREB24ArticleBody> },
+  { data: BodyType<SubmitMAROC24ArticleBody> },
   TContext
 > => {
-  const mutationKey = ["submitMAGHREB24Article"];
+  const mutationKey = ["submitMAROC24Article"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -2896,52 +2896,52 @@ export const getSubmitMAGHREB24ArticleMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof submitMAGHREB24Article>>,
-    { data: BodyType<SubmitMAGHREB24ArticleBody> }
+    Awaited<ReturnType<typeof submitMAROC24Article>>,
+    { data: BodyType<SubmitMAROC24ArticleBody> }
   > = (props) => {
     const { data } = props ?? {};
 
-    return submitMAGHREB24Article(data, requestOptions);
+    return submitMAROC24Article(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type SubmitMAGHREB24ArticleMutationResult = NonNullable<
-  Awaited<ReturnType<typeof submitMAGHREB24Article>>
+export type SubmitMAROC24ArticleMutationResult = NonNullable<
+  Awaited<ReturnType<typeof submitMAROC24Article>>
 >;
-export type SubmitMAGHREB24ArticleMutationBody =
-  BodyType<SubmitMAGHREB24ArticleBody>;
-export type SubmitMAGHREB24ArticleMutationError = ErrorType<unknown>;
+export type SubmitMAROC24ArticleMutationBody =
+  BodyType<SubmitMAROC24ArticleBody>;
+export type SubmitMAROC24ArticleMutationError = ErrorType<unknown>;
 
 /**
  * @summary Submit a reader article for editorial review
  */
-export const useSubmitMAGHREB24Article = <
+export const useSubmitMAROC24Article = <
   TError = ErrorType<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof submitMAGHREB24Article>>,
+    Awaited<ReturnType<typeof submitMAROC24Article>>,
     TError,
-    { data: BodyType<SubmitMAGHREB24ArticleBody> },
+    { data: BodyType<SubmitMAROC24ArticleBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof submitMAGHREB24Article>>,
+  Awaited<ReturnType<typeof submitMAROC24Article>>,
   TError,
-  { data: BodyType<SubmitMAGHREB24ArticleBody> },
+  { data: BodyType<SubmitMAROC24ArticleBody> },
   TContext
 > => {
-  return useMutation(getSubmitMAGHREB24ArticleMutationOptions(options));
+  return useMutation(getSubmitMAROC24ArticleMutationOptions(options));
 };
 
 /**
  * @summary Admin list of reader submissions
  */
-export const getListMAGHREB24SubmissionsUrl = (
-  params: ListMAGHREB24SubmissionsParams,
+export const getListMAROC24SubmissionsUrl = (
+  params: ListMAROC24SubmissionsParams,
 ) => {
   const normalizedParams = new URLSearchParams();
 
@@ -2954,16 +2954,16 @@ export const getListMAGHREB24SubmissionsUrl = (
   const stringifiedParams = normalizedParams.toString();
 
   return stringifiedParams.length > 0
-    ? `/api/MAGHREB24/submissions?${stringifiedParams}`
-    : `/api/MAGHREB24/submissions`;
+    ? `/api/MAROC24/submissions?${stringifiedParams}`
+    : `/api/MAROC24/submissions`;
 };
 
-export const listMAGHREB24Submissions = async (
-  params: ListMAGHREB24SubmissionsParams,
+export const listMAROC24Submissions = async (
+  params: ListMAROC24SubmissionsParams,
   options?: RequestInit,
-): Promise<MAGHREB24Submission[]> => {
-  return customFetch<MAGHREB24Submission[]>(
-    getListMAGHREB24SubmissionsUrl(params),
+): Promise<MAROC24Submission[]> => {
+  return customFetch<MAROC24Submission[]>(
+    getListMAROC24SubmissionsUrl(params),
     {
       ...options,
       method: "GET",
@@ -2971,20 +2971,20 @@ export const listMAGHREB24Submissions = async (
   );
 };
 
-export const getListMAGHREB24SubmissionsQueryKey = (
-  params?: ListMAGHREB24SubmissionsParams,
+export const getListMAROC24SubmissionsQueryKey = (
+  params?: ListMAROC24SubmissionsParams,
 ) => {
-  return [`/api/MAGHREB24/submissions`, ...(params ? [params] : [])] as const;
+  return [`/api/MAROC24/submissions`, ...(params ? [params] : [])] as const;
 };
 
-export const getListMAGHREB24SubmissionsQueryOptions = <
-  TData = Awaited<ReturnType<typeof listMAGHREB24Submissions>>,
+export const getListMAROC24SubmissionsQueryOptions = <
+  TData = Awaited<ReturnType<typeof listMAROC24Submissions>>,
   TError = ErrorType<void>,
 >(
-  params: ListMAGHREB24SubmissionsParams,
+  params: ListMAROC24SubmissionsParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof listMAGHREB24Submissions>>,
+      Awaited<ReturnType<typeof listMAROC24Submissions>>,
       TError,
       TData
     >;
@@ -2994,44 +2994,44 @@ export const getListMAGHREB24SubmissionsQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getListMAGHREB24SubmissionsQueryKey(params);
+    queryOptions?.queryKey ?? getListMAROC24SubmissionsQueryKey(params);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof listMAGHREB24Submissions>>
+    Awaited<ReturnType<typeof listMAROC24Submissions>>
   > = ({ signal }) =>
-    listMAGHREB24Submissions(params, { signal, ...requestOptions });
+    listMAROC24Submissions(params, { signal, ...requestOptions });
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof listMAGHREB24Submissions>>,
+    Awaited<ReturnType<typeof listMAROC24Submissions>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type ListMAGHREB24SubmissionsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof listMAGHREB24Submissions>>
+export type ListMAROC24SubmissionsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof listMAROC24Submissions>>
 >;
-export type ListMAGHREB24SubmissionsQueryError = ErrorType<void>;
+export type ListMAROC24SubmissionsQueryError = ErrorType<void>;
 
 /**
  * @summary Admin list of reader submissions
  */
 
-export function useListMAGHREB24Submissions<
-  TData = Awaited<ReturnType<typeof listMAGHREB24Submissions>>,
+export function useListMAROC24Submissions<
+  TData = Awaited<ReturnType<typeof listMAROC24Submissions>>,
   TError = ErrorType<void>,
 >(
-  params: ListMAGHREB24SubmissionsParams,
+  params: ListMAROC24SubmissionsParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof listMAGHREB24Submissions>>,
+      Awaited<ReturnType<typeof listMAROC24Submissions>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getListMAGHREB24SubmissionsQueryOptions(params, options);
+  const queryOptions = getListMAROC24SubmissionsQueryOptions(params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -3043,44 +3043,44 @@ export function useListMAGHREB24Submissions<
 /**
  * @summary Admin approves a reader submission and publishes it
  */
-export const getApproveMAGHREB24SubmissionUrl = (id: number) => {
-  return `/api/MAGHREB24/submissions/${id}/approve`;
+export const getApproveMAROC24SubmissionUrl = (id: number) => {
+  return `/api/MAROC24/submissions/${id}/approve`;
 };
 
-export const approveMAGHREB24Submission = async (
+export const approveMAROC24Submission = async (
   id: number,
-  approveMAGHREB24SubmissionBody: ApproveMAGHREB24SubmissionBody,
+  approveMAROC24SubmissionBody: ApproveMAROC24SubmissionBody,
   options?: RequestInit,
-): Promise<ApproveMAGHREB24Submission200> => {
-  return customFetch<ApproveMAGHREB24Submission200>(
-    getApproveMAGHREB24SubmissionUrl(id),
+): Promise<ApproveMAROC24Submission200> => {
+  return customFetch<ApproveMAROC24Submission200>(
+    getApproveMAROC24SubmissionUrl(id),
     {
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(approveMAGHREB24SubmissionBody),
+      body: JSON.stringify(approveMAROC24SubmissionBody),
     },
   );
 };
 
-export const getApproveMAGHREB24SubmissionMutationOptions = <
+export const getApproveMAROC24SubmissionMutationOptions = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof approveMAGHREB24Submission>>,
+    Awaited<ReturnType<typeof approveMAROC24Submission>>,
     TError,
-    { id: number; data: BodyType<ApproveMAGHREB24SubmissionBody> },
+    { id: number; data: BodyType<ApproveMAROC24SubmissionBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof approveMAGHREB24Submission>>,
+  Awaited<ReturnType<typeof approveMAROC24Submission>>,
   TError,
-  { id: number; data: BodyType<ApproveMAGHREB24SubmissionBody> },
+  { id: number; data: BodyType<ApproveMAROC24SubmissionBody> },
   TContext
 > => {
-  const mutationKey = ["approveMAGHREB24Submission"];
+  const mutationKey = ["approveMAROC24Submission"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -3090,88 +3090,88 @@ export const getApproveMAGHREB24SubmissionMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof approveMAGHREB24Submission>>,
-    { id: number; data: BodyType<ApproveMAGHREB24SubmissionBody> }
+    Awaited<ReturnType<typeof approveMAROC24Submission>>,
+    { id: number; data: BodyType<ApproveMAROC24SubmissionBody> }
   > = (props) => {
     const { id, data } = props ?? {};
 
-    return approveMAGHREB24Submission(id, data, requestOptions);
+    return approveMAROC24Submission(id, data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type ApproveMAGHREB24SubmissionMutationResult = NonNullable<
-  Awaited<ReturnType<typeof approveMAGHREB24Submission>>
+export type ApproveMAROC24SubmissionMutationResult = NonNullable<
+  Awaited<ReturnType<typeof approveMAROC24Submission>>
 >;
-export type ApproveMAGHREB24SubmissionMutationBody =
-  BodyType<ApproveMAGHREB24SubmissionBody>;
-export type ApproveMAGHREB24SubmissionMutationError = ErrorType<void>;
+export type ApproveMAROC24SubmissionMutationBody =
+  BodyType<ApproveMAROC24SubmissionBody>;
+export type ApproveMAROC24SubmissionMutationError = ErrorType<void>;
 
 /**
  * @summary Admin approves a reader submission and publishes it
  */
-export const useApproveMAGHREB24Submission = <
+export const useApproveMAROC24Submission = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof approveMAGHREB24Submission>>,
+    Awaited<ReturnType<typeof approveMAROC24Submission>>,
     TError,
-    { id: number; data: BodyType<ApproveMAGHREB24SubmissionBody> },
+    { id: number; data: BodyType<ApproveMAROC24SubmissionBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof approveMAGHREB24Submission>>,
+  Awaited<ReturnType<typeof approveMAROC24Submission>>,
   TError,
-  { id: number; data: BodyType<ApproveMAGHREB24SubmissionBody> },
+  { id: number; data: BodyType<ApproveMAROC24SubmissionBody> },
   TContext
 > => {
-  return useMutation(getApproveMAGHREB24SubmissionMutationOptions(options));
+  return useMutation(getApproveMAROC24SubmissionMutationOptions(options));
 };
 
 /**
  * @summary Admin rejects a reader submission
  */
-export const getRejectMAGHREB24SubmissionUrl = (id: number) => {
-  return `/api/MAGHREB24/submissions/${id}/reject`;
+export const getRejectMAROC24SubmissionUrl = (id: number) => {
+  return `/api/MAROC24/submissions/${id}/reject`;
 };
 
-export const rejectMAGHREB24Submission = async (
+export const rejectMAROC24Submission = async (
   id: number,
-  rejectMAGHREB24SubmissionBody: RejectMAGHREB24SubmissionBody,
+  rejectMAROC24SubmissionBody: RejectMAROC24SubmissionBody,
   options?: RequestInit,
-): Promise<RejectMAGHREB24Submission200> => {
-  return customFetch<RejectMAGHREB24Submission200>(
-    getRejectMAGHREB24SubmissionUrl(id),
+): Promise<RejectMAROC24Submission200> => {
+  return customFetch<RejectMAROC24Submission200>(
+    getRejectMAROC24SubmissionUrl(id),
     {
       ...options,
       method: "POST",
       headers: { "Content-Type": "application/json", ...options?.headers },
-      body: JSON.stringify(rejectMAGHREB24SubmissionBody),
+      body: JSON.stringify(rejectMAROC24SubmissionBody),
     },
   );
 };
 
-export const getRejectMAGHREB24SubmissionMutationOptions = <
+export const getRejectMAROC24SubmissionMutationOptions = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof rejectMAGHREB24Submission>>,
+    Awaited<ReturnType<typeof rejectMAROC24Submission>>,
     TError,
-    { id: number; data: BodyType<RejectMAGHREB24SubmissionBody> },
+    { id: number; data: BodyType<RejectMAROC24SubmissionBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof rejectMAGHREB24Submission>>,
+  Awaited<ReturnType<typeof rejectMAROC24Submission>>,
   TError,
-  { id: number; data: BodyType<RejectMAGHREB24SubmissionBody> },
+  { id: number; data: BodyType<RejectMAROC24SubmissionBody> },
   TContext
 > => {
-  const mutationKey = ["rejectMAGHREB24Submission"];
+  const mutationKey = ["rejectMAROC24Submission"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -3181,84 +3181,84 @@ export const getRejectMAGHREB24SubmissionMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof rejectMAGHREB24Submission>>,
-    { id: number; data: BodyType<RejectMAGHREB24SubmissionBody> }
+    Awaited<ReturnType<typeof rejectMAROC24Submission>>,
+    { id: number; data: BodyType<RejectMAROC24SubmissionBody> }
   > = (props) => {
     const { id, data } = props ?? {};
 
-    return rejectMAGHREB24Submission(id, data, requestOptions);
+    return rejectMAROC24Submission(id, data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type RejectMAGHREB24SubmissionMutationResult = NonNullable<
-  Awaited<ReturnType<typeof rejectMAGHREB24Submission>>
+export type RejectMAROC24SubmissionMutationResult = NonNullable<
+  Awaited<ReturnType<typeof rejectMAROC24Submission>>
 >;
-export type RejectMAGHREB24SubmissionMutationBody =
-  BodyType<RejectMAGHREB24SubmissionBody>;
-export type RejectMAGHREB24SubmissionMutationError = ErrorType<void>;
+export type RejectMAROC24SubmissionMutationBody =
+  BodyType<RejectMAROC24SubmissionBody>;
+export type RejectMAROC24SubmissionMutationError = ErrorType<void>;
 
 /**
  * @summary Admin rejects a reader submission
  */
-export const useRejectMAGHREB24Submission = <
+export const useRejectMAROC24Submission = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof rejectMAGHREB24Submission>>,
+    Awaited<ReturnType<typeof rejectMAROC24Submission>>,
     TError,
-    { id: number; data: BodyType<RejectMAGHREB24SubmissionBody> },
+    { id: number; data: BodyType<RejectMAROC24SubmissionBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof rejectMAGHREB24Submission>>,
+  Awaited<ReturnType<typeof rejectMAROC24Submission>>,
   TError,
-  { id: number; data: BodyType<RejectMAGHREB24SubmissionBody> },
+  { id: number; data: BodyType<RejectMAROC24SubmissionBody> },
   TContext
 > => {
-  return useMutation(getRejectMAGHREB24SubmissionMutationOptions(options));
+  return useMutation(getRejectMAROC24SubmissionMutationOptions(options));
 };
 
 /**
  * @summary Victoria Chambers performs a trend intelligence analysis and briefs journalists
  */
-export const getAnalyzeMAGHREB24TrendsUrl = () => {
-  return `/api/MAGHREB24/trends/analyze`;
+export const getAnalyzeMAROC24TrendsUrl = () => {
+  return `/api/MAROC24/trends/analyze`;
 };
 
-export const analyzeMAGHREB24Trends = async (
-  analyzeMAGHREB24TrendsBody: AnalyzeMAGHREB24TrendsBody,
+export const analyzeMAROC24Trends = async (
+  analyzeMAROC24TrendsBody: AnalyzeMAROC24TrendsBody,
   options?: RequestInit,
-): Promise<AnalyzeMAGHREB24Trends200> => {
-  return customFetch<AnalyzeMAGHREB24Trends200>(getAnalyzeMAGHREB24TrendsUrl(), {
+): Promise<AnalyzeMAROC24Trends200> => {
+  return customFetch<AnalyzeMAROC24Trends200>(getAnalyzeMAROC24TrendsUrl(), {
     ...options,
     method: "POST",
     headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(analyzeMAGHREB24TrendsBody),
+    body: JSON.stringify(analyzeMAROC24TrendsBody),
   });
 };
 
-export const getAnalyzeMAGHREB24TrendsMutationOptions = <
+export const getAnalyzeMAROC24TrendsMutationOptions = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>,
+    Awaited<ReturnType<typeof analyzeMAROC24Trends>>,
     TError,
-    { data: BodyType<AnalyzeMAGHREB24TrendsBody> },
+    { data: BodyType<AnalyzeMAROC24TrendsBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>,
+  Awaited<ReturnType<typeof analyzeMAROC24Trends>>,
   TError,
-  { data: BodyType<AnalyzeMAGHREB24TrendsBody> },
+  { data: BodyType<AnalyzeMAROC24TrendsBody> },
   TContext
 > => {
-  const mutationKey = ["analyzeMAGHREB24Trends"];
+  const mutationKey = ["analyzeMAROC24Trends"];
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation &&
       "mutationKey" in options.mutation &&
@@ -3268,52 +3268,52 @@ export const getAnalyzeMAGHREB24TrendsMutationOptions = <
     : { mutation: { mutationKey }, request: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>,
-    { data: BodyType<AnalyzeMAGHREB24TrendsBody> }
+    Awaited<ReturnType<typeof analyzeMAROC24Trends>>,
+    { data: BodyType<AnalyzeMAROC24TrendsBody> }
   > = (props) => {
     const { data } = props ?? {};
 
-    return analyzeMAGHREB24Trends(data, requestOptions);
+    return analyzeMAROC24Trends(data, requestOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type AnalyzeMAGHREB24TrendsMutationResult = NonNullable<
-  Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>
+export type AnalyzeMAROC24TrendsMutationResult = NonNullable<
+  Awaited<ReturnType<typeof analyzeMAROC24Trends>>
 >;
-export type AnalyzeMAGHREB24TrendsMutationBody =
-  BodyType<AnalyzeMAGHREB24TrendsBody>;
-export type AnalyzeMAGHREB24TrendsMutationError = ErrorType<void>;
+export type AnalyzeMAROC24TrendsMutationBody =
+  BodyType<AnalyzeMAROC24TrendsBody>;
+export type AnalyzeMAROC24TrendsMutationError = ErrorType<void>;
 
 /**
  * @summary Victoria Chambers performs a trend intelligence analysis and briefs journalists
  */
-export const useAnalyzeMAGHREB24Trends = <
+export const useAnalyzeMAROC24Trends = <
   TError = ErrorType<void>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>,
+    Awaited<ReturnType<typeof analyzeMAROC24Trends>>,
     TError,
-    { data: BodyType<AnalyzeMAGHREB24TrendsBody> },
+    { data: BodyType<AnalyzeMAROC24TrendsBody> },
     TContext
   >;
   request?: SecondParameter<typeof customFetch>;
 }): UseMutationResult<
-  Awaited<ReturnType<typeof analyzeMAGHREB24Trends>>,
+  Awaited<ReturnType<typeof analyzeMAROC24Trends>>,
   TError,
-  { data: BodyType<AnalyzeMAGHREB24TrendsBody> },
+  { data: BodyType<AnalyzeMAROC24TrendsBody> },
   TContext
 > => {
-  return useMutation(getAnalyzeMAGHREB24TrendsMutationOptions(options));
+  return useMutation(getAnalyzeMAROC24TrendsMutationOptions(options));
 };
 
 /**
  * @summary Get latest trend intelligence logs from Victoria Chambers
  */
-export const getGetMAGHREB24TrendsLatestUrl = (
-  params: GetMAGHREB24TrendsLatestParams,
+export const getGetMAROC24TrendsLatestUrl = (
+  params: GetMAROC24TrendsLatestParams,
 ) => {
   const normalizedParams = new URLSearchParams();
 
@@ -3326,16 +3326,16 @@ export const getGetMAGHREB24TrendsLatestUrl = (
   const stringifiedParams = normalizedParams.toString();
 
   return stringifiedParams.length > 0
-    ? `/api/MAGHREB24/trends/latest?${stringifiedParams}`
-    : `/api/MAGHREB24/trends/latest`;
+    ? `/api/MAROC24/trends/latest?${stringifiedParams}`
+    : `/api/MAROC24/trends/latest`;
 };
 
-export const getMAGHREB24TrendsLatest = async (
-  params: GetMAGHREB24TrendsLatestParams,
+export const getMAROC24TrendsLatest = async (
+  params: GetMAROC24TrendsLatestParams,
   options?: RequestInit,
-): Promise<MAGHREB24NewsroomLog[]> => {
-  return customFetch<MAGHREB24NewsroomLog[]>(
-    getGetMAGHREB24TrendsLatestUrl(params),
+): Promise<MAROC24NewsroomLog[]> => {
+  return customFetch<MAROC24NewsroomLog[]>(
+    getGetMAROC24TrendsLatestUrl(params),
     {
       ...options,
       method: "GET",
@@ -3343,20 +3343,20 @@ export const getMAGHREB24TrendsLatest = async (
   );
 };
 
-export const getGetMAGHREB24TrendsLatestQueryKey = (
-  params?: GetMAGHREB24TrendsLatestParams,
+export const getGetMAROC24TrendsLatestQueryKey = (
+  params?: GetMAROC24TrendsLatestParams,
 ) => {
-  return [`/api/MAGHREB24/trends/latest`, ...(params ? [params] : [])] as const;
+  return [`/api/MAROC24/trends/latest`, ...(params ? [params] : [])] as const;
 };
 
-export const getGetMAGHREB24TrendsLatestQueryOptions = <
-  TData = Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>,
+export const getGetMAROC24TrendsLatestQueryOptions = <
+  TData = Awaited<ReturnType<typeof getMAROC24TrendsLatest>>,
   TError = ErrorType<void>,
 >(
-  params: GetMAGHREB24TrendsLatestParams,
+  params: GetMAROC24TrendsLatestParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>,
+      Awaited<ReturnType<typeof getMAROC24TrendsLatest>>,
       TError,
       TData
     >;
@@ -3366,44 +3366,44 @@ export const getGetMAGHREB24TrendsLatestQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
   const queryKey =
-    queryOptions?.queryKey ?? getGetMAGHREB24TrendsLatestQueryKey(params);
+    queryOptions?.queryKey ?? getGetMAROC24TrendsLatestQueryKey(params);
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>
+    Awaited<ReturnType<typeof getMAROC24TrendsLatest>>
   > = ({ signal }) =>
-    getMAGHREB24TrendsLatest(params, { signal, ...requestOptions });
+    getMAROC24TrendsLatest(params, { signal, ...requestOptions });
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>,
+    Awaited<ReturnType<typeof getMAROC24TrendsLatest>>,
     TError,
     TData
   > & { queryKey: QueryKey };
 };
 
-export type GetMAGHREB24TrendsLatestQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>
+export type GetMAROC24TrendsLatestQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getMAROC24TrendsLatest>>
 >;
-export type GetMAGHREB24TrendsLatestQueryError = ErrorType<void>;
+export type GetMAROC24TrendsLatestQueryError = ErrorType<void>;
 
 /**
  * @summary Get latest trend intelligence logs from Victoria Chambers
  */
 
-export function useGetMAGHREB24TrendsLatest<
-  TData = Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>,
+export function useGetMAROC24TrendsLatest<
+  TData = Awaited<ReturnType<typeof getMAROC24TrendsLatest>>,
   TError = ErrorType<void>,
 >(
-  params: GetMAGHREB24TrendsLatestParams,
+  params: GetMAROC24TrendsLatestParams,
   options?: {
     query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getMAGHREB24TrendsLatest>>,
+      Awaited<ReturnType<typeof getMAROC24TrendsLatest>>,
       TError,
       TData
     >;
     request?: SecondParameter<typeof customFetch>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-  const queryOptions = getGetMAGHREB24TrendsLatestQueryOptions(params, options);
+  const queryOptions = getGetMAROC24TrendsLatestQueryOptions(params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;

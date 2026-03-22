@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useSubmitMAGHREB24Article, useRequestUploadUrl } from "@workspace/api-client-react";
+import { useSubmitMAROC24Article, useRequestUploadUrl } from "@workspace/api-client-react";
 import { CheckCircle, Upload, AlertTriangle, Loader2, User, FileText, Send, Sparkles } from "lucide-react";
 import { cn, usePageTitle } from "@/lib/utils";
 
@@ -34,7 +34,7 @@ export default function SubmitArticle() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const requestUpload = useRequestUploadUrl();
-  const submitArticle = useSubmitMAGHREB24Article();
+  const submitArticle = useSubmitMAROC24Article();
 
   // تنظيف روابط الصور عند تغيير الصورة أو تفكيك المكون
   useEffect(() => {

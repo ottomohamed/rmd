@@ -1,5 +1,5 @@
 import { useParams, Link } from "wouter";
-import { useGetMAGHREB24Article, useGetMAGHREB24Comments, useAddMAGHREB24Comment, useListMAGHREB24Articles } from "@workspace/api-client-react";
+import { useGetMAROC24Article, useGetMAROC24Comments, useAddMAROC24Comment, useListMAROC24Articles } from "@workspace/api-client-react";
 import { formatDate, formatDateTime, getAuthorImage, translateAuthorName, translateAuthorTitle, translateAuthorBio, getTranslatedSection, usePageTitle } from "@/lib/utils";
 import { Loader2, MessageSquare, Pen, Share2, Bookmark, TrendingUp, MapPin, Mail } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -22,10 +22,10 @@ export default function ArticleDetail() {
   const [replyReceived, setReplyReceived] = useState(false);
   const pollCountRef = useRef(0);
 
-  const { data: article, isLoading, error } = useGetMAGHREB24Article(slug || "");
-  const { data: sidebarArticlesData } = useListMAGHREB24Articles({ limit: 6 });
+  const { data: article, isLoading, error } = useGetMAROC24Article(slug || "");
+  const { data: sidebarArticlesData } = useListMAROC24Articles({ limit: 6 });
   
-  const { data: comments } = useGetMAGHREB24Comments(article?.id || 0, { 
+  const { data: comments } = useGetMAROC24Comments(article?.id || 0, { 
     query: { 
       enabled: !!article?.id,
       refetchInterval: awaitingReply ? 3000 : false,
@@ -49,10 +49,10 @@ export default function ArticleDetail() {
     }
   }, [comments, awaitingReply]);
 
-  const addComment = useAddMAGHREB24Comment({
+  const addComment = useAddMAROC24Comment({
     mutation: {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: [`/api/MAGHREB24/articles/${article?.id}/comments`] });
+        queryClient.invalidateQueries({ queryKey: [`/api/MAROC24/articles/${article?.id}/comments`] });
         form.reset();
         pollCountRef.current = 0;
         setAwaitingReply(true);
@@ -132,7 +132,7 @@ export default function ArticleDetail() {
               prose-headings:font-black prose-headings:tracking-tighter
               prose-strong:font-black prose-strong:text-emerald-900 dark:prose-strong:text-emerald-400
               prose-blockquote:border-r-4 prose-blockquote:border-emerald-700 prose-blockquote:border-l-0 prose-blockquote:pr-8 prose-blockquote:pl-0 prose-blockquote:italic prose-blockquote:text-lg md:text-2xl prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400 bg-gray-50 dark:bg-slate-800/50 p-6 rounded-l-2xl">
-              {article.body.split('\n\n').map((para, i) => (
+              {article.body.split('\n\n').map((para: string, i: number) => (
                 <div key={i}>
                   <p>{para}</p>
                   {i === 1 && inArticleAds.length > 0 && (
