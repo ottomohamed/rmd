@@ -43,57 +43,57 @@ export function getAuthorImage(slug: string) {
 
 export function translateAuthorName(name: string) {
   const map: Record<string, string> = {
-    "Robert Hargrove": "محمد عبد الرحمان",
-    "Marcus Webb": "أمينة المنصوري",
-    "Diana Forsythe": "يوسف العلمي",
-    "Carlos Reyes": "مريم الطاهري",
-    "Victoria Chambers": "عمر بنجلون",
-    "Hassan Alaoui": "حسن العلوي",
-    "Fatima Benali": "فاطمة بنعلي",
-    "Karim Tazi": "كريم الطازي",
-    "The Publisher": "الناشر",
+    "Robert Hargrove": "Ù…Ø­Ù…Ø¯ Ø¹Ø¨Ø¯ Ø§Ù„Ø±Ø­Ù…Ø§Ù†",
+    "Marcus Webb": "Ø£Ù…ÙŠÙ†Ø© Ø§Ù„Ù…Ù†ØµÙˆØ±ÙŠ",
+    "Diana Forsythe": "ÙŠÙˆØ³Ù Ø§Ù„Ø¹Ù„Ù…ÙŠ",
+    "Carlos Reyes": "Ù…Ø±ÙŠÙ… Ø§Ù„Ø·Ø§Ù‡Ø±ÙŠ",
+    "Victoria Chambers": "Ø¹Ù…Ø± Ø¨Ù†Ø¬Ù„ÙˆÙ†",
+    "Hassan Alaoui": "Ø­Ø³Ù† Ø§Ù„Ø¹Ù„ÙˆÙŠ",
+    "Fatima Benali": "ÙØ§Ø·Ù…Ø© Ø¨Ù†Ø¹Ù„ÙŠ",
+    "Karim Tazi": "ÙƒØ±ÙŠÙ… Ø§Ù„Ø·Ø§Ø²ÙŠ",
+    "The Publisher": "Ø§Ù„Ù†Ø§Ø´Ø±",
   };
   return map[name] || name;
 }
 
 export function translateAuthorTitle(title: string) {
   const map: Record<string, string> = {
-    "Editor-in-Chief": "رئيس التحرير",
-    "Senior Correspondent, International Affairs": "مراسلة الشؤون السياسية",
-    "Economics Editor": "محرر الشؤون الاقتصادية",
-    "Sports Correspondent": "مراسلة الشؤون الرياضية",
-    "Global Trends Intelligence Director": "محرر الشؤون الثقافية",
-    "Arts & Media Critic": "ناقد الفنون والإعلام",
-    "Social Affairs Reporter": "مراسلة الشؤون الاجتماعية",
-    "Science & Technology Editor": "محرر العلوم والتكنولوجيا",
+    "Editor-in-Chief": "Ø±Ø¦ÙŠØ³ Ø§Ù„ØªØ­Ø±ÙŠØ±",
+    "Senior Correspondent, International Affairs": "Ù…Ø±Ø§Ø³Ù„Ø© Ø§Ù„Ø´Ø¤ÙˆÙ† Ø§Ù„Ø³ÙŠØ§Ø³ÙŠØ©",
+    "Economics Editor": "Ù…Ø­Ø±Ø± Ø§Ù„Ø´Ø¤ÙˆÙ† Ø§Ù„Ø§Ù‚ØªØµØ§Ø¯ÙŠØ©",
+    "Sports Correspondent": "Ù…Ø±Ø§Ø³Ù„Ø© Ø§Ù„Ø´Ø¤ÙˆÙ† Ø§Ù„Ø±ÙŠØ§Ø¶ÙŠØ©",
+    "Global Trends Intelligence Director": "Ù…Ø­Ø±Ø± Ø§Ù„Ø´Ø¤ÙˆÙ† Ø§Ù„Ø«Ù‚Ø§ÙÙŠØ©",
+    "Arts & Media Critic": "Ù†Ø§Ù‚Ø¯ Ø§Ù„ÙÙ†ÙˆÙ† ÙˆØ§Ù„Ø¥Ø¹Ù„Ø§Ù…",
+    "Social Affairs Reporter": "Ù…Ø±Ø§Ø³Ù„Ø© Ø§Ù„Ø´Ø¤ÙˆÙ† Ø§Ù„Ø§Ø¬ØªÙ…Ø§Ø¹ÙŠØ©",
+    "Science & Technology Editor": "Ù…Ø­Ø±Ø± Ø§Ù„Ø¹Ù„ÙˆÙ… ÙˆØ§Ù„ØªÙƒÙ†ÙˆÙ„ÙˆØ¬ÙŠØ§",
   };
   return map[title] || title;
 }
 
 export function translateAuthorBio(bio: string) {
   if (bio.includes("spent three decades at the intersection of policy and print")) {
-    return "خبير إعلامي قضى ثلاثة عقود في دهاليز الصحافة المغربية والعالمية. يسهر محمد عبد الرحمان على الخط التحريري لمغرب 24 برؤية ترتكز على المصداقية والعمق التحليلي.";
+    return "Ø®Ø¨ÙŠØ± Ø¥Ø¹Ù„Ø§Ù…ÙŠ Ù‚Ø¶Ù‰ Ø«Ù„Ø§Ø«Ø© Ø¹Ù‚ÙˆØ¯ ÙÙŠ Ø¯Ù‡Ø§Ù„ÙŠØ² Ø§Ù„ØµØ­Ø§ÙØ© Ø§Ù„Ù…ØºØ±Ø¨ÙŠØ© ÙˆØ§Ù„Ø¹Ø§Ù„Ù…ÙŠØ©. ÙŠØ³Ù‡Ø± Ù…Ø­Ù…Ø¯ Ø¹Ø¨Ø¯ Ø§Ù„Ø±Ø­Ù…Ø§Ù† Ø¹Ù„Ù‰ Ø§Ù„Ø®Ø· Ø§Ù„ØªØ­Ø±ÙŠØ±ÙŠ Ù„Ù…ØºØ±Ø¨ 24 Ø¨Ø±Ø¤ÙŠØ© ØªØ±ØªÙƒØ² Ø¹Ù„Ù‰ Ø§Ù„Ù…ØµØ¯Ø§Ù‚ÙŠØ© ÙˆØ§Ù„Ø¹Ù…Ù‚ Ø§Ù„ØªØ­Ù„ÙŠÙ„ÙŠ.";
   }
   if (bio.includes("reported from 47 countries")) {
-    return "محللة سياسية متخصصة في الشأن المغربي والعربي. تغطي أمينة المنصوري البرلمان والحكومة والسياسة الخارجية بحصرية — لا تكتب خارج تخصصها السياسي.";
+    return "Ù…Ø­Ù„Ù„Ø© Ø³ÙŠØ§Ø³ÙŠØ© Ù…ØªØ®ØµØµØ© ÙÙŠ Ø§Ù„Ø´Ø£Ù† Ø§Ù„Ù…ØºØ±Ø¨ÙŠ ÙˆØ§Ù„Ø¹Ø±Ø¨ÙŠ. ØªØºØ·ÙŠ Ø£Ù…ÙŠÙ†Ø© Ø§Ù„Ù…Ù†ØµÙˆØ±ÙŠ Ø§Ù„Ø¨Ø±Ù„Ù…Ø§Ù† ÙˆØ§Ù„Ø­ÙƒÙˆÙ…Ø© ÙˆØ§Ù„Ø³ÙŠØ§Ø³Ø© Ø§Ù„Ø®Ø§Ø±Ø¬ÙŠØ© Ø¨Ø­ØµØ±ÙŠØ© â€” Ù„Ø§ ØªÙƒØªØ¨ Ø®Ø§Ø±Ø¬ ØªØ®ØµØµÙ‡Ø§ Ø§Ù„Ø³ÙŠØ§Ø³ÙŠ.";
   }
   if (bio.includes("PhD in Macroeconomics")) {
-    return "اقتصادي متخصص في الأسواق والمال والأعمال. يوسف العلمي يفكك شفرات الميزانيات والبورصات والتجارة بأسلوب دقيق — لا يعلّق على شؤون خارج الاقتصاد.";
+    return "Ø§Ù‚ØªØµØ§Ø¯ÙŠ Ù…ØªØ®ØµØµ ÙÙŠ Ø§Ù„Ø£Ø³ÙˆØ§Ù‚ ÙˆØ§Ù„Ù…Ø§Ù„ ÙˆØ§Ù„Ø£Ø¹Ù…Ø§Ù„. ÙŠÙˆØ³Ù Ø§Ù„Ø¹Ù„Ù…ÙŠ ÙŠÙÙƒÙƒ Ø´ÙØ±Ø§Øª Ø§Ù„Ù…ÙŠØ²Ø§Ù†ÙŠØ§Øª ÙˆØ§Ù„Ø¨ÙˆØ±ØµØ§Øª ÙˆØ§Ù„ØªØ¬Ø§Ø±Ø© Ø¨Ø£Ø³Ù„ÙˆØ¨ Ø¯Ù‚ÙŠÙ‚ â€” Ù„Ø§ ÙŠØ¹Ù„Ù‘Ù‚ Ø¹Ù„Ù‰ Ø´Ø¤ÙˆÙ† Ø®Ø§Ø±Ø¬ Ø§Ù„Ø§Ù‚ØªØµØ§Ø¯.";
   }
   if (bio.includes("grew up between Madrid and Buenos Aires")) {
-    return "مراسلة رياضية متخصصة في كرة القدم المغربية والرياضات الوطنية. مريم الطاهري تُعيد بث الملاعب من داخل الحدث — لا تكتب في السياسة ولا الثقافة.";
+    return "Ù…Ø±Ø§Ø³Ù„Ø© Ø±ÙŠØ§Ø¶ÙŠØ© Ù…ØªØ®ØµØµØ© ÙÙŠ ÙƒØ±Ø© Ø§Ù„Ù‚Ø¯Ù… Ø§Ù„Ù…ØºØ±Ø¨ÙŠØ© ÙˆØ§Ù„Ø±ÙŠØ§Ø¶Ø§Øª Ø§Ù„ÙˆØ·Ù†ÙŠØ©. Ù…Ø±ÙŠÙ… Ø§Ù„Ø·Ø§Ù‡Ø±ÙŠ ØªÙØ¹ÙŠØ¯ Ø¨Ø« Ø§Ù„Ù…Ù„Ø§Ø¹Ø¨ Ù…Ù† Ø¯Ø§Ø®Ù„ Ø§Ù„Ø­Ø¯Ø« â€” Ù„Ø§ ØªÙƒØªØ¨ ÙÙŠ Ø§Ù„Ø³ÙŠØ§Ø³Ø© ÙˆÙ„Ø§ Ø§Ù„Ø«Ù‚Ø§ÙØ©.";
   }
   if (bio.includes("trained as an intelligence analyst")) {
-    return "ناقد ثقافي متخصص في الأدب والتراث والهوية المغربية. عمر بنجلون يشترط التعمق قبل الكتابة — تخصصه الثقافة ولا شيء غيرها.";
+    return "Ù†Ø§Ù‚Ø¯ Ø«Ù‚Ø§ÙÙŠ Ù…ØªØ®ØµØµ ÙÙŠ Ø§Ù„Ø£Ø¯Ø¨ ÙˆØ§Ù„ØªØ±Ø§Ø« ÙˆØ§Ù„Ù‡ÙˆÙŠØ© Ø§Ù„Ù…ØºØ±Ø¨ÙŠØ©. Ø¹Ù…Ø± Ø¨Ù†Ø¬Ù„ÙˆÙ† ÙŠØ´ØªØ±Ø· Ø§Ù„ØªØ¹Ù…Ù‚ Ù‚Ø¨Ù„ Ø§Ù„ÙƒØªØ§Ø¨Ø© â€” ØªØ®ØµØµÙ‡ Ø§Ù„Ø«Ù‚Ø§ÙØ© ÙˆÙ„Ø§ Ø´ÙŠØ¡ ØºÙŠØ±Ù‡Ø§.";
   }
   if (bio.includes("arts")) {
-    return "ناقد فني متخصص في الموسيقى والسينما والتشكيل. حسن العلوي يرصد المشهد الفني المغربي بعين خبيرة — الفنون فقط تخصصه.";
+    return "Ù†Ø§Ù‚Ø¯ ÙÙ†ÙŠ Ù…ØªØ®ØµØµ ÙÙŠ Ø§Ù„Ù…ÙˆØ³ÙŠÙ‚Ù‰ ÙˆØ§Ù„Ø³ÙŠÙ†Ù…Ø§ ÙˆØ§Ù„ØªØ´ÙƒÙŠÙ„. Ø­Ø³Ù† Ø§Ù„Ø¹Ù„ÙˆÙŠ ÙŠØ±ØµØ¯ Ø§Ù„Ù…Ø´Ù‡Ø¯ Ø§Ù„ÙÙ†ÙŠ Ø§Ù„Ù…ØºØ±Ø¨ÙŠ Ø¨Ø¹ÙŠÙ† Ø®Ø¨ÙŠØ±Ø© â€” Ø§Ù„ÙÙ†ÙˆÙ† ÙÙ‚Ø· ØªØ®ØµØµÙ‡.";
   }
   if (bio.includes("social")) {
-    return "صحفية اجتماعية تُعنى بقضايا الأسرة والشباب والمرأة. فاطمة بنعلي تقرأ المجتمع بعمق وتلتزم بتخصصها الاجتماعي فقط.";
+    return "ØµØ­ÙÙŠØ© Ø§Ø¬ØªÙ…Ø§Ø¹ÙŠØ© ØªÙØ¹Ù†Ù‰ Ø¨Ù‚Ø¶Ø§ÙŠØ§ Ø§Ù„Ø£Ø³Ø±Ø© ÙˆØ§Ù„Ø´Ø¨Ø§Ø¨ ÙˆØ§Ù„Ù…Ø±Ø£Ø©. ÙØ§Ø·Ù…Ø© Ø¨Ù†Ø¹Ù„ÙŠ ØªÙ‚Ø±Ø£ Ø§Ù„Ù…Ø¬ØªÙ…Ø¹ Ø¨Ø¹Ù…Ù‚ ÙˆØªÙ„ØªØ²Ù… Ø¨ØªØ®ØµØµÙ‡Ø§ Ø§Ù„Ø§Ø¬ØªÙ…Ø§Ø¹ÙŠ ÙÙ‚Ø·.";
   }
   if (bio.includes("science") || bio.includes("tech")) {
-    return "محرر علمي يُغطي الذكاء الاصطناعي والبيئة والفضاء. كريم الطازي يُترجم العلم للقارئ العادي — علوم وتقنية فقط.";
+    return "Ù…Ø­Ø±Ø± Ø¹Ù„Ù…ÙŠ ÙŠÙØºØ·ÙŠ Ø§Ù„Ø°ÙƒØ§Ø¡ Ø§Ù„Ø§ØµØ·Ù†Ø§Ø¹ÙŠ ÙˆØ§Ù„Ø¨ÙŠØ¦Ø© ÙˆØ§Ù„ÙØ¶Ø§Ø¡. ÙƒØ±ÙŠÙ… Ø§Ù„Ø·Ø§Ø²ÙŠ ÙŠÙØªØ±Ø¬Ù… Ø§Ù„Ø¹Ù„Ù… Ù„Ù„Ù‚Ø§Ø±Ø¦ Ø§Ù„Ø¹Ø§Ø¯ÙŠ â€” Ø¹Ù„ÙˆÙ… ÙˆØªÙ‚Ù†ÙŠØ© ÙÙ‚Ø·.";
   }
   return bio;
 }
@@ -101,14 +101,17 @@ export function translateAuthorBio(bio: string) {
 
 export function getTranslatedSection(section: string | undefined) {
   switch (section?.toLowerCase()) {
-    case 'politics': return 'السياسة';
-    case 'economics': return 'الاقتصاد';
-    case 'sports': return 'الرياضة';
-    case 'editorial': return 'الرأي';
-    case 'culture': return 'الثقافة';
-    case 'science': return 'العلوم';
-    case 'society': return 'المجتمع';
-    case 'incidents': return 'حوادث';
+    case 'politics': return 'Ø§Ù„Ø³ÙŠØ§Ø³Ø©';
+    case 'economics': return 'Ø§Ù„Ø§Ù‚ØªØµØ§Ø¯';
+    case 'sports': return 'Ø§Ù„Ø±ÙŠØ§Ø¶Ø©';
+    case 'editorial': return 'Ø§Ù„Ø±Ø£ÙŠ';
+    case 'culture': return 'Ø§Ù„Ø«Ù‚Ø§ÙØ©';
+    case 'science': return 'Ø§Ù„Ø¹Ù„ÙˆÙ…';
+    case 'tech': return 'Ø§Ù„ØªÙ‚Ù†ÙŠØ©';
+    case 'society': return 'Ø§Ù„Ù…Ø¬ØªÙ…Ø¹';
+    case 'incidents': return 'Ø­ÙˆØ§Ø¯Ø«';
+    case 'health': return 'Ø§Ù„ØµØ­Ø©';
+    case 'contests': return 'Ù…Ø³Ø§Ø¨Ù‚Ø§Øª';
     default: return section;
   }
 }
@@ -116,16 +119,16 @@ export function getTranslatedSection(section: string | undefined) {
 
 export function getTranslatedFrequency(freq: string | undefined) {
   switch (freq?.toLowerCase()) {
-    case 'daily': return 'يومياً';
-    case 'weekly': return 'أسبوعياً';
-    case 'monthly': return 'شهرياً';
-    case '3x/week': return '3 مرات أسبوعياً';
-    case 'on-demand': return 'عند الطلب';
+    case 'daily': return 'ÙŠÙˆÙ…ÙŠØ§Ù‹';
+    case 'weekly': return 'Ø£Ø³Ø¨ÙˆØ¹ÙŠØ§Ù‹';
+    case 'monthly': return 'Ø´Ù‡Ø±ÙŠØ§Ù‹';
+    case '3x/week': return '3 Ù…Ø±Ø§Øª Ø£Ø³Ø¨ÙˆØ¹ÙŠØ§Ù‹';
+    case 'on-demand': return 'Ø¹Ù†Ø¯ Ø§Ù„Ø·Ù„Ø¨';
     default: return freq;
   }
 }
 
-// ─── Section-specific colors ───
+// â”€â”€â”€ Section-specific colors â”€â”€â”€
 export function getSectionColor(section: string | undefined) {
   switch (section?.toLowerCase()) {
     case 'politics': return 'text-blue-700 border-blue-700 dark:text-blue-400 dark:border-blue-500';
@@ -134,8 +137,11 @@ export function getSectionColor(section: string | undefined) {
     case 'editorial': return 'text-violet-700 border-violet-700 dark:text-violet-400 dark:border-violet-500';
     case 'culture': return 'text-orange-700 border-orange-700 dark:text-orange-400 dark:border-orange-500';
     case 'science': return 'text-cyan-700 border-cyan-700 dark:text-cyan-400 dark:border-cyan-500';
+    case 'tech': return 'text-indigo-700 border-indigo-700 dark:text-indigo-400 dark:border-indigo-500';
     case 'society': return 'text-purple-700 border-purple-700 dark:text-purple-400 dark:border-purple-500';
     case 'incidents': return 'text-red-700 border-red-700 dark:text-red-400 dark:border-red-500';
+    case 'health': return 'text-rose-700 border-rose-700 dark:text-rose-400 dark:border-rose-500';
+    case 'contests': return 'text-yellow-600 border-yellow-600 dark:text-yellow-400 dark:border-yellow-500';
     default: return 'text-emerald-700 border-emerald-700 dark:text-emerald-500 dark:border-emerald-500';
   }
 }
@@ -148,15 +154,19 @@ export function getSectionBgColor(section: string | undefined) {
     case 'editorial': return 'bg-violet-700 text-white dark:bg-violet-600';
     case 'culture': return 'bg-orange-700 text-white dark:bg-orange-600';
     case 'science': return 'bg-cyan-700 text-white dark:bg-cyan-600';
+    case 'tech': return 'bg-indigo-700 text-white dark:bg-indigo-600';
     case 'society': return 'bg-purple-700 text-white dark:bg-purple-600';
     case 'incidents': return 'bg-red-700 text-white dark:bg-red-600';
+    case 'health': return 'bg-rose-700 text-white dark:bg-rose-600';
+    case 'contests': return 'bg-yellow-600 text-white dark:bg-yellow-500';
     default: return 'bg-emerald-700 text-white dark:bg-emerald-600';
   }
 }
 
-// ─── SEO Helper: update document title ───
+// â”€â”€â”€ SEO Helper: update document title â”€â”€â”€
 export function usePageTitle(title: string) {
   if (typeof document !== 'undefined') {
-    document.title = title ? `${title} — مغرب 24` : 'مغرب 24 — جريدة إلكترونية مغربية مستقلة';
+    document.title = title ? `${title} â€” Ù…ØºØ±Ø¨ 24` : 'Ù…ØºØ±Ø¨ 24 â€” Ø¬Ø±ÙŠØ¯Ø© Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠØ© Ù…ØºØ±Ø¨ÙŠØ© Ù…Ø³ØªÙ‚Ù„Ø©';
   }
 }
+

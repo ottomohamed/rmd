@@ -1,3 +1,5 @@
+'use client';
+
 import { Link } from "wouter";
 import { type MAGHREB24ArticleSummary } from "@workspace/api-client-react/src/generated/api.schemas";
 import { cn, formatDate, getTranslatedSection, translateAuthorName } from "@/lib/utils";
@@ -33,7 +35,7 @@ export function ArticleCard({ article, className }: ArticleCardProps) {
       <div className="p-5 flex flex-col flex-1">
         <div className="flex items-center gap-3 mb-3 text-gray-500 dark:text-gray-400">
           <span className="text-[10px] font-bold uppercase tracking-widest flex items-center gap-1">
-            <Clock className="w-3 h-3 text-gold-500" /> {article.readingTimeMinutes || 0} دقائق قراءة
+            <Clock className="w-3 h-3 text-gold-500" /> {article.readingTimeMinutes || 0} Ã˜Â¯Ã™â€šÃ˜Â§Ã˜Â¦Ã™â€š Ã™â€šÃ˜Â±Ã˜Â§Ã˜Â¡Ã˜Â©
           </span>
           <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
           <span className="text-[10px] font-bold uppercase tracking-widest">
@@ -69,5 +71,7 @@ function authorInitials(name: string | undefined) {
   if (!name) return "??";
   return name.split(' ').map(n => n?.[0] || '').join('').slice(0, 2);
 }
+
+
 
 

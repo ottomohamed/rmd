@@ -1,67 +1,46 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 
 export interface Ad {
   id: string;
   title: string;
-  position: 'header_home' | 'sidebar' | 'footer' | 'in_article';
   imageUrl: string;
   linkUrl: string;
+  position: string;
   active: boolean;
 }
 
-const DEFAULT_ADS: Ad[] = [
-  { id: '1', title: 'إعلان رئيسي الصفحة الأولى', position: 'header_home', imageUrl: 'https://placehold.co/970x100?text=Advertisement', linkUrl: '#', active: true },
-  { id: '2', title: 'إعلان جانبي في المقالات', position: 'sidebar', imageUrl: 'https://placehold.co/300x600?text=Advertisement', linkUrl: '#', active: true },
-];
-
 export function useAds() {
-  const [ads, setAdsState] = useState<Ad[]>(() => {
-    try {
-      const stored = localStorage.getItem('maghrib24_ads');
-      if (stored) return JSON.parse(stored);
-    } catch {}
-    return DEFAULT_ADS;
-  });
-
-  const setAds = (newAds: Ad[] | ((prev: Ad[]) => Ad[])) => {
-    setAdsState((prev) => {
-      const updated = typeof newAds === 'function' ? newAds(prev) : newAds;
-      localStorage.setItem('maghrib24_ads', JSON.stringify(updated));
-      // Dispatch event to sync other components
-      window.dispatchEvent(new Event('ads_updated'));
-      return updated;
-    });
-  };
-
+  const [ads, setAds] = useState<Ad[]>([]);
+  
   useEffect(() => {
-    const handleUpdate = () => {
-      try {
-        const stored = localStorage.getItem('maghrib24_ads');
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          // Only update if length or active status changes to prevent infinite loops, 
-          // but for simple sync, we just set state.
-          if (JSON.stringify(parsed) !== JSON.stringify(ads)) {
-             setAdsState(parsed);
-          }
-        }
-      } catch {}
-    };
-    window.addEventListener('ads_updated', handleUpdate);
-    return () => window.removeEventListener('ads_updated', handleUpdate);
-  }, [ads]);
-
-  const updateAd = (id: string, updates: Partial<Ad>) => {
-    setAds(current => current.map(ad => ad.id === id ? { ...ad, ...updates } : ad));
-  };
-
+    // بيانات تجريبية مؤقتة
+    setAds([
+      {
+        id: '1',
+        title: 'إعلان تجريبي',
+        imageUrl: '',
+        linkUrl: '#',
+        position: 'sidebar',
+        active: true
+      }
+    ]);
+  }, []);
+  
   const addAd = (ad: Omit<Ad, 'id'>) => {
-    setAds(current => [...current, { ...ad, id: Date.now().toString() }]);
+    const newAd = { ...ad, id: Date.now().toString() };
+    setAds(prev => [...prev, newAd]);
   };
-
+  
+  const updateAd = (id: string, ad: Partial<Ad>) => {
+    setAds(prev => prev.map(a => a.id === id ? { ...a, ...ad } : a));
+  };
+  
   const deleteAd = (id: string) => {
-    setAds(current => current.filter(ad => ad.id !== id));
+    setAds(prev => prev.filter(a => a.id !== id));
   };
-
-  return { ads, updateAd, addAd, deleteAd };
+  
+  return { ads, addAd, updateAd, deleteAd };
 }
+

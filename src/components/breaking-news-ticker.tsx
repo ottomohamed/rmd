@@ -25,7 +25,7 @@ export function BreakingNewsTicker() {
       <div className="max-w-7xl mx-auto px-4 flex items-center gap-3">
         {/* Badge */}
         <div className="flex-shrink-0 flex items-center gap-1.5 bg-gold-500 text-white px-3 py-1 font-black text-xs uppercase tracking-widest shadow-lg whitespace-nowrap animate-pulse">
-          ⚡ عاجل
+          âš¡ Ø¹Ø§Ø¬Ù„
         </div>
 
         {/* Scrolling ticker */}
@@ -36,7 +36,7 @@ export function BreakingNewsTicker() {
           >
             {[...activeItems, ...activeItems].map((item, i) => (
               <span key={i} className={`font-medium text-sm ${item.urgent ? "text-yellow-200 font-bold" : ""}`}>
-                {item.urgent ? "🔴 " : "• "}
+                {item.urgent ? "ðŸ”´ " : "â€¢ "}
                 {item.text}
               </span>
             ))}
@@ -46,3 +46,4 @@ export function BreakingNewsTicker() {
     </div>
   );
 }
+

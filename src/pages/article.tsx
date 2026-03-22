@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
 import { useAds } from "@/hooks/use-ads";
 
 const commentSchema = z.object({
-  authorName: z.string().min(2, "يجب أن يكون الاسم حرفين على الأقل"),
-  body: z.string().min(5, "يجب أن يكون التعليق 5 أحرف على الأقل")
+  authorName: z.string().min(2, "ÙŠØ¬Ø¨ Ø£Ù† ÙŠÙƒÙˆÙ† Ø§Ù„Ø§Ø³Ù… Ø­Ø±ÙÙŠÙ† Ø¹Ù„Ù‰ Ø§Ù„Ø£Ù‚Ù„"),
+  body: z.string().min(5, "ÙŠØ¬Ø¨ Ø£Ù† ÙŠÙƒÙˆÙ† Ø§Ù„ØªØ¹Ù„ÙŠÙ‚ 5 Ø£Ø­Ø±Ù Ø¹Ù„Ù‰ Ø§Ù„Ø£Ù‚Ù„")
 });
 
 export default function ArticleDetail() {
@@ -67,7 +67,7 @@ export default function ArticleDetail() {
   });
 
   if (isLoading) return <div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="w-10 h-10 animate-spin text-emerald-700" /></div>;
-  if (error || !article) return <div className="py-32 text-center font-sans text-3xl font-bold">المقال الذي تبحث عنه غير متاح حالياً.</div>;
+  if (error || !article) return <div className="py-32 text-center font-sans text-3xl font-bold">Ø§Ù„Ù…Ù‚Ø§Ù„ Ø§Ù„Ø°ÙŠ ØªØ¨Ø­Ø« Ø¹Ù†Ù‡ ØºÙŠØ± Ù…ØªØ§Ø­ Ø­Ø§Ù„ÙŠØ§Ù‹.</div>;
 
   usePageTitle(article.title);
 
@@ -93,8 +93,8 @@ export default function ArticleDetail() {
                 >
                   {getTranslatedSection(article.section)}
                 </Link>
-                <span className="text-gray-300">•</span>
-                <span className="text-xs font-bold text-gold-600 uppercase tracking-widest">تغطية خاصة</span>
+                <span className="text-gray-300">â€¢</span>
+                <span className="text-xs font-bold text-gold-600 uppercase tracking-widest">ØªØºØ·ÙŠØ© Ø®Ø§ØµØ©</span>
               </div>
 
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-black font-sans leading-[1.2] mb-8 tracking-tighter text-gray-900 dark:text-white">
@@ -104,10 +104,10 @@ export default function ArticleDetail() {
               <div className="flex flex-wrap items-center gap-6 text-xs text-gray-500 font-bold border-y border-gray-50 dark:border-slate-800 py-6">
                 <div className="flex items-center gap-3">
                   {article.author && <img src={getAuthorImage(article.author.slug)} className="w-10 h-10 rounded-full object-cover shadow-md" alt="" />}
-                  <span className="text-gray-900 dark:text-white">بقلم: {article.author ? <Link href={`/author/${article.author.slug}`} className="hover:text-emerald-700 underline decoration-gold-500 underline-offset-4">{translateAuthorName(article.author.name)}</Link> : "محرر مغرب 24"}</span>
+                  <span className="text-gray-900 dark:text-white">Ø¨Ù‚Ù„Ù…: {article.author ? <Link href={`/author/${article.author.slug}`} className="hover:text-emerald-700 underline decoration-gold-500 underline-offset-4">{translateAuthorName(article.author.name)}</Link> : "Ù…Ø­Ø±Ø± Ù…ØºØ±Ø¨ 24"}</span>
                 </div>
                 <span className="text-gray-200">|</span>
-                <span className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5 text-emerald-700" /> الرباط</span>
+                <span className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5 text-emerald-700" /> Ø§Ù„Ø±Ø¨Ø§Ø·</span>
                 <span className="text-gray-200">|</span>
                 <span className="flex items-center gap-2"><TrendingUp className="w-3.5 h-3.5 text-gold-500" /> {formatDate(article.publishedAt)}</span>
               </div>
@@ -122,7 +122,7 @@ export default function ArticleDetail() {
                   className="w-full h-auto rounded-2xl shadow-2xl border border-gray-100 dark:border-slate-800" 
                 />
                 <figcaption className="mt-4 text-sm text-gray-400 italic text-center font-medium">
-                  {article.title} - مصدر الصورة: وكالة مغرب 24
+                  {article.title} - Ù…ØµØ¯Ø± Ø§Ù„ØµÙˆØ±Ø©: ÙˆÙƒØ§Ù„Ø© Ù…ØºØ±Ø¨ 24
                 </figcaption>
               </figure>
             )}
@@ -138,7 +138,7 @@ export default function ArticleDetail() {
                   {/* Insert an ad after paragraph 2 if available */}
                   {i === 1 && inArticleAds.length > 0 && (
                     <div className="my-8 w-full">
-                      <div className="text-[9px] text-gray-400 text-center bg-gray-100 dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 py-0.5 mb-2">إشهار</div>
+                      <div className="text-[9px] text-gray-400 text-center bg-gray-100 dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 py-0.5 mb-2">Ø¥Ø´Ù‡Ø§Ø±</div>
                       <a href={inArticleAds[0].linkUrl || '#'} target="_blank" rel="noopener noreferrer" className="block w-full">
                         <img src={inArticleAds[0].imageUrl} alt="Advertisement" className="w-full h-auto object-cover rounded shadow-md mx-auto" />
                       </a>
@@ -151,12 +151,12 @@ export default function ArticleDetail() {
             {/* Bottom Actions */}
             <div className="flex items-center justify-between py-8 border-y border-gray-50 dark:border-slate-800">
                <div className="flex items-center gap-4">
-                 <span className="text-sm font-black text-gray-400 ml-2">شارك:</span>
+                 <span className="text-sm font-black text-gray-400 ml-2">Ø´Ø§Ø±Ùƒ:</span>
                  <button className="p-2.5 bg-emerald-700 text-white rounded-full hover:bg-emerald-800 transition shadow-lg"><Share2 className="w-4 h-4" /></button>
                  <button className="p-2.5 bg-gold-500 text-white rounded-full hover:bg-gold-600 transition shadow-lg"><Bookmark className="w-4 h-4" /></button>
                </div>
                <div className="flex items-center gap-2 text-gray-400 font-bold text-xs uppercase tracking-widest">
-                  <MessageSquare className="w-4 h-4 text-emerald-700" /> {article.commentCount} تعليق
+                  <MessageSquare className="w-4 h-4 text-emerald-700" /> {article.commentCount} ØªØ¹Ù„ÙŠÙ‚
                </div>
             </div>
 
@@ -164,33 +164,33 @@ export default function ArticleDetail() {
             <section className="mt-16" id="comments">
               <h2 className="text-2xl font-black mb-10 flex items-center gap-3">
                 <span className="w-2 h-8 bg-emerald-700 rounded-full"></span>
-                نقاش القراء
+                Ù†Ù‚Ø§Ø´ Ø§Ù„Ù‚Ø±Ø§Ø¡
               </h2>
               
               <div className="bg-gray-50 dark:bg-slate-800/50 border border-gray-100 dark:border-slate-800 rounded-3xl p-8 mb-12 relative overflow-hidden">
                 {awaitingReply && (
                   <div className="absolute inset-0 z-10 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 animate-in fade-in duration-500">
                     <Loader2 className="w-10 h-10 animate-spin mb-4 text-emerald-700" />
-                    <p className="font-sans font-black uppercase tracking-widest text-sm text-gray-900 dark:text-white">بانتظار رد الكاتب...</p>
+                    <p className="font-sans font-black uppercase tracking-widest text-sm text-gray-900 dark:text-white">Ø¨Ø§Ù†ØªØ¸Ø§Ø± Ø±Ø¯ Ø§Ù„ÙƒØ§ØªØ¨...</p>
                   </div>
                 )}
                 
                 <h3 className="text-sm font-black uppercase tracking-widest mb-6 text-gray-400 flex items-center gap-2">
-                   أضف تعليقك <Pen className="w-3 h-3 text-gold-500" />
+                   Ø£Ø¶Ù ØªØ¹Ù„ÙŠÙ‚Ùƒ <Pen className="w-3 h-3 text-gold-500" />
                 </h3>
                 <form onSubmit={form.handleSubmit(data => addComment.mutate({ id: article.id, data }))} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <input 
                       {...form.register("authorName")}
                       className="w-full px-6 py-4 bg-white dark:bg-slate-900 border border-transparent focus:border-emerald-700 rounded-2xl transition-all font-sans text-lg outline-none text-right shadow-sm"
-                      placeholder="الاسم بالكامل"
+                      placeholder="Ø§Ù„Ø§Ø³Ù… Ø¨Ø§Ù„ÙƒØ§Ù…Ù„"
                     />
                     <div className="hidden md:block"></div>
                     <textarea 
                       {...form.register("body")}
                       rows={4}
                       className="w-full md:col-span-2 px-6 py-4 bg-white dark:bg-slate-900 border border-transparent focus:border-emerald-700 rounded-2xl transition-all font-sans text-lg outline-none resize-none text-right shadow-sm"
-                      placeholder="اكتب تعليقك هنا..."
+                      placeholder="Ø§ÙƒØªØ¨ ØªØ¹Ù„ÙŠÙ‚Ùƒ Ù‡Ù†Ø§..."
                     />
                   </div>
                   <button 
@@ -198,7 +198,7 @@ export default function ArticleDetail() {
                     disabled={addComment.isPending}
                     className="bg-emerald-700 hover:bg-emerald-800 text-white px-10 py-4 font-black uppercase tracking-widest text-xs rounded-2xl transition-all shadow-xl shadow-emerald-700/20 active:scale-95"
                   >
-                    {addComment.isPending ? "جاري الإرسال..." : "نشر التعليق"}
+                    {addComment.isPending ? "Ø¬Ø§Ø±ÙŠ Ø§Ù„Ø¥Ø±Ø³Ø§Ù„..." : "Ù†Ø´Ø± Ø§Ù„ØªØ¹Ù„ÙŠÙ‚"}
                   </button>
                 </form>
               </div>
@@ -223,7 +223,7 @@ export default function ArticleDetail() {
                       <div>
                         <div className="flex items-center gap-2">
                           <h4 className="font-black text-sm uppercase tracking-wider">{comment.authorName}</h4>
-                          {comment.isAuthorReply && <span className="text-[10px] bg-emerald-700 text-white px-2 py-0.5 rounded-sm">رد الكاتب</span>}
+                          {comment.isAuthorReply && <span className="text-[10px] bg-emerald-700 text-white px-2 py-0.5 rounded-sm">Ø±Ø¯ Ø§Ù„ÙƒØ§ØªØ¨</span>}
                         </div>
                         <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest block mt-1">{formatDateTime(comment.createdAt)}</span>
                       </div>
@@ -240,7 +240,7 @@ export default function ArticleDetail() {
         <aside className="lg:col-span-4 space-y-10" dir="rtl">
           {sidebarAds.length > 0 && (
              <section className="rounded-3xl shadow-sm border border-gray-100 dark:border-slate-800 overflow-hidden bg-gray-50 dark:bg-slate-900">
-               <div className="text-[9px] text-gray-400 text-center bg-gray-100 dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 py-0.5">إشهار</div>
+               <div className="text-[9px] text-gray-400 text-center bg-gray-100 dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 py-0.5">Ø¥Ø´Ù‡Ø§Ø±</div>
                <a href={sidebarAds[0].linkUrl || '#'} target="_blank" rel="noopener noreferrer" className="block w-full">
                   <img src={sidebarAds[0].imageUrl} alt={sidebarAds[0].title} className="w-full h-auto object-cover" />
                </a>
@@ -250,7 +250,7 @@ export default function ArticleDetail() {
           {/* Most Read (Sticky) */}
           <section className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-800 sticky top-28">
             <h3 className="text-xl font-black mb-8 border-r-4 border-gold-500 pr-4 text-emerald-700 dark:text-emerald-500">
-              الأكثر قراءة
+              Ø§Ù„Ø£ÙƒØ«Ø± Ù‚Ø±Ø§Ø¡Ø©
             </h3>
             <div className="space-y-8">
               {mostRead.map((item, idx) => (
@@ -272,7 +272,7 @@ export default function ArticleDetail() {
           {/* Related News */}
           <section className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-800">
             <h3 className="text-xl font-black mb-8 border-r-4 border-emerald-700 pr-4">
-              أخبار ذات صلة
+              Ø£Ø®Ø¨Ø§Ø± Ø°Ø§Øª ØµÙ„Ø©
             </h3>
             <div className="space-y-8">
               {related.map(item => (
@@ -298,18 +298,18 @@ export default function ArticleDetail() {
               <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6 backdrop-blur-sm group-hover:scale-110 transition-transform">
                 <Mail className="w-6 h-6 text-gold-500" />
               </div>
-              <h3 className="text-xl font-black mb-2">النشرة البريدية</h3>
+              <h3 className="text-xl font-black mb-2">Ø§Ù„Ù†Ø´Ø±Ø© Ø§Ù„Ø¨Ø±ÙŠØ¯ÙŠØ©</h3>
               <p className="text-xs text-emerald-100/70 mb-6 leading-relaxed font-medium">
-                اشترك الآن لتصلك أهم التحليلات والأنباء عبر بريدك الإلكتروني.
+                Ø§Ø´ØªØ±Ùƒ Ø§Ù„Ø¢Ù† Ù„ØªØµÙ„Ùƒ Ø£Ù‡Ù… Ø§Ù„ØªØ­Ù„ÙŠÙ„Ø§Øª ÙˆØ§Ù„Ø£Ù†Ø¨Ø§Ø¡ Ø¹Ø¨Ø± Ø¨Ø±ÙŠØ¯Ùƒ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ.
               </p>
               <form className="space-y-3">
                 <input 
                   className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white rounded-xl text-xs focus:ring-1 focus:ring-gold-500 outline-none placeholder:text-emerald-300/40" 
-                  placeholder="بريدك الإلكتروني" 
+                  placeholder="Ø¨Ø±ÙŠØ¯Ùƒ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ" 
                   type="email"
                 />
                 <button className="w-full bg-gold-500 hover:bg-gold-600 text-white font-black py-3 rounded-xl transition-all shadow-lg active:scale-95 text-[10px] uppercase tracking-widest">
-                  اشترك الآن
+                  Ø§Ø´ØªØ±Ùƒ Ø§Ù„Ø¢Ù†
                 </button>
               </form>
             </div>
@@ -321,3 +321,4 @@ export default function ArticleDetail() {
     </div>
   );
 }
+

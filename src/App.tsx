@@ -5,7 +5,7 @@ import { ThemeProvider } from "next-themes";
 import { Layout } from "@/components/layout";
 import { Loader2 } from "lucide-react";
 
-// Lazy-load صفحات الموقع
+// Lazy-load ØµÙØ­Ø§Øª Ø§Ù„Ù…ÙˆÙ‚Ø¹
 const Home = React.lazy(() => import("@/pages/home"));
 const ArticleDetail = React.lazy(() => import("@/pages/article"));
 const SectionPage = React.lazy(() => import("@/pages/section"));
@@ -39,30 +39,30 @@ class ErrorBoundary extends React.Component<
   }
 }
 
-// إعداد React Query
+// Ø¥Ø¹Ø¯Ø§Ø¯ React Query
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
       retry: false,
-      staleTime: 1000 * 60 * 2, // 2 دقائق
+      staleTime: 1000 * 60 * 2, // 2 Ø¯Ù‚Ø§Ø¦Ù‚
     },
   },
 });
 
-// صفحة تحميل Loader
+// ØµÙØ­Ø© ØªØ­Ù…ÙŠÙ„ Loader
 function PageLoader() {
   return (
     <div className="min-h-[50vh] flex flex-col items-center justify-center gap-4" dir="rtl">
       <Loader2 className="w-8 h-8 animate-spin text-emerald-700" />
       <p className="text-sm text-gray-400 font-bold tracking-wider animate-pulse">
-        جاري التحميل...
+        Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...
       </p>
     </div>
   );
 }
 
-// Router مع صفحات الموقع
+// Router Ù…Ø¹ ØµÙØ­Ø§Øª Ø§Ù„Ù…ÙˆÙ‚Ø¹
 function Router() {
   return (
     <Layout>
@@ -73,16 +73,16 @@ function Router() {
             dir="rtl"
           >
             <h2 className="text-xl font-bold mb-2 text-red-600 dark:text-red-400">
-              عذراً، حدث خطأ تقني
+              Ø¹Ø°Ø±Ø§Ù‹ØŒ Ø­Ø¯Ø« Ø®Ø·Ø£ ØªÙ‚Ù†ÙŠ
             </h2>
             <p className="text-red-500/70 text-sm mb-4">
-              يرجى تحديث الصفحة أو المحاولة لاحقاً.
+              ÙŠØ±Ø¬Ù‰ ØªØ­Ø¯ÙŠØ« Ø§Ù„ØµÙØ­Ø© Ø£Ùˆ Ø§Ù„Ù…Ø­Ø§ÙˆÙ„Ø© Ù„Ø§Ø­Ù‚Ø§Ù‹.
             </p>
             <button
               onClick={() => window.location.reload()}
               className="px-6 py-2 bg-red-600 text-white rounded-lg text-sm font-bold hover:bg-red-700 transition-colors"
             >
-              تحديث الصفحة
+              ØªØ­Ø¯ÙŠØ« Ø§Ù„ØµÙØ­Ø©
             </button>
           </div>
         }
@@ -96,19 +96,19 @@ function Router() {
             <Route path="/newsroom" component={Newsroom} />
             <Route path="/submit" component={SubmitArticle} />
             <Route path="/privacy" component={PrivacyPolicy} />
-            {/* صفحة 404 */}
+            {/* ØµÙØ­Ø© 404 */}
             <Route>
               <div className="flex flex-col items-center justify-center min-h-[60vh] text-center" dir="rtl">
-                <div className="text-8xl mb-6 opacity-10">📰</div>
-                <h1 className="text-4xl font-sans font-black mb-4">404 - الصفحة غير موجودة</h1>
+                <div className="text-8xl mb-6 opacity-10">ðŸ“°</div>
+                <h1 className="text-4xl font-sans font-black mb-4">404 - Ø§Ù„ØµÙØ­Ø© ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯Ø©</h1>
                 <p className="text-gray-400 font-sans text-lg mb-8">
-                  الرابط الذي تبحث عنه غير موجود حالياً.
+                  Ø§Ù„Ø±Ø§Ø¨Ø· Ø§Ù„Ø°ÙŠ ØªØ¨Ø­Ø« Ø¹Ù†Ù‡ ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯ Ø­Ø§Ù„ÙŠØ§Ù‹.
                 </p>
                 <a
                   href="/"
                   className="px-8 py-3 bg-emerald-700 text-white rounded-xl font-bold text-sm hover:bg-emerald-800 transition-all"
                 >
-                  العودة للرئيسية
+                  Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø±Ø¦ÙŠØ³ÙŠØ©
                 </a>
               </div>
             </Route>
@@ -119,12 +119,12 @@ function Router() {
   );
 }
 
-// App الرئيسي
+// App Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="light">
-        {/* استخدام Wouter مع base صحيح */}
+        {/* Ø§Ø³ØªØ®Ø¯Ø§Ù… Wouter Ù…Ø¹ base ØµØ­ÙŠØ­ */}
         <WouterRouter base={import.meta.env.BASE_URL?.replace(/\/$/, "") || "/"}>
           <Router />
         </WouterRouter>
@@ -134,3 +134,4 @@ function App() {
 }
 
 export default App;
+

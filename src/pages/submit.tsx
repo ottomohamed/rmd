@@ -1,21 +1,23 @@
+'use client';
+
 import { useState, useRef } from "react";
 import { useSubmitMAGHREB24Article, useRequestUploadUrl } from "@workspace/api-client-react";
 import { CheckCircle, Upload, AlertCircle, Loader2, PenLine, User, Mail, FileText, BookOpen, Image as ImageIcon, Send, Sparkles, AlertTriangle } from "lucide-react";
 import { cn, usePageTitle } from "@/lib/utils";
 
 const SECTIONS = [
-  { value: "politics", label: "سياسة", color: "bg-blue-600" },
-  { value: "economics", label: "اقتصاد", color: "bg-amber-500" },
-  { value: "sports", label: "رياضة", color: "bg-emerald-600" },
-  { value: "society", label: "مجتمع", color: "bg-rose-500" },
-  { value: "culture", label: "ثقافة", color: "bg-violet-500" },
-  { value: "editorial", label: "رأي / وجهة نظر", color: "bg-zinc-700" },
+  { value: "politics", label: "Ø³ÙŠØ§Ø³Ø©", color: "bg-blue-600" },
+  { value: "economics", label: "Ø§Ù‚ØªØµØ§Ø¯", color: "bg-amber-500" },
+  { value: "sports", label: "Ø±ÙŠØ§Ø¶Ø©", color: "bg-emerald-600" },
+  { value: "society", label: "Ù…Ø¬ØªÙ…Ø¹", color: "bg-rose-500" },
+  { value: "culture", label: "Ø«Ù‚Ø§ÙØ©", color: "bg-violet-500" },
+  { value: "editorial", label: "Ø±Ø£ÙŠ / ÙˆØ¬Ù‡Ø© Ù†Ø¸Ø±", color: "bg-zinc-700" },
 ];
 
 type Step = "form" | "success";
 
 export default function SubmitArticle() {
-  usePageTitle('أرسل مقالك — مساهمات القراء');
+  usePageTitle('Ø£Ø±Ø³Ù„ Ù…Ù‚Ø§Ù„Ùƒ â€” Ù…Ø³Ø§Ù‡Ù…Ø§Øª Ø§Ù„Ù‚Ø±Ø§Ø¡');
   const [step, setStep] = useState<Step>("form");
   const [submissionId, setSubmissionId] = useState<number | null>(null);
 
@@ -39,11 +41,11 @@ export default function SubmitArticle() {
     const file = e.target.files?.[0];
     if (!file) return;
     if (!file.type.startsWith("image/")) {
-      setUploadError("يرجى اختيار ملف صورة.");
+      setUploadError("ÙŠØ±Ø¬Ù‰ Ø§Ø®ØªÙŠØ§Ø± Ù…Ù„Ù ØµÙˆØ±Ø©.");
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
-      setUploadError("يجب أن تكون الصورة أقل من 5 ميجابايت.");
+      setUploadError("ÙŠØ¬Ø¨ Ø£Ù† ØªÙƒÙˆÙ† Ø§Ù„ØµÙˆØ±Ø© Ø£Ù‚Ù„ Ù…Ù† 5 Ù…ÙŠØ¬Ø§Ø¨Ø§ÙŠØª.");
       return;
     }
     setUploadError("");
@@ -51,10 +53,10 @@ export default function SubmitArticle() {
     try {
       const result = await new Promise<{ uploadURL: string; objectPath: string }>((resolve, reject) => {
         requestUpload.mutate(
-          { data: { contentType: file.type, name: file.name, size: file.size } },
+          { data: { contentType: file.type, name: file.name } },
           {
-            onSuccess: (data: { uploadURL: string; objectPath: string; }) => resolve(data),
-            onError: (err: Error) => reject(err),
+            onSuccess: (data) => resolve(data as any),
+            onError: (err) => reject(err),
           }
         );
       });
@@ -68,7 +70,7 @@ export default function SubmitArticle() {
       setPhotoPreview(URL.createObjectURL(file));
       setUploadError("");
     } catch {
-      setUploadError("فشل تحميل الصورة. يمكنك الاستمرار في الإرسال بدون صورة.");
+      setUploadError("ÙØ´Ù„ ØªØ­Ù…ÙŠÙ„ Ø§Ù„ØµÙˆØ±Ø©. ÙŠÙ…ÙƒÙ†Ùƒ Ø§Ù„Ø§Ø³ØªÙ…Ø±Ø§Ø± ÙÙŠ Ø§Ù„Ø¥Ø±Ø³Ø§Ù„ Ø¨Ø¯ÙˆÙ† ØµÙˆØ±Ø©.");
     } finally {
       setUploadingPhoto(false);
     }
@@ -79,13 +81,13 @@ export default function SubmitArticle() {
     setFormError("");
 
     if (!authorName.trim() || !authorEmail.trim() || !title.trim() || !body.trim()) {
-      setFormError("يرجى ملء جميع الحقول المطلوبة التي تحمل علامة (*)");
+      setFormError("ÙŠØ±Ø¬Ù‰ Ù…Ù„Ø¡ Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ„ Ø§Ù„Ù…Ø·Ù„ÙˆØ¨Ø© Ø§Ù„ØªÙŠ ØªØ­Ù…Ù„ Ø¹Ù„Ø§Ù…Ø© (*)");
       return;
     }
     
     const words = body.trim().split(/\s+/).length;
     if (words < 100) {
-      setFormError(`مقالك قصير جداً (${words} كلمة). يجب أن لا يقل عن 100 كلمة لمراجعته.`);
+      setFormError(`Ù…Ù‚Ø§Ù„Ùƒ Ù‚ØµÙŠØ± Ø¬Ø¯Ø§Ù‹ (${words} ÙƒÙ„Ù…Ø©). ÙŠØ¬Ø¨ Ø£Ù† Ù„Ø§ ÙŠÙ‚Ù„ Ø¹Ù† 100 ÙƒÙ„Ù…Ø© Ù„Ù…Ø±Ø§Ø¬Ø¹ØªÙ‡.`);
       return;
     }
 
@@ -102,13 +104,13 @@ export default function SubmitArticle() {
         },
       },
       {
-        onSuccess: (data: { id: number; }) => {
+        onSuccess: (data: any) => {
           setSubmissionId(data.id);
           setStep("success");
           window.scrollTo({ top: 0, behavior: "smooth" });
         },
-        onError: (err: Error) => {
-          setFormError("فشل الإرسال بسبب خطأ تقني. يرجى مراجعة اتصالك والمحاولة مرة أخرى.");
+        onError: () => {
+          setFormError("ÙØ´Ù„ Ø§Ù„Ø¥Ø±Ø³Ø§Ù„ Ø¨Ø³Ø¨Ø¨ Ø®Ø·Ø£ ØªÙ‚Ù†ÙŠ. ÙŠØ±Ø¬Ù‰ Ù…Ø±Ø§Ø¬Ø¹Ø© Ø§ØªØµØ§Ù„Ùƒ ÙˆØ§Ù„Ù…Ø­Ø§ÙˆÙ„Ø© Ù…Ø±Ø© Ø£Ø®Ø±Ù‰.");
         },
       }
     );
@@ -122,23 +124,23 @@ export default function SubmitArticle() {
         <div className="mb-10 inline-flex items-center justify-center w-24 h-24 bg-emerald-100 dark:bg-emerald-950/30 rounded-full">
           <CheckCircle className="w-12 h-12 text-emerald-600" />
         </div>
-        <h1 className="text-4xl md:text-5xl font-black font-sans mb-6">وصلنا مقالك بنجاح!</h1>
+        <h1 className="text-4xl md:text-5xl font-black font-sans mb-6">ÙˆØµÙ„Ù†Ø§ Ù…Ù‚Ø§Ù„Ùƒ Ø¨Ù†Ø¬Ø§Ø­!</h1>
         <p className="text-gray-500 dark:text-gray-400 font-sans text-xl leading-relaxed mb-8 max-w-xl mx-auto">
-          شكراً لمساهمتك في "مغرب 24". سيقوم فريق التحرير بمراجعة المحتوى بدقة، وسنتواصل معك عبر البريد الإلكتروني فور اتخاذ قرار النشر.
+          Ø´ÙƒØ±Ø§Ù‹ Ù„Ù…Ø³Ø§Ù‡Ù…ØªÙƒ ÙÙŠ "Ù…ØºØ±Ø¨ 24". Ø³ÙŠÙ‚ÙˆÙ… ÙØ±ÙŠÙ‚ Ø§Ù„ØªØ­Ø±ÙŠØ± Ø¨Ù…Ø±Ø§Ø¬Ø¹Ø© Ø§Ù„Ù…Ø­ØªÙˆÙ‰ Ø¨Ø¯Ù‚Ø©ØŒ ÙˆØ³Ù†ØªÙˆØ§ØµÙ„ Ù…Ø¹Ùƒ Ø¹Ø¨Ø± Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ ÙÙˆØ± Ø§ØªØ®Ø§Ø° Ù‚Ø±Ø§Ø± Ø§Ù„Ù†Ø´Ø±.
         </p>
         <div className="bg-gray-50 dark:bg-slate-900 border border-gray-100 dark:border-slate-800 p-4 rounded-xl inline-block mb-12">
-          <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">رقم مرجع المساهمة</p>
+          <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">Ø±Ù‚Ù… Ù…Ø±Ø¬Ø¹ Ø§Ù„Ù…Ø³Ø§Ù‡Ù…Ø©</p>
           <p className="font-mono text-xl font-bold text-emerald-700">#M24-{submissionId?.toString().padStart(5, "0")}</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="/" className="px-10 py-4 bg-emerald-700 text-white rounded-xl font-bold text-sm hover:bg-emerald-800 transition-all shadow-lg shadow-emerald-700/20">
-            العودة للرئيسية
+            Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø±Ø¦ÙŠØ³ÙŠØ©
           </a>
           <button
             onClick={() => { setStep("form"); setBody(""); setTitle(""); setAuthorName(""); setAuthorEmail(""); setAuthorBio(""); setPhotoUrl(""); setPhotoPreview(""); }}
             className="px-10 py-4 border-2 border-gray-200 dark:border-slate-800 font-bold rounded-xl text-sm hover:bg-gray-50 dark:hover:bg-slate-900 transition-all"
           >
-            إرسال موضوع آخر
+            Ø¥Ø±Ø³Ø§Ù„ Ù…ÙˆØ¶ÙˆØ¹ Ø¢Ø®Ø±
           </button>
         </div>
       </div>
@@ -147,38 +149,35 @@ export default function SubmitArticle() {
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-4 text-right animate-in fade-in duration-700" dir="rtl">
-      {/* Header Section */}
       <div className="relative mb-16">
         <div className="absolute -right-8 top-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-3xl" />
         <div className="flex items-center gap-2 text-emerald-600 mb-4 justify-end font-bold text-xs uppercase tracking-[0.2em]">
-          <span>شاركنا رأيك وخبرك</span>
+          <span>Ø´Ø§Ø±ÙƒÙ†Ø§ Ø±Ø£ÙŠÙƒ ÙˆØ®Ø¨Ø±Ùƒ</span>
           <Sparkles className="w-4 h-4" />
         </div>
         <h1 className="text-5xl md:text-7xl font-black font-sans tracking-tighter mb-6 leading-[1.1]">
-          أرسل مقالك إلى <br />
-          <span className="text-emerald-700">مغرب 24</span>
+          Ø£Ø±Ø³Ù„ Ù…Ù‚Ø§Ù„Ùƒ Ø¥Ù„Ù‰ <br />
+          <span className="text-emerald-700">Ù…ØºØ±Ø¨ 24</span>
         </h1>
         <p className="font-sans text-lg text-gray-500 dark:text-gray-400 leading-relaxed max-w-2xl ml-auto">
-          نحن في "مغرب 24" نؤمن بأن الحقيقة ملك للجميع. إذا كان لديك تحليل عميق، أو خبر حصري، أو وجهة نظر تستحق المشاركة، فنحن نفتح لك مساحة احترافية للنشر.
+          Ù†Ø­Ù† ÙÙŠ "Ù…ØºØ±Ø¨ 24" Ù†Ø¤Ù…Ù† Ø¨Ø£Ù† Ø§Ù„Ø­Ù‚ÙŠÙ‚Ø© Ù…Ù„Ùƒ Ù„Ù„Ø¬Ù…ÙŠØ¹. Ø¥Ø°Ø§ ÙƒØ§Ù† Ù„Ø¯ÙŠÙƒ ØªØ­Ù„ÙŠÙ„ Ø¹Ù…ÙŠÙ‚ØŒ Ø£Ùˆ Ø®Ø¨Ø± Ø­ØµØ±ÙŠØŒ Ø£Ùˆ ÙˆØ¬Ù‡Ø© Ù†Ø¸Ø± ØªØ³ØªØ­Ù‚ Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ©ØŒ ÙÙ†Ø­Ù† Ù†ÙØªØ­ Ù„Ùƒ Ù…Ø³Ø§Ø­Ø© Ø§Ø­ØªØ±Ø§ÙÙŠØ© Ù„Ù„Ù†Ø´Ø±.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* Form Column */}
         <div className="lg:col-span-2 order-2 lg:order-1">
           <form onSubmit={handleSubmit} className="space-y-12">
-            {/* 📝 المحتوى */}
             <section className="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 p-8 rounded-3xl shadow-sm">
               <div className="flex items-center gap-3 mb-8 justify-end">
-                <h2 className="text-2xl font-black font-sans">تفاصيل المقال</h2>
+                <h2 className="text-2xl font-black font-sans">ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ù…Ù‚Ø§Ù„</h2>
                 <div className="w-10 h-10 bg-emerald-50 dark:bg-emerald-950/30 rounded-xl flex items-center justify-center">
                   <FileText className="w-5 h-5 text-emerald-600" />
                 </div>
               </div>
 
               <div className="space-y-8">
-               <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">القسم المفضل</label>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">Ø§Ù„Ù‚Ø³Ù… Ø§Ù„Ù…ÙØ¶Ù„</label>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {SECTIONS.map(s => (
                       <button
@@ -199,13 +198,13 @@ export default function SubmitArticle() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">العنوان *</label>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">Ø§Ù„Ø¹Ù†ÙˆØ§Ù† *</label>
                   <input
                     type="text"
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                     maxLength={150}
-                    placeholder="ضع عنواناً جذاباً لموضوعك..."
+                    placeholder="Ø¶Ø¹ Ø¹Ù†ÙˆØ§Ù†Ø§Ù‹ Ø¬Ø°Ø§Ø¨Ø§Ù‹ Ù„Ù…ÙˆØ¶ÙˆØ¹Ùƒ..."
                     className="w-full bg-gray-50 dark:bg-slate-800/50 border border-gray-100 dark:border-slate-800 rounded-2xl px-6 py-4 text-xl font-bold focus:outline-none focus:ring-4 focus:ring-emerald-700/5 focus:border-emerald-700 transition-all"
                   />
                   <div className="flex justify-between mt-2 px-1">
@@ -219,25 +218,24 @@ export default function SubmitArticle() {
                       "text-[10px] font-bold py-1 px-3 rounded-full",
                       wordCount < 100 ? "bg-amber-100 text-amber-700" : "bg-emerald-100 text-emerald-700"
                     )}>
-                      {wordCount} كلمة {wordCount < 100 && "(أقل من الحد الأدنى)"}
+                      {wordCount} ÙƒÙ„Ù…Ø© {wordCount < 100 && "(Ø£Ù‚Ù„ Ù…Ù† Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰)"}
                     </span>
-                    <label className="block text-xs font-bold uppercase tracking-widest text-gray-400">نص المقال *</label>
+                    <label className="block text-xs font-bold uppercase tracking-widest text-gray-400">Ù†Øµ Ø§Ù„Ù…Ù‚Ø§Ù„ *</label>
                   </div>
                   <textarea
                     value={body}
                     onChange={e => setBody(e.target.value)}
                     rows={15}
-                    placeholder="ابدأ بكتابة موضوعك هنا بأسلوب رصين ومحترف..."
+                    placeholder="Ø§Ø¨Ø¯Ø£ Ø¨ÙƒØªØ§Ø¨Ø© Ù…ÙˆØ¶ÙˆØ¹Ùƒ Ù‡Ù†Ø§ Ø¨Ø£Ø³Ù„ÙˆØ¨ Ø±ØµÙŠÙ† ÙˆÙ…Ø­ØªØ±Ù..."
                     className="w-full bg-gray-50 dark:bg-slate-800/50 border border-gray-100 dark:border-slate-800 rounded-2xl px-6 py-4 text-base leading-relaxed focus:outline-none focus:ring-4 focus:ring-emerald-700/5 focus:border-emerald-700 transition-all resize-none"
                   />
                 </div>
               </div>
             </section>
 
-            {/* ✍️ الكاتب */}
             <section className="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 p-8 rounded-3xl shadow-sm">
               <div className="flex items-center gap-3 mb-8 justify-end">
-                <h2 className="text-2xl font-black font-sans">معلومات الكاتب</h2>
+                <h2 className="text-2xl font-black font-sans">Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„ÙƒØ§ØªØ¨</h2>
                 <div className="w-10 h-10 bg-emerald-50 dark:bg-emerald-950/30 rounded-xl flex items-center justify-center">
                   <User className="w-5 h-5 text-emerald-600" />
                 </div>
@@ -245,7 +243,7 @@ export default function SubmitArticle() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">الاسم الكامل *</label>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">Ø§Ù„Ø§Ø³Ù… Ø§Ù„ÙƒØ§Ù…Ù„ *</label>
                   <input
                     type="text"
                     value={authorName}
@@ -254,7 +252,7 @@ export default function SubmitArticle() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">البريد الإلكتروني *</label>
+                  <label className="block text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ *</label>
                   <input
                     type="email"
                     value={authorEmail}
@@ -266,7 +264,7 @@ export default function SubmitArticle() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">نبذة قصيرة</label>
+                <label className="block text-xs font-bold uppercase tracking-widest mb-3 text-gray-400">Ù†Ø¨Ø°Ø© Ù‚ØµÙŠØ±Ø©</label>
                 <textarea
                   value={authorBio}
                   onChange={e => setAuthorBio(e.target.value)}
@@ -290,8 +288,8 @@ export default function SubmitArticle() {
                       </div>
                     )}
                     <div className="text-right">
-                      <p className="text-sm font-bold">{photoPreview ? "تم تحميل الصورة" : "أرفق صورة شخصية"}</p>
-                      <p className="text-[10px] text-gray-400 uppercase">اختياري — ستظهر بجانب اسمك كمؤلف</p>
+                      <p className="text-sm font-bold">{photoPreview ? "ØªÙ… ØªØ­Ù…ÙŠÙ„ Ø§Ù„ØµÙˆØ±Ø©" : "Ø£Ø±ÙÙ‚ ØµÙˆØ±Ø© Ø´Ø®ØµÙŠØ©"}</p>
+                      <p className="text-[10px] text-gray-400 uppercase">Ø§Ø®ØªÙŠØ§Ø±ÙŠ â€” Ø³ØªØ¸Ù‡Ø± Ø¨Ø¬Ø§Ù†Ø¨ Ø§Ø³Ù…Ùƒ ÙƒÙ…Ø¤Ù„Ù</p>
                     </div>
                   </div>
                   <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handlePhotoUpload} />
@@ -313,25 +311,24 @@ export default function SubmitArticle() {
               className="w-full py-5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-emerald-700/20 flex items-center justify-center gap-3 group disabled:opacity-50"
             >
               {submitArticle.isPending ? (
-                <><Loader2 className="w-6 h-6 animate-spin" /> جاري التقديم...</>
+                <><Loader2 className="w-6 h-6 animate-spin" /> Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªÙ‚Ø¯ÙŠÙ…...</>
               ) : (
-                <>إرسال المقال للمراجعة <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>
+                <>Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ù…Ù‚Ø§Ù„ Ù„Ù„Ù…Ø±Ø§Ø¬Ø¹Ø© <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>
               )}
             </button>
           </form>
         </div>
 
-        {/* Info Column */}
         <div className="space-y-8 order-1 lg:order-2">
           <div className="bg-emerald-700 text-white p-8 rounded-3xl shadow-xl shadow-emerald-700/20">
-            <h3 className="text-xl font-black mb-6">قواعد النشر</h3>
+            <h3 className="text-xl font-black mb-6">Ù‚ÙˆØ§Ø¹Ø¯ Ø§Ù„Ù†Ø´Ø±</h3>
             <ul className="space-y-5">
               {[
-                "أن يكون المحتوى أصلياً وغير منقول.",
-                "ألا يقل النص عن 100 كلمة.",
-                "الالتزام بالحياد والموضوعية.",
-                "ألا يتضمن إساءة أو قذفاً.",
-                "إرفاق مصادر الأخبار إن وُجدت."
+                "Ø£Ù† ÙŠÙƒÙˆÙ† Ø§Ù„Ù…Ø­ØªÙˆÙ‰ Ø£ØµÙ„ÙŠØ§Ù‹ ÙˆØºÙŠØ± Ù…Ù†Ù‚ÙˆÙ„.",
+                "Ø£Ù„Ø§ ÙŠÙ‚Ù„ Ø§Ù„Ù†Øµ Ø¹Ù† 100 ÙƒÙ„Ù…Ø©.",
+                "Ø§Ù„Ø§Ù„ØªØ²Ø§Ù… Ø¨Ø§Ù„Ø­ÙŠØ§Ø¯ ÙˆØ§Ù„Ù…ÙˆØ¶ÙˆØ¹ÙŠØ©.",
+                "Ø£Ù„Ø§ ÙŠØªØ¶Ù…Ù† Ø¥Ø³Ø§Ø¡Ø© Ø£Ùˆ Ù‚Ø°ÙØ§Ù‹.",
+                "Ø¥Ø±ÙØ§Ù‚ Ù…ØµØ§Ø¯Ø± Ø§Ù„Ø£Ø®Ø¨Ø§Ø± Ø¥Ù† ÙˆÙØ¬Ø¯Øª."
               ].map((item, i) => (
                 <li key={i} className="flex gap-4 items-start text-sm font-medium leading-relaxed opacity-90">
                   <span className="w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">{i+1}</span>
@@ -343,11 +340,11 @@ export default function SubmitArticle() {
 
           <div className="p-8 border-2 border-dashed border-gray-100 dark:border-slate-800 rounded-3xl">
             <h3 className="text-lg font-black mb-4 flex items-center gap-2 justify-end">
-              ماذا يحدث بعد الإرسال؟
+              Ù…Ø§Ø°Ø§ ÙŠØ­Ø¯Ø« Ø¨Ø¹Ø¯ Ø§Ù„Ø¥Ø±Ø³Ø§Ù„ØŸ
               <Sparkles className="w-4 h-4 text-emerald-600" />
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed text-right">
-              بمجرد ضغطك على زر الإرسال، يصل مقالك إلى نظام المراجعة لدينا. يقوم المحررون بقراءته والتأكد من توافقه مع معايير "مغرب 24". إذا تمت الموافقة، ستتلقى رسالة تأكيد ويُنشر المقال باسمك في قسم "مساهمات القراء".
+              Ø¨Ù…Ø¬Ø±Ø¯ Ø¶ØºØ·Ùƒ Ø¹Ù„Ù‰ Ø²Ø± Ø§Ù„Ø¥Ø±Ø³Ø§Ù„ØŒ ÙŠØµÙ„ Ù…Ù‚Ø§Ù„Ùƒ Ø¥Ù„Ù‰ Ù†Ø¸Ø§Ù… Ø§Ù„Ù…Ø±Ø§Ø¬Ø¹Ø© Ù„Ø¯ÙŠÙ†Ø§. ÙŠÙ‚ÙˆÙ… Ø§Ù„Ù…Ø­Ø±Ø±ÙˆÙ† Ø¨Ù‚Ø±Ø§Ø¡ØªÙ‡ ÙˆØ§Ù„ØªØ£ÙƒØ¯ Ù…Ù† ØªÙˆØ§ÙÙ‚Ù‡ Ù…Ø¹ Ù…Ø¹Ø§ÙŠÙŠØ± "Ù…ØºØ±Ø¨ 24". Ø¥Ø°Ø§ ØªÙ…Øª Ø§Ù„Ù…ÙˆØ§ÙÙ‚Ø©ØŒ Ø³ØªØªÙ„Ù‚Ù‰ Ø±Ø³Ø§Ù„Ø© ØªØ£ÙƒÙŠØ¯ ÙˆÙŠÙÙ†Ø´Ø± Ø§Ù„Ù…Ù‚Ø§Ù„ Ø¨Ø§Ø³Ù…Ùƒ ÙÙŠ Ù‚Ø³Ù… "Ù…Ø³Ø§Ù‡Ù…Ø§Øª Ø§Ù„Ù‚Ø±Ø§Ø¡".
             </p>
           </div>
         </div>
@@ -355,3 +352,4 @@ export default function SubmitArticle() {
     </div>
   );
 }
+

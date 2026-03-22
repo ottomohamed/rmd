@@ -8,10 +8,10 @@ export interface BreakingNews {
 }
 
 const DEFAULT_BREAKING: BreakingNews[] = [
-  { id: "1", text: "جلالة الملك محمد السادس يترأس مجلساً وزارياً بالقصر الملكي بالرباط", active: true, urgent: true },
-  { id: "2", text: "المغرب يسجل نمواً اقتصادياً ملحوظاً في الربع الأول من السنة", active: true, urgent: false },
-  { id: "3", text: "انطلاق فعاليات مهرجان موازين الدولي في دورته الجديدة", active: true, urgent: false },
-  { id: "4", text: "المنتخب الوطني يستعد لمواجهة حاسمة في التصفيات الأفريقية", active: true, urgent: false },
+  { id: "1", text: "Ø¬Ù„Ø§Ù„Ø© Ø§Ù„Ù…Ù„Ùƒ Ù…Ø­Ù…Ø¯ Ø§Ù„Ø³Ø§Ø¯Ø³ ÙŠØªØ±Ø£Ø³ Ù…Ø¬Ù„Ø³Ø§Ù‹ ÙˆØ²Ø§Ø±ÙŠØ§Ù‹ Ø¨Ø§Ù„Ù‚ØµØ± Ø§Ù„Ù…Ù„ÙƒÙŠ Ø¨Ø§Ù„Ø±Ø¨Ø§Ø·", active: true, urgent: true },
+  { id: "2", text: "Ø§Ù„Ù…ØºØ±Ø¨ ÙŠØ³Ø¬Ù„ Ù†Ù…ÙˆØ§Ù‹ Ø§Ù‚ØªØµØ§Ø¯ÙŠØ§Ù‹ Ù…Ù„Ø­ÙˆØ¸Ø§Ù‹ ÙÙŠ Ø§Ù„Ø±Ø¨Ø¹ Ø§Ù„Ø£ÙˆÙ„ Ù…Ù† Ø§Ù„Ø³Ù†Ø©", active: true, urgent: false },
+  { id: "3", text: "Ø§Ù†Ø·Ù„Ø§Ù‚ ÙØ¹Ø§Ù„ÙŠØ§Øª Ù…Ù‡Ø±Ø¬Ø§Ù† Ù…ÙˆØ§Ø²ÙŠÙ† Ø§Ù„Ø¯ÙˆÙ„ÙŠ ÙÙŠ Ø¯ÙˆØ±ØªÙ‡ Ø§Ù„Ø¬Ø¯ÙŠØ¯Ø©", active: true, urgent: false },
+  { id: "4", text: "Ø§Ù„Ù…Ù†ØªØ®Ø¨ Ø§Ù„ÙˆØ·Ù†ÙŠ ÙŠØ³ØªØ¹Ø¯ Ù„Ù…ÙˆØ§Ø¬Ù‡Ø© Ø­Ø§Ø³Ù…Ø© ÙÙŠ Ø§Ù„ØªØµÙÙŠØ§Øª Ø§Ù„Ø£ÙØ±ÙŠÙ‚ÙŠØ©", active: true, urgent: false },
 ];
 
 export function useBreakingNews() {
@@ -79,3 +79,4 @@ export function useBreakingNews() {
 
   return { items, tickerEnabled, setTickerEnabled, addItem, deleteItem, toggleItem, updateItem };
 }
+

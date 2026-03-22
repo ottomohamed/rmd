@@ -1,0 +1,18 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
+
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  
+  if (req.method === 'GET') {
+    res.status(200).json({ 
+      trends: [
+        { id: '1', topic: 'الذكاء الاصطناعي في المغرب', score: 95 },
+        { id: '2', topic: 'الطاقة المتجددة', score: 87 },
+        { id: '3', topic: 'كأس العالم 2030', score: 76 }
+      ]
+    })
+  } else {
+    res.status(405).json({ error: 'Method not allowed' })
+  }
+}
+

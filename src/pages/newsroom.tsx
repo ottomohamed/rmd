@@ -1,4 +1,5 @@
-import { supabase } from '@/lib/supabase'
+'use client';
+
 import { useState, useEffect, useRef } from "react";
 import { 
   useGetMAGHREB24Newsroom, 
@@ -8,8 +9,7 @@ import {
   useApproveMAGHREB24Submission, 
   useRejectMAGHREB24Submission, 
   useAnalyzeMAGHREB24Trends, 
-  useGetMAGHREB24TrendsLatest,
-  MAGHREB24NewsroomLog
+  useGetMAGHREB24TrendsLatest 
 } from "@workspace/api-client-react";
 import { 
   Loader2, Terminal, ShieldAlert, Play, RefreshCw, Activity, 
@@ -25,98 +25,121 @@ import { useBreakingNews } from "@/hooks/use-breaking-news";
 
 const ADMIN_KEY = "meridian2024";
 
-// ── مراسلو مغرب 24 — ذكاء اصطناعي متخصص لكل قسم ──────────────────
+interface Submission {
+  id: string;
+  title: string;
+  author: string;
+  authorName: string;
+  authorEmail: string;
+  authorBio?: string;
+  authorPhotoUrl?: string;
+  body: string;
+  section: string;
+  status: 'pending' | 'approved' | 'rejected';
+  submittedAt: string;
+  createdAt: string;
+}
+
+interface LogEntry {
+  id: string;
+  message: string;
+  messageType?: string;
+  author: string;
+  createdAt: string;
+  relatedArticleId?: string;
+}
+
 export const JOURNALISTS = [
   {
     slug: "marcus-webb",
-    name: "أمينة المنصوري",
-    beat: "السياسة",
+    name: "Ø£Ù…ÙŠÙ†Ø© Ø§Ù„Ù…Ù†ØµÙˆØ±ÙŠ",
+    beat: "Ø§Ù„Ø³ÙŠØ§Ø³Ø©",
     section: "politics",
-    title: "مراسلة الشؤون السياسية",
-    emoji: "🏛️",
+    title: "Ù…Ø±Ø§Ø³Ù„Ø© Ø§Ù„Ø´Ø¤ÙˆÙ† Ø§Ù„Ø³ÙŠØ§Ø³ÙŠØ©",
+    emoji: "ðŸ›ï¸",
     color: "text-blue-400",
     border: "border-blue-900/40",
     bg: "bg-blue-900/10",
-    persona: "محللة سياسية متخصصة في الشأن المغربي والعربي.",
-    topics: ["البرلمان", "الحكومة", "الأحزاب", "السفارات", "الانتخابات", "السياسة الخارجية"],
+    persona: "Ù…Ø­Ù„Ù„Ø© Ø³ÙŠØ§Ø³ÙŠØ© Ù…ØªØ®ØµØµØ© ÙÙŠ Ø§Ù„Ø´Ø£Ù† Ø§Ù„Ù…ØºØ±Ø¨ÙŠ ÙˆØ§Ù„Ø¹Ø±Ø¨ÙŠ.",
+    topics: ["Ø§Ù„Ø¨Ø±Ù„Ù…Ø§Ù†", "Ø§Ù„Ø­ÙƒÙˆÙ…Ø©", "Ø§Ù„Ø£Ø­Ø²Ø§Ø¨", "Ø§Ù„Ø³ÙØ§Ø±Ø§Øª", "Ø§Ù„Ø§Ù†ØªØ®Ø§Ø¨Ø§Øª", "Ø§Ù„Ø³ÙŠØ§Ø³Ø© Ø§Ù„Ø®Ø§Ø±Ø¬ÙŠØ©"],
   },
   {
     slug: "diana-forsythe",
-    name: "يوسف العلمي",
-    beat: "الاقتصاد",
+    name: "ÙŠÙˆØ³Ù Ø§Ù„Ø¹Ù„Ù…ÙŠ",
+    beat: "Ø§Ù„Ø§Ù‚ØªØµØ§Ø¯",
     section: "economics",
-    title: "محرر الشؤون الاقتصادية",
-    emoji: "📈",
+    title: "Ù…Ø­Ø±Ø± Ø§Ù„Ø´Ø¤ÙˆÙ† Ø§Ù„Ø§Ù‚ØªØµØ§Ø¯ÙŠØ©",
+    emoji: "ðŸ“ˆ",
     color: "text-emerald-400",
     border: "border-emerald-900/40",
     bg: "bg-emerald-900/10",
-    persona: "اقتصادي متخصص في الأسواق والمال والأعمال.",
-    topics: ["البورصة", "الاستثمار", "الميزانية", "التجارة", "البنوك", "الشركات"],
+    persona: "Ø§Ù‚ØªØµØ§Ø¯ÙŠ Ù…ØªØ®ØµØµ ÙÙŠ Ø§Ù„Ø£Ø³ÙˆØ§Ù‚ ÙˆØ§Ù„Ù…Ø§Ù„ ÙˆØ§Ù„Ø£Ø¹Ù…Ø§Ù„.",
+    topics: ["Ø§Ù„Ø¨ÙˆØ±ØµØ©", "Ø§Ù„Ø§Ø³ØªØ«Ù…Ø§Ø±", "Ø§Ù„Ù…ÙŠØ²Ø§Ù†ÙŠØ©", "Ø§Ù„ØªØ¬Ø§Ø±Ø©", "Ø§Ù„Ø¨Ù†ÙˆÙƒ", "Ø§Ù„Ø´Ø±ÙƒØ§Øª"],
   },
   {
     slug: "carlos-reyes",
-    name: "مريم الطاهري",
-    beat: "الرياضة",
+    name: "Ù…Ø±ÙŠÙ… Ø§Ù„Ø·Ø§Ù‡Ø±ÙŠ",
+    beat: "Ø§Ù„Ø±ÙŠØ§Ø¶Ø©",
     section: "sports",
-    title: "مراسلة الشؤون الرياضية",
-    emoji: "⚽",
+    title: "Ù…Ø±Ø§Ø³Ù„Ø© Ø§Ù„Ø´Ø¤ÙˆÙ† Ø§Ù„Ø±ÙŠØ§Ø¶ÙŠØ©",
+    emoji: "âš½",
     color: "text-amber-400",
     border: "border-amber-900/40",
     bg: "bg-amber-900/10",
-    persona: "صحفية رياضية متخصصة في كرة القدم المغربية.",
-    topics: ["الوداد", "الرجاء", "المنتخب الوطني", "كأس العالم", "الدوري", "الألعاب الأولمبية"],
+    persona: "ØµØ­ÙÙŠØ© Ø±ÙŠØ§Ø¶ÙŠØ© Ù…ØªØ®ØµØµØ© ÙÙŠ ÙƒØ±Ø© Ø§Ù„Ù‚Ø¯Ù… Ø§Ù„Ù…ØºØ±Ø¨ÙŠØ©.",
+    topics: ["Ø§Ù„ÙˆØ¯Ø§Ø¯", "Ø§Ù„Ø±Ø¬Ø§Ø¡", "Ø§Ù„Ù…Ù†ØªØ®Ø¨ Ø§Ù„ÙˆØ·Ù†ÙŠ", "ÙƒØ£Ø³ Ø§Ù„Ø¹Ø§Ù„Ù…", "Ø§Ù„Ø¯ÙˆØ±ÙŠ", "Ø§Ù„Ø£Ù„Ø¹Ø§Ø¨ Ø§Ù„Ø£ÙˆÙ„Ù…Ø¨ÙŠØ©"],
   },
   {
     slug: "victoria-chambers",
-    name: "عمر بنجلون",
-    beat: "الثقافة",
+    name: "Ø¹Ù…Ø± Ø¨Ù†Ø¬Ù„ÙˆÙ†",
+    beat: "Ø§Ù„Ø«Ù‚Ø§ÙØ©",
     section: "culture",
-    title: "محرر الشؤون الثقافية",
-    emoji: "📚",
+    title: "Ù…Ø­Ø±Ø± Ø§Ù„Ø´Ø¤ÙˆÙ† Ø§Ù„Ø«Ù‚Ø§ÙÙŠØ©",
+    emoji: "ðŸ“š",
     color: "text-violet-400",
     border: "border-violet-900/40",
     bg: "bg-violet-900/10",
-    persona: "ناقد ثقافي متخصص في الأدب والتراث والهوية.",
-    topics: ["الأدب", "المسرح", "التراث", "المهرجانات", "الكتب", "الهوية المغربية"],
+    persona: "Ù†Ø§Ù‚Ø¯ Ø«Ù‚Ø§ÙÙŠ Ù…ØªØ®ØµØµ ÙÙŠ Ø§Ù„Ø£Ø¯Ø¨ ÙˆØ§Ù„ØªØ±Ø§Ø« ÙˆØ§Ù„Ù‡ÙˆÙŠØ©.",
+    topics: ["Ø§Ù„Ø£Ø¯Ø¨", "Ø§Ù„Ù…Ø³Ø±Ø­", "Ø§Ù„ØªØ±Ø§Ø«", "Ø§Ù„Ù…Ù‡Ø±Ø¬Ø§Ù†Ø§Øª", "Ø§Ù„ÙƒØªØ¨", "Ø§Ù„Ù‡ÙˆÙŠØ© Ø§Ù„Ù…ØºØ±Ø¨ÙŠØ©"],
   },
   {
     slug: "hassan-alaoui",
-    name: "حسن العلوي",
-    beat: "الفنون",
+    name: "Ø­Ø³Ù† Ø§Ù„Ø¹Ù„ÙˆÙŠ",
+    beat: "Ø§Ù„ÙÙ†ÙˆÙ†",
     section: "culture",
-    title: "ناقد الفنون والإعلام",
-    emoji: "🎭",
+    title: "Ù†Ø§Ù‚Ø¯ Ø§Ù„ÙÙ†ÙˆÙ† ÙˆØ§Ù„Ø¥Ø¹Ù„Ø§Ù…",
+    emoji: "ðŸŽ­",
     color: "text-pink-400",
     border: "border-pink-900/40",
     bg: "bg-pink-900/10",
-    persona: "ناقد فني متخصص في الموسيقى والسينما.",
-    topics: ["السينما", "الموسيقى", "المسرح", "التشكيل", "المعارض", "الفنانون"],
+    persona: "Ù†Ø§Ù‚Ø¯ ÙÙ†ÙŠ Ù…ØªØ®ØµØµ ÙÙŠ Ø§Ù„Ù…ÙˆØ³ÙŠÙ‚Ù‰ ÙˆØ§Ù„Ø³ÙŠÙ†Ù…Ø§.",
+    topics: ["Ø§Ù„Ø³ÙŠÙ†Ù…Ø§", "Ø§Ù„Ù…ÙˆØ³ÙŠÙ‚Ù‰", "Ø§Ù„Ù…Ø³Ø±Ø­", "Ø§Ù„ØªØ´ÙƒÙŠÙ„", "Ø§Ù„Ù…Ø¹Ø§Ø±Ø¶", "Ø§Ù„ÙÙ†Ø§Ù†ÙˆÙ†"],
   },
   {
     slug: "fatima-benali",
-    name: "فاطمة بنعلي",
-    beat: "المجتمع",
+    name: "ÙØ§Ø·Ù…Ø© Ø¨Ù†Ø¹Ù„ÙŠ",
+    beat: "Ø§Ù„Ù…Ø¬ØªÙ…Ø¹",
     section: "society",
-    title: "مراسلة الشؤون الاجتماعية",
-    emoji: "🏘️",
+    title: "Ù…Ø±Ø§Ø³Ù„Ø© Ø§Ù„Ø´Ø¤ÙˆÙ† Ø§Ù„Ø§Ø¬ØªÙ…Ø§Ø¹ÙŠØ©",
+    emoji: "ðŸ˜ï¸",
     color: "text-rose-400",
     border: "border-rose-900/40",
     bg: "bg-rose-900/10",
-    persona: "صحفية اجتماعية متخصصة في قضايا الأسرة والمجتمع.",
-    topics: ["التعليم", "الصحة", "الأسرة", "الشباب", "المرأة", "السكن", "الهجرة"],
+    persona: "ØµØ­ÙÙŠØ© Ø§Ø¬ØªÙ…Ø§Ø¹ÙŠØ© Ù…ØªØ®ØµØµØ© ÙÙŠ Ù‚Ø¶Ø§ÙŠØ§ Ø§Ù„Ø£Ø³Ø±Ø© ÙˆØ§Ù„Ù…Ø¬ØªÙ…Ø¹.",
+    topics: ["Ø§Ù„ØªØ¹Ù„ÙŠÙ…", "Ø§Ù„ØµØ­Ø©", "Ø§Ù„Ø£Ø³Ø±Ø©", "Ø§Ù„Ø´Ø¨Ø§Ø¨", "Ø§Ù„Ù…Ø±Ø£Ø©", "Ø§Ù„Ø³ÙƒÙ†", "Ø§Ù„Ù‡Ø¬Ø±Ø©"],
   },
   {
     slug: "karim-tazi",
-    name: "كريم الطازي",
-    beat: "العلوم والتقنية",
+    name: "ÙƒØ±ÙŠÙ… Ø§Ù„Ø·Ø§Ø²ÙŠ",
+    beat: "Ø§Ù„Ø¹Ù„ÙˆÙ… ÙˆØ§Ù„ØªÙ‚Ù†ÙŠØ©",
     section: "science",
-    title: "محرر العلوم والتكنولوجيا",
-    emoji: "🔬",
+    title: "Ù…Ø­Ø±Ø± Ø§Ù„Ø¹Ù„ÙˆÙ… ÙˆØ§Ù„ØªÙƒÙ†ÙˆÙ„ÙˆØ¬ÙŠØ§",
+    emoji: "ðŸ”¬",
     color: "text-cyan-400",
     border: "border-cyan-900/40",
     bg: "bg-cyan-900/10",
-    persona: "متخصص في العلوم والتكنولوجيا والبيئة.",
-    topics: ["الذكاء الاصطناعي", "البيئة", "الفضاء", "الطاقة المتجددة", "الصحة الرقمية", "الابتكار"],
+    persona: "Ù…ØªØ®ØµØµ ÙÙŠ Ø§Ù„Ø¹Ù„ÙˆÙ… ÙˆØ§Ù„ØªÙƒÙ†ÙˆÙ„ÙˆØ¬ÙŠØ§ ÙˆØ§Ù„Ø¨ÙŠØ¦Ø©.",
+    topics: ["Ø§Ù„Ø°ÙƒØ§Ø¡ Ø§Ù„Ø§ØµØ·Ù†Ø§Ø¹ÙŠ", "Ø§Ù„Ø¨ÙŠØ¦Ø©", "Ø§Ù„ÙØ¶Ø§Ø¡", "Ø§Ù„Ø·Ø§Ù‚Ø© Ø§Ù„Ù…ØªØ¬Ø¯Ø¯Ø©", "Ø§Ù„ØµØ­Ø© Ø§Ù„Ø±Ù‚Ù…ÙŠØ©", "Ø§Ù„Ø§Ø¨ØªÙƒØ§Ø±"],
   },
 ];
 
@@ -138,7 +161,7 @@ export default function Newsroom() {
       setAuth(true);
       setError("");
     } else {
-      setError("خطأ: بيانات الاعتماد الإدارية غير صالحة");
+      setError("Ø®Ø·Ø£: Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ø§Ø¹ØªÙ…Ø§Ø¯ Ø§Ù„Ø¥Ø¯Ø§Ø±ÙŠØ© ØºÙŠØ± ØµØ§Ù„Ø­Ø©");
     }
   };
 
@@ -153,12 +176,12 @@ export default function Newsroom() {
           <div className="flex justify-center mb-8">
             <ShieldAlert className="w-16 h-16 animate-pulse opacity-80" />
           </div>
-          <h1 className="text-2xl text-center mb-2 tracking-widest font-bold">دخول مقيد</h1>
-          <p className="text-emerald-700 text-xs text-center mb-10 tracking-widest">غرفة أخبار مغرب 24 المستقلة</p>
+          <h1 className="text-2xl text-center mb-2 tracking-widest font-bold">Ø¯Ø®ÙˆÙ„ Ù…Ù‚ÙŠØ¯</h1>
+          <p className="text-emerald-700 text-xs text-center mb-10 tracking-widest">ØºØ±ÙØ© Ø£Ø®Ø¨Ø§Ø± Ù…ØºØ±Ø¨ 24 Ø§Ù„Ù…Ø³ØªÙ‚Ù„Ø©</p>
           
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label className="block text-xs mb-2 tracking-widest text-emerald-600 text-right">أدخل مفتاح المرور:</label>
+              <label className="block text-xs mb-2 tracking-widest text-emerald-600 text-right">Ø£Ø¯Ø®Ù„ Ù…ÙØªØ§Ø­ Ø§Ù„Ù…Ø±ÙˆØ±:</label>
               <input 
                 type="password" 
                 value={pass}
@@ -169,7 +192,7 @@ export default function Newsroom() {
             </div>
             {error && <p className="text-red-500 text-xs tracking-widest animate-pulse text-right">{error}</p>}
             <button type="submit" className="w-full border border-emerald-800 text-emerald-500 hover:bg-emerald-950/30 tracking-widest font-bold py-3 transition-colors text-sm">
-              تفويض الاتصال
+              ØªÙÙˆÙŠØ¶ Ø§Ù„Ø§ØªØµØ§Ù„
             </button>
           </form>
         </div>
@@ -182,7 +205,7 @@ export default function Newsroom() {
 
 function NewsroomDashboard() {
   const { data: logs, isLoading, refetch } = useGetMAGHREB24Newsroom({ limit: 100 });
-  const logEntries: MAGHREB24NewsroomLog[] = Array.isArray(logs) ? logs : [];
+  const logEntries = Array.isArray(logs) ? logs : [];
   const triggerGen = useTriggerMAGHREB24Generation();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -193,7 +216,7 @@ function NewsroomDashboard() {
   const [discussing, setDiscussing] = useState(false);
   const discuss = useMAGHREB24NewsroomDiscuss();
 
-  const { data: trendLogsData } = useGetMAGHREB24TrendsLatest({ adminKey: ADMIN_KEY });
+  const { data: trendLogsData } = useGetMAGHREB24TrendsLatest({});
   const trendLogs = Array.isArray(trendLogsData) ? trendLogsData : [];
 
   useEffect(() => {
@@ -249,7 +272,6 @@ function NewsroomDashboard() {
       </div>
       
       <div className="relative z-10 max-w-[1600px] mx-auto p-6">
-        {/* Header */}
         <div className="flex items-center justify-between mb-8 border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-4">
             <button
@@ -258,7 +280,7 @@ function NewsroomDashboard() {
               className="flex items-center gap-2 px-4 py-2 bg-emerald-600/10 text-emerald-500 border border-emerald-500/30 hover:bg-emerald-600/20 transition-colors text-xs uppercase tracking-widest font-bold disabled:opacity-40"
             >
               {triggerGen.isPending ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Activity className="w-3.5 h-3.5" />}
-              توليد الأخبار
+              ØªÙˆÙ„ÙŠØ¯ Ø§Ù„Ø£Ø®Ø¨Ø§Ø±
             </button>
             <button
               onClick={() => refetch()}
@@ -268,19 +290,17 @@ function NewsroomDashboard() {
             </button>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs text-zinc-600 uppercase tracking-widest">غرفة الأخبار</span>
+            <span className="text-xs text-zinc-600 uppercase tracking-widest">ØºØ±ÙØ© Ø§Ù„Ø£Ø®Ø¨Ø§Ø±</span>
             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* العمود الرئيسي - الشات */}
           <div className="lg:col-span-2 space-y-6">
-            {/* صندوق المحادثة */}
             <div className="bg-black border border-zinc-800 flex flex-col h-[600px]">
               <div className="border-b border-zinc-800 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-zinc-600">نشاط غرفة الأخبار</span>
+                  <span className="text-xs text-zinc-600">Ù†Ø´Ø§Ø· ØºØ±ÙØ© Ø§Ù„Ø£Ø®Ø¨Ø§Ø±</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Terminal className="w-4 h-4 text-zinc-700" />
@@ -294,14 +314,14 @@ function NewsroomDashboard() {
                   </div>
                 ) : logEntries.length === 0 ? (
                   <div className="text-center py-8 text-zinc-700 text-sm">
-                    لا توجد رسائل بعد...
+                    Ù„Ø§ ØªÙˆØ¬Ø¯ Ø±Ø³Ø§Ø¦Ù„ Ø¨Ø¹Ø¯...
                   </div>
                 ) : (
-                  logEntries.map((log) => (
+                  (logEntries as any[]).map((log: any) => (
                     <div key={log.id} className="flex items-start gap-3 text-right">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1 justify-end">
-                          <span className="text-xs font-bold text-emerald-500">{log.speakerName}</span>
+                          <span className="text-xs font-bold text-emerald-500">{log.author}</span>
                           <span className="text-[10px] text-zinc-700">{formatDateTime(log.createdAt)}</span>
                         </div>
                         <div className="bg-zinc-900/50 border border-zinc-800 p-3 text-sm text-zinc-300">
@@ -319,14 +339,13 @@ function NewsroomDashboard() {
                 )}
                 {discussing && (
                   <div className="flex gap-3 items-center text-zinc-600 text-xs animate-pulse justify-end">
-                    <span className="text-zinc-600">الفريق يفكر...</span>
+                    <span className="text-zinc-600">Ø§Ù„ÙØ±ÙŠÙ‚ ÙŠÙÙƒØ±...</span>
                     <span className="w-2 h-2 bg-zinc-700 rounded-full animate-bounce" />
                   </div>
                 )}
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* مدخل النص */}
               <form onSubmit={handleDiscuss} className="border-t border-zinc-800 p-4 flex gap-3 bg-zinc-950/50">
                 <button
                   type="submit"
@@ -339,7 +358,7 @@ function NewsroomDashboard() {
                   type="text"
                   value={publisherMsg}
                   onChange={e => setPublisherMsg(e.target.value)}
-                  placeholder="خاطب غرفة الأخبار..."
+                  placeholder="Ø®Ø§Ø·Ø¨ ØºØ±ÙØ© Ø§Ù„Ø£Ø®Ø¨Ø§Ø±..."
                   disabled={discussing}
                   className="flex-1 bg-transparent border-none text-zinc-300 text-sm focus:outline-none placeholder:text-zinc-700 disabled:opacity-40 text-right"
                 />
@@ -350,15 +369,13 @@ function NewsroomDashboard() {
             </div>
           </div>
 
-          {/* الشريط الجانبي الأيمن - كل المشاهد */}
           <div className="space-y-6">
-            {/* توجيه هيئة التحرير */}
             <div className="bg-black border border-emerald-900/40 p-5">
               <h3 className="text-xs font-bold text-emerald-500 uppercase tracking-widest mb-1 flex items-center gap-2 justify-end">
-                توجيه هيئة التحرير
+                ØªÙˆØ¬ÙŠÙ‡ Ù‡ÙŠØ¦Ø© Ø§Ù„ØªØ­Ø±ÙŠØ±
                 <Crosshair className="w-3.5 h-3.5" />
               </h3>
-              <p className="text-[10px] text-zinc-600 mb-4 pb-3 border-b border-zinc-900">اختر المراسل وحدد الموضوع</p>
+              <p className="text-[10px] text-zinc-600 mb-4 pb-3 border-b border-zinc-900">Ø§Ø®ØªØ± Ø§Ù„Ù…Ø±Ø§Ø³Ù„ ÙˆØ­Ø¯Ø¯ Ø§Ù„Ù…ÙˆØ¶ÙˆØ¹</p>
 
               <div className="space-y-2 mb-4">
                 <select
@@ -366,7 +383,7 @@ function NewsroomDashboard() {
                   onChange={(e) => setSelectedJournalist(e.target.value)}
                   className="w-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs p-3 focus:outline-none focus:border-emerald-700"
                 >
-                  <option value="">كل المراسلين</option>
+                  <option value="">ÙƒÙ„ Ø§Ù„Ù…Ø±Ø§Ø³Ù„ÙŠÙ†</option>
                   {JOURNALISTS.map(j => (
                     <option key={j.slug} value={j.slug}>{j.name} - {j.beat}</option>
                   ))}
@@ -378,7 +395,7 @@ function NewsroomDashboard() {
                   value={topicHint}
                   onChange={e => setTopicHint(e.target.value)}
                   rows={3}
-                  placeholder="أدخل الموضوع..."
+                  placeholder="Ø£Ø¯Ø®Ù„ Ø§Ù„Ù…ÙˆØ¶ÙˆØ¹..."
                   className="w-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs p-3 focus:outline-none focus:border-emerald-700 resize-none text-right"
                 />
 
@@ -388,47 +405,26 @@ function NewsroomDashboard() {
                   className="w-full flex items-center justify-center gap-2 py-3 bg-emerald-600/10 text-emerald-500 border border-emerald-500/40 hover:bg-emerald-600/20 disabled:opacity-40 text-xs uppercase font-bold"
                 >
                   {triggerGen.isPending ? (
-                    <><Loader2 className="w-3.5 h-3.5 animate-spin" /> جاري الكتابة...</>
+                    <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Ø¬Ø§Ø±ÙŠ Ø§Ù„ÙƒØªØ§Ø¨Ø©...</>
                   ) : briefSent ? (
-                    <><Activity className="w-3.5 h-3.5" /> تم الإرسال</>
+                    <><Activity className="w-3.5 h-3.5" /> ØªÙ… Ø§Ù„Ø¥Ø±Ø³Ø§Ù„</>
                   ) : (
-                    <><Send className="w-3.5 h-3.5" /> إرسال</>
+                    <><Send className="w-3.5 h-3.5" /> Ø¥Ø±Ø³Ø§Ù„</>
                   )}
                 </button>
               </form>
             </div>
 
-            {/* وكالة المراسلين */}
             <AgentRosterPanel />
-            
-            {/* استخبارات التوجهات */}
             <TrendIntelPanel />
-            
-            {/* لوحة الإحصائيات */}
             <StatsDashboard />
-            
-            {/* الأخبار العاجلة */}
             <BreakingNewsPanel />
-            
-            {/* مساهمات القراء */}
             <SubmissionsPanel />
-            
-            {/* مدير الإعلانات */}
             <AdManagerPanel />
-            
-            {/* مكتبة الوسائط - تم تحديثها مع رفع الصور */}
-            <EnhancedMediaLibrary />
-            
-            {/* إدارة التعليقات */}
+            <MediaLibraryPanel />
             <CommentsModerationPanel />
-            
-            {/* إدارة الفريق */}
             <TeamManagerPanel />
-            
-            {/* إعدادات الموقع */}
             <SiteSettingsPanel />
-            
-            {/* بيانات التشخيص */}
             <DiagnosticsPanel triggerGen={triggerGen} />
           </div>
         </div>
@@ -437,17 +433,15 @@ function NewsroomDashboard() {
   );
 }
 
-// =================== المشاهد المساعدة ===================
-
 function AgentRosterPanel() {
   return (
     <div className="bg-black border border-zinc-800 p-5">
-      <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4 border-b border-zinc-800 pb-2">وكلاء غرفة الأخبار</h3>
+      <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4 border-b border-zinc-800 pb-2">ÙˆÙƒÙ„Ø§Ø¡ ØºØ±ÙØ© Ø§Ù„Ø£Ø®Ø¨Ø§Ø±</h3>
       <div className="space-y-3">
         <div className="flex items-center gap-3 justify-end pb-3 border-b border-zinc-900">
           <div className="text-right">
-            <div className="text-xs font-bold text-zinc-200">محمد عبد الرحمان</div>
-            <div className="text-[9px] text-zinc-500 uppercase tracking-widest mt-0.5">رئيس التحرير</div>
+            <div className="text-xs font-bold text-zinc-200">Ù…Ø­Ù…Ø¯ Ø¹Ø¨Ø¯ Ø§Ù„Ø±Ø­Ù…Ø§Ù†</div>
+            <div className="text-[9px] text-zinc-500 uppercase tracking-widest mt-0.5">Ø±Ø¦ÙŠØ³ Ø§Ù„ØªØ­Ø±ÙŠØ±</div>
           </div>
           <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full animate-pulse" />
         </div>
@@ -456,7 +450,7 @@ function AgentRosterPanel() {
             <div className="text-right flex-1">
               <div className={`text-xs font-bold ${j.color}`}>
                 {j.emoji} {j.name}
-                <span className="text-[9px] text-zinc-600 font-normal mr-2">— {j.beat}</span>
+                <span className="text-[9px] text-zinc-600 font-normal mr-2">â€” {j.beat}</span>
               </div>
               <div className="flex flex-wrap gap-1 mt-1 justify-end">
                 {j.topics.slice(0, 3).map(t => (
@@ -481,18 +475,18 @@ function TrendIntelPanel() {
     <div className="bg-black border border-violet-900/40 p-5">
       <div className="flex items-start justify-between mb-1 flex-row-reverse">
         <h3 className="text-xs font-bold text-violet-400 uppercase tracking-widest flex items-center gap-2">
-          استخبارات التوجهات
+          Ø§Ø³ØªØ®Ø¨Ø§Ø±Ø§Øª Ø§Ù„ØªÙˆØ¬Ù‡Ø§Øª
           <TrendingUp className="w-3.5 h-3.5" />
         </h3>
-        <span className="text-[9px] text-violet-600 uppercase tracking-widest border border-violet-800/40 px-1.5 py-0.5">فيكتوريا تشامبرز</span>
+        <span className="text-[9px] text-violet-600 uppercase tracking-widest border border-violet-800/40 px-1.5 py-0.5">ÙÙŠÙƒØªÙˆØ±ÙŠØ§ ØªØ´Ø§Ù…Ø¨Ø±Ø²</span>
       </div>
 
       <div className="mb-4">
         <div className="grid grid-cols-3 gap-1">
           {([
-            { key: "scan", label: "مسح", icon: Eye },
-            { key: "predict", label: "توقع", icon: Zap },
-            { key: "brief", label: "توجيه", icon: BarChart2 },
+            { key: "scan", label: "Ù…Ø³Ø­", icon: Eye },
+            { key: "predict", label: "ØªÙˆÙ‚Ø¹", icon: Zap },
+            { key: "brief", label: "ØªÙˆØ¬ÙŠÙ‡", icon: BarChart2 },
           ] as const).map(({ key, label, icon: Icon }) => (
             <button
               key={key}
@@ -509,7 +503,7 @@ function TrendIntelPanel() {
       </div>
 
       <div className="flex items-center justify-between mb-4 py-2 border-t border-b border-zinc-900">
-        <span className="text-[10px] text-zinc-400">إنشاء مقالات تلقائي</span>
+        <span className="text-[10px] text-zinc-400">Ø¥Ù†Ø´Ø§Ø¡ Ù…Ù‚Ø§Ù„Ø§Øª ØªÙ„Ù‚Ø§Ø¦ÙŠ</span>
         <button
           onClick={() => setTriggerArticles(!triggerArticles)}
           className={`w-10 h-5 rounded-full transition-all relative ${triggerArticles ? "bg-violet-600" : "bg-zinc-800"}`}
@@ -524,9 +518,9 @@ function TrendIntelPanel() {
         className="w-full flex items-center justify-center gap-2 py-3 bg-violet-600/10 text-violet-400 border border-violet-500/40 hover:bg-violet-600/20 disabled:opacity-40 text-xs uppercase font-bold"
       >
         {analyze.isPending ? (
-          <><Loader2 className="w-3.5 h-3.5 animate-spin" /> جاري التحليل...</>
+          <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù„ÙŠÙ„...</>
         ) : (
-          <><TrendingUp className="w-3.5 h-3.5" /> تشغيل {mode === "scan" ? "المسح" : mode === "predict" ? "التوقع" : "التوجيه"}</>
+          <><TrendingUp className="w-3.5 h-3.5" /> ØªØ´ØºÙŠÙ„ {mode === "scan" ? "Ø§Ù„Ù…Ø³Ø­" : mode === "predict" ? "Ø§Ù„ØªÙˆÙ‚Ø¹" : "Ø§Ù„ØªÙˆØ¬ÙŠÙ‡"}</>
         )}
       </button>
     </div>
@@ -535,16 +529,16 @@ function TrendIntelPanel() {
 
 function StatsDashboard() {
   const metrics = [
-    { label: "زيارات اليوم", value: "12,847", color: "text-emerald-400" },
-    { label: "زيارات الأسبوع", value: "84,321", color: "text-teal-400" },
-    { label: "مقالات الشهر", value: "34", color: "text-blue-400" },
-    { label: "معلقة", value: "7", color: "text-amber-400" },
+    { label: "Ø²ÙŠØ§Ø±Ø§Øª Ø§Ù„ÙŠÙˆÙ…", value: "12,847", color: "text-emerald-400" },
+    { label: "Ø²ÙŠØ§Ø±Ø§Øª Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹", value: "84,321", color: "text-teal-400" },
+    { label: "Ù…Ù‚Ø§Ù„Ø§Øª Ø§Ù„Ø´Ù‡Ø±", value: "34", color: "text-blue-400" },
+    { label: "Ù…Ø¹Ù„Ù‚Ø©", value: "7", color: "text-amber-400" },
   ];
 
   return (
     <div className="bg-black border border-zinc-800 p-5">
       <h3 className="text-xs font-bold text-zinc-300 uppercase mb-4 flex items-center gap-2 justify-end">
-        الإحصائيات
+        Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª
         <BarChart2 className="w-3.5 h-3.5" />
       </h3>
       <div className="grid grid-cols-2 gap-2">
@@ -575,7 +569,7 @@ function BreakingNewsPanel() {
   return (
     <div className="bg-black border border-orange-900/40 p-5">
       <h3 className="text-xs font-bold text-orange-400 uppercase mb-1 flex items-center gap-2 justify-end">
-        أخبار عاجلة
+        Ø£Ø®Ø¨Ø§Ø± Ø¹Ø§Ø¬Ù„Ø©
         <AlertCircle className="w-3.5 h-3.5" />
       </h3>
 
@@ -587,7 +581,7 @@ function BreakingNewsPanel() {
           }`}
         >
           {tickerEnabled ? <ToggleRight className="w-4 h-4" /> : <ToggleLeft className="w-4 h-4" />}
-          {tickerEnabled ? 'مفعّل' : 'معطّل'}
+          {tickerEnabled ? 'Ù…ÙØ¹Ù‘Ù„' : 'Ù…Ø¹Ø·Ù‘Ù„'}
         </button>
       </div>
 
@@ -595,7 +589,7 @@ function BreakingNewsPanel() {
         <textarea 
           value={newText} 
           onChange={e => setNewText(e.target.value)} 
-          placeholder="نص الخبر العاجل..." 
+          placeholder="Ù†Øµ Ø§Ù„Ø®Ø¨Ø± Ø§Ù„Ø¹Ø§Ø¬Ù„..." 
           rows={2}
           className="w-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs p-2 focus:outline-none focus:border-orange-600 resize-none text-right"
         />
@@ -605,14 +599,14 @@ function BreakingNewsPanel() {
             disabled={!newText.trim()} 
             className="flex-1 py-1.5 bg-orange-600/10 text-orange-400 border border-orange-500/30 hover:bg-orange-600/20 text-[10px] uppercase font-bold"
           >
-            <Plus className="w-3 h-3 inline ml-1" /> إضافة
+            <Plus className="w-3 h-3 inline ml-1" /> Ø¥Ø¶Ø§ÙØ©
           </button>
           <button 
             type="button" 
             onClick={() => setIsUrgent(!isUrgent)}
             className={`px-3 py-1.5 border text-[10px] font-bold uppercase ${isUrgent ? "bg-red-600/20 border-red-500/40 text-red-400" : "border-zinc-800 text-zinc-600"}`}
           >
-            🔴 عاجل
+            ðŸ”´ Ø¹Ø§Ø¬Ù„
           </button>
         </div>
       </form>
@@ -621,7 +615,7 @@ function BreakingNewsPanel() {
         {items.map(item => (
           <div key={item.id} className={`border p-3 flex items-center gap-2 ${item.urgent ? "border-red-900/40 bg-red-950/10" : "border-zinc-800"}`}>
             <div className="flex-1 text-right">
-              {item.urgent && <span className="text-red-400 text-[9px] font-bold ml-1">🔴</span>}
+              {item.urgent && <span className="text-red-400 text-[9px] font-bold ml-1">ðŸ”´</span>}
               <span className="text-xs text-zinc-300">{item.text}</span>
             </div>
             <button 
@@ -671,10 +665,10 @@ function SubmissionsPanel() {
       <h3 className="text-xs font-bold text-blue-400 uppercase mb-1 flex items-center gap-2 justify-end">
         {pendingCount > 0 && (
           <span className="bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded px-1.5 py-0.5 text-[10px]">
-            {pendingCount} جديد
+            {pendingCount} Ø¬Ø¯ÙŠØ¯
           </span>
         )}
-        مساهمات القراء
+        Ù…Ø³Ø§Ù‡Ù…Ø§Øª Ø§Ù„Ù‚Ø±Ø§Ø¡
         <Inbox className="w-3.5 h-3.5" />
       </h3>
 
@@ -691,7 +685,7 @@ function SubmissionsPanel() {
                 : 'border-zinc-800 text-zinc-600'
             }`}
           >
-            {f === 'pending' ? 'معلق' : f === 'approved' ? 'مقبول' : 'مرفوض'}
+            {f === 'pending' ? 'Ù…Ø¹Ù„Ù‚' : f === 'approved' ? 'Ù…Ù‚Ø¨ÙˆÙ„' : 'Ù…Ø±ÙÙˆØ¶'}
           </button>
         ))}
       </div>
@@ -700,7 +694,7 @@ function SubmissionsPanel() {
         {isLoading ? (
           <div className="flex justify-center py-6"><Loader2 className="w-5 h-5 animate-spin text-blue-500/40" /></div>
         ) : submissionEntries.length === 0 ? (
-          <div className="text-zinc-700 text-xs text-center py-6">لا توجد مساهمات</div>
+          <div className="text-zinc-700 text-xs text-center py-6">Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ø³Ø§Ù‡Ù…Ø§Øª</div>
         ) : (
           submissionEntries.map((sub: any) => (
             <div key={sub.id} className="border border-zinc-800 bg-zinc-950/50">
@@ -733,7 +727,7 @@ function SubmissionsPanel() {
                       <textarea
                         value={editorNote}
                         onChange={e => setEditorNote(e.target.value)}
-                        placeholder="ملاحظة المحرر..."
+                        placeholder="Ù…Ù„Ø§Ø­Ø¸Ø© Ø§Ù„Ù…Ø­Ø±Ø±..."
                         rows={2}
                         className="w-full bg-zinc-900 border border-zinc-700 text-zinc-300 text-xs p-2 focus:outline-none focus:border-blue-600 resize-none text-right"
                       />
@@ -743,14 +737,14 @@ function SubmissionsPanel() {
                           disabled={approve.isPending}
                           className="flex-1 py-2 bg-emerald-600/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600/20 text-[10px] uppercase font-bold"
                         >
-                          {approve.isPending ? <Loader2 className="w-3 h-3 animate-spin mx-auto" /> : 'نشر'}
+                          {approve.isPending ? <Loader2 className="w-3 h-3 animate-spin mx-auto" /> : 'Ù†Ø´Ø±'}
                         </button>
                         <button
                           onClick={() => handleReject(sub.id)}
                           disabled={reject.isPending}
                           className="flex-1 py-2 bg-red-600/10 text-red-400 border border-red-500/30 hover:bg-red-600/20 text-[10px] uppercase font-bold"
                         >
-                          {reject.isPending ? <Loader2 className="w-3 h-3 animate-spin mx-auto" /> : 'رفض'}
+                          {reject.isPending ? <Loader2 className="w-3 h-3 animate-spin mx-auto" /> : 'Ø±ÙØ¶'}
                         </button>
                       </div>
                     </div>
@@ -773,7 +767,7 @@ function AdManagerPanel() {
   return (
     <div className="bg-black border border-amber-900/40 p-5">
       <h3 className="text-xs font-bold text-amber-500 uppercase mb-1 flex items-center gap-2 justify-end">
-        مدير الإعلانات
+        Ù…Ø¯ÙŠØ± Ø§Ù„Ø¥Ø¹Ù„Ø§Ù†Ø§Øª
         <Megaphone className="w-3.5 h-3.5" />
       </h3>
 
@@ -791,85 +785,32 @@ function AdManagerPanel() {
       </div>
 
       <button onClick={() => setIsAdding(true)} className="w-full mt-3 py-2 bg-zinc-900 border border-zinc-800 text-amber-500 hover:bg-amber-950/20 text-xs uppercase font-bold">
-        + إضافة إعلان
+        + Ø¥Ø¶Ø§ÙØ© Ø¥Ø¹Ù„Ø§Ù†
       </button>
     </div>
   );
 }
 
-// =================== مكون رفع الصور المتقدم ===================
-function EnhancedMediaLibrary() {
-  const [uploading, setUploading] = useState(false);
-  const [preview, setPreview] = useState<string | null>(null);
-  const [images, setImages] = useState<string[]>([]);
-  
-  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    
-    setUploading(true);
-    const fileName = `${Date.now()}-${file.name}`;
-    
-    const { data, error } = await supabase.storage
-      .from('article-images')
-      .upload(fileName, file);
-    
-    if (error) {
-      alert('❌ خطأ: ' + error.message);
-    } else {
-      const { data: { publicUrl } } = supabase.storage
-        .from('article-images')
-        .getPublicUrl(fileName);
-      
-      setPreview(publicUrl);
-      setImages(prev => [publicUrl, ...prev]);
-      alert('✅ تم الرفع بنجاح');
-    }
-    setUploading(false);
-  };
-
+function MediaLibraryPanel() {
   return (
     <div className="bg-black border border-emerald-900/40 p-5">
-      <h3 className="text-xs font-bold text-emerald-500 uppercase mb-4 flex items-center gap-2 justify-end">
-        مكتبة الوسائط المتقدمة
+      <h3 className="text-xs font-bold text-emerald-500 uppercase mb-1 flex items-center gap-2 justify-end">
+        Ù…ÙƒØªØ¨Ø© Ø§Ù„ÙˆØ³Ø§Ø¦Ø·
         <ImageIcon className="w-3.5 h-3.5" />
       </h3>
-      
-      {preview && (
-        <div className="mb-4">
-          <img src={preview} alt="Preview" className="w-full h-32 object-cover rounded-lg border border-emerald-500" />
-        </div>
-      )}
-      
-      <label className="flex items-center justify-center gap-2 w-full py-3 bg-emerald-600/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600/20 cursor-pointer mb-4">
-        <Upload className="w-4 h-4" />
-        <span className="text-xs font-bold">{uploading ? 'جاري الرفع...' : 'اختر صورة للرفع'}</span>
-        <input type="file" accept="image/*" onChange={uploadImage} disabled={uploading} className="hidden" />
-      </label>
-
-      {images.length > 0 && (
-        <div className="grid grid-cols-2 gap-2 mt-4">
-          {images.map((url, idx) => (
-            <img key={idx} src={url} alt="" className="w-full h-20 object-cover rounded border border-zinc-800" />
-          ))}
-        </div>
-      )}
+      <div className="text-center text-zinc-600 text-xs py-4">Ù‚Ø±ÙŠØ¨Ø§Ù‹...</div>
     </div>
   );
-}
-
-function MediaLibraryPanel() {
-  return <EnhancedMediaLibrary />;
 }
 
 function CommentsModerationPanel() {
   return (
     <div className="bg-black border border-rose-900/40 p-5">
       <h3 className="text-xs font-bold text-rose-500 uppercase mb-1 flex items-center gap-2 justify-end">
-        إدارة التعليقات
+        Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„ØªØ¹Ù„ÙŠÙ‚Ø§Øª
         <MessageSquare className="w-3.5 h-3.5" />
       </h3>
-      <div className="text-center text-zinc-600 text-xs py-4">قريباً...</div>
+      <div className="text-center text-zinc-600 text-xs py-4">Ù‚Ø±ÙŠØ¨Ø§Ù‹...</div>
     </div>
   );
 }
@@ -878,10 +819,10 @@ function TeamManagerPanel() {
   return (
     <div className="bg-black border border-sky-900/40 p-5">
       <h3 className="text-xs font-bold text-sky-400 uppercase mb-1 flex items-center gap-2 justify-end">
-        إدارة الفريق
+        Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„ÙØ±ÙŠÙ‚
         <Users className="w-3.5 h-3.5" />
       </h3>
-      <div className="text-center text-zinc-600 text-xs py-4">قريباً...</div>
+      <div className="text-center text-zinc-600 text-xs py-4">Ù‚Ø±ÙŠØ¨Ø§Ù‹...</div>
     </div>
   );
 }
@@ -890,10 +831,10 @@ function SiteSettingsPanel() {
   return (
     <div className="bg-black border border-zinc-800 p-5">
       <h3 className="text-xs font-bold text-zinc-300 uppercase mb-1 flex items-center gap-2 justify-end">
-        إعدادات الموقع
+        Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§Ù„Ù…ÙˆÙ‚Ø¹
         <Settings className="w-3.5 h-3.5" />
       </h3>
-      <div className="text-center text-zinc-600 text-xs py-4">قريباً...</div>
+      <div className="text-center text-zinc-600 text-xs py-4">Ù‚Ø±ÙŠØ¨Ø§Ù‹...</div>
     </div>
   );
 }
@@ -901,23 +842,24 @@ function SiteSettingsPanel() {
 function DiagnosticsPanel({ triggerGen }: { triggerGen: any }) {
   return (
     <div className="bg-black border border-zinc-800 p-5">
-      <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4 border-b border-zinc-800 pb-2">بيانات التشخيص</h3>
+      <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4 border-b border-zinc-800 pb-2">Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„ØªØ´Ø®ÙŠØµ</h3>
       <div className="space-y-3 text-xs">
         <div className="flex justify-between items-center">
-          <span className="text-zinc-500">المحرك</span>
+          <span className="text-zinc-500">Ø§Ù„Ù…Ø­Ø±Ùƒ</span>
           <span className="text-amber-500 font-bold">Claude 3.5 Haiku</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-zinc-500">حالة الاتصال</span>
+          <span className="text-zinc-500">Ø­Ø§Ù„Ø© Ø§Ù„Ø§ØªØµØ§Ù„</span>
           <span className={`font-bold ${triggerGen.isPending ? 'text-amber-400 animate-pulse' : 'text-emerald-500'}`}>
-            {triggerGen.isPending ? 'جاري الكتابة...' : 'جاهز'}
+            {triggerGen.isPending ? 'Ø¬Ø§Ø±ÙŠ Ø§Ù„ÙƒØªØ§Ø¨Ø©...' : 'Ø¬Ø§Ù‡Ø²'}
           </span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-zinc-500">الطابور</span>
-          <span className="text-amber-500">{triggerGen.isPending ? 'مشغول' : 'خامل'}</span>
+          <span className="text-zinc-500">Ø§Ù„Ø·Ø§Ø¨ÙˆØ±</span>
+          <span className="text-amber-500">{triggerGen.isPending ? 'Ù…Ø´ØºÙˆÙ„' : 'Ø®Ø§Ù…Ù„'}</span>
         </div>
       </div>
     </div>
   );
 }
+

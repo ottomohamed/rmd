@@ -11,7 +11,7 @@ export default function AuthorPage() {
   const { data: articlesData, isLoading: isLoadingArticles } = useListMAGHREB24Articles({ limit: 100 });
   
   if (isLoadingAuthor || isLoadingArticles) return <div className="min-h-[60vh] flex items-center justify-center"><Loader2 className="w-10 h-10 animate-spin text-muted-foreground" /></div>;
-  if (!author) return <div className="py-32 text-center font-sans text-3xl italic">الكاتب غير موجود في سجلاتنا.</div>;
+  if (!author) return <div className="py-32 text-center font-sans text-3xl italic">Ø§Ù„ÙƒØ§ØªØ¨ ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯ ÙÙŠ Ø³Ø¬Ù„Ø§ØªÙ†Ø§.</div>;
 
   const authorArticles = articlesData?.articles?.filter(a => a.author?.id === author.id) || [];
 
@@ -28,7 +28,7 @@ export default function AuthorPage() {
           <div className="flex flex-wrap items-center justify-start gap-4 mb-8">
             <span className="text-sm font-bold uppercase tracking-widest text-muted-foreground bg-muted px-3 py-1">{translateAuthorTitle(author.title)}</span>
             <span className={`text-sm font-black uppercase tracking-widest border-b-2 pb-0.5 ${getSectionColor(author.section)}`}>
-              قسم {getTranslatedSection(author.section)}
+              Ù‚Ø³Ù… {getTranslatedSection(author.section)}
             </span>
           </div>
           <p className="font-sans text-2xl text-foreground/80 leading-relaxed max-w-3xl italic">
@@ -37,13 +37,13 @@ export default function AuthorPage() {
           <div className="mt-10 flex gap-12 justify-start border-t border-border pt-8">
             <div className="text-center">
               <p className="text-4xl font-black font-sans text-foreground">{author.articlesWritten}</p>
-              <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground mt-1">مقالات</p>
+              <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground mt-1">Ù…Ù‚Ø§Ù„Ø§Øª</p>
             </div>
             <div className="text-center">
               <p className="text-4xl font-black font-sans text-foreground capitalize">
                 {getTranslatedFrequency(author.scheduleFrequency)}
               </p>
-              <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground mt-1">وقت النشر</p>
+              <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground mt-1">ÙˆÙ‚Øª Ø§Ù„Ù†Ø´Ø±</p>
             </div>
           </div>
         </div>
@@ -52,13 +52,13 @@ export default function AuthorPage() {
       <section>
         <div className="flex items-center gap-6 mb-12 flex-row-reverse">
           <h2 className="text-2xl font-black font-sans uppercase tracking-widest whitespace-nowrap">
-            أرشيف: {translateAuthorName(author.name)}
+            Ø£Ø±Ø´ÙŠÙ: {translateAuthorName(author.name)}
           </h2>
           <div className="h-0.5 bg-foreground flex-1"></div>
         </div>
         
         {authorArticles.length === 0 ? (
-          <p className="text-muted-foreground font-sans italic text-xl py-12 text-center">لم يتم نشر أي مقالات في الأرشيف بعد.</p>
+          <p className="text-muted-foreground font-sans italic text-xl py-12 text-center">Ù„Ù… ÙŠØªÙ… Ù†Ø´Ø± Ø£ÙŠ Ù…Ù‚Ø§Ù„Ø§Øª ÙÙŠ Ø§Ù„Ø£Ø±Ø´ÙŠÙ Ø¨Ø¹Ø¯.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
             {authorArticles.map(article => (
@@ -70,4 +70,5 @@ export default function AuthorPage() {
     </div>
   );
 }
+
 
