@@ -1,9 +1,11 @@
 import { useParams, Link } from "wouter";
-import { useListMAGHREB24Articles, useListMAGHREB24Authors } from "@workspace/api-client-react";
+import { useListMAGHREB24Articles, useListMAGHREB24Authors, ListMAGHREB24ArticlesQueryResult } from "@workspace/api-client-react";
 import { ArticleCard } from "@/components/article-card";
 import { getSectionBgColor, getTranslatedSection, translateAuthorName, getAuthorImage, translateAuthorTitle, formatDate, usePageTitle } from "@/lib/utils";
 import { Loader2, PenBox, MessageSquare, TrendingUp, Sparkles, UserCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+type Article = ListMAGHREB24ArticlesQueryResult[0];
 
 export default function SectionPage() {
   const { section } = useParams();
@@ -66,7 +68,7 @@ export default function SectionPage() {
             </div>
           ) : (
             <div className="space-y-12">
-              {articles.map((article) => (
+              {articles.map((article: Article) => (
                 <ArticleCard key={article.id} article={article} className="group" />
               ))}
             </div>

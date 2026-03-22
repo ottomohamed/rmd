@@ -1,3 +1,4 @@
+
 import { ArticleCard } from "@/components/article-card";
 import Link from "next/link";
 import Image from "next/image";
@@ -125,7 +126,7 @@ export default async function Home() {
               <span className="p-1 px-2 bg-emerald-700 text-white rounded text-sm">#</span> الأكثر قراءة
             </h2>
             <ul className="space-y-6">
-              {mostRead.map((article, idx) => (
+              {mostRead.map((article: Article, idx) => (
                 <li key={article.id} className="flex gap-5 group items-start">
                   <span className="text-4xl font-black text-gray-100 dark:text-slate-800 transition-colors group-hover:text-gold-500/20">
                     0{idx + 1}
@@ -181,7 +182,7 @@ export default async function Home() {
           {articles
             .filter(a => a.section === "politics" || a.section === "economics")
             .slice(0, 4)
-            .map(article => (
+            .map((article: Article) => (
               <ArticleCard key={article.id} article={article} className="hover:-translate-y-1 transition-transform" />
             ))}
         </div>
@@ -194,7 +195,7 @@ export default async function Home() {
             <Link href="/section/culture" className="text-xs font-bold uppercase tracking-widest text-emerald-700">المزيد</Link>
           </div>
           <div className="space-y-8">
-            {articles.filter(a => a.section === "culture").slice(0, 3).map(article => (
+            {articles.filter(a => a.section === "culture").slice(0, 3).map((article: Article) => (
               <div key={article.id} className="flex gap-6 group">
                 <div className="w-28 h-28 shrink-0 relative rounded-xl overflow-hidden shadow-lg border border-gray-100 dark:border-slate-800">
                   {article.imageUrl ? (
@@ -228,7 +229,7 @@ export default async function Home() {
             <Link href="/section/science" className="text-xs font-bold uppercase tracking-widest text-gold-600">المزيد</Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-            {articles.filter(a => a.section === "science").slice(0, 4).map(article => (
+            {articles.filter(a => a.section === "science").slice(0, 4).map((article: Article) => (
               <div key={article.id} className="group">
                 <div className="aspect-video relative rounded-2xl overflow-hidden mb-4 shadow-lg border border-gray-100 dark:border-slate-800">
                   {article.imageUrl ? (
@@ -341,7 +342,7 @@ export default async function Home() {
                     />
                   </div>
                   <h3 className="font-black text-xl group-hover:text-gold-500 transition-colors uppercase tracking-tight">{translateAuthorName(author.name)}</h3>
-                  <p className="text-emerald-400 text-xs font-bold mt-2 uppercase tracking-[0.2em]">{translateAuthorTitle(author.title)}</p>
+                  <p className="text-emerald-400 text-xs font-bold mt-2 uppercase tracking-[0.2em]">{translateAuthorTitle(author.title || '')}</p>
                 </Link>
               ))
             ) : (
@@ -370,4 +371,3 @@ export default async function Home() {
     </div>
   );
 }
-

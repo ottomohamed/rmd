@@ -4,14 +4,8 @@
   "private": true,
   "type": "module",
   "main": "./src/index.ts",
-  "dependencies": {
-    "@tanstack/react-query": "^5.90.21"
-  },
   "peerDependencies": {
+    "@tanstack/react-query": "^5.90.21",
     "react": ">=18"
   }
 }
-
-
-
-

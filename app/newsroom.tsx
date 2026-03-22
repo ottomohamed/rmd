@@ -13,7 +13,7 @@ import {
 import {
   Loader2, Terminal, Activity, Send, Mic, Crosshair, TrendingUp, BarChart2, Eye, Zap, ChevronUp, ChevronDown, Inbox, Trash2, Plus, ToggleLeft, ToggleRight, AlertCircle
 } from "lucide-react";
-import { JOURNALISTS } from './journalists'; // استوردت بيانات الصحفيين من ملف منفصل
+import { JOURNALISTS } from '@/lib/constants'; // استوردت بيانات الصحفيين من ملف منفصل
 import { useBreakingNews } from '@/hooks/use-breaking-news';
 import { formatDateTime } from '@/lib/utils';
 
@@ -146,7 +146,7 @@ function NewsroomDashboard() {
   const handleBrief = (e: React.FormEvent) => {
     e.preventDefault();
     if (!topicHint.trim()) return;
-    triggerGen.mutate({ data: { adminKey: 'meridian2024', authorSlug: selectedJournalist || undefined, topicHint } }, {
+    triggerGen.mutate({ data: { adminKey: 'meridian2024', authorSlug: selectedJournalist, topicHint } }, {
       onSuccess: () => { setBriefSent(true); setTopicHint(''); refetchLogs(); setTimeout(() => setBriefSent(false), 4000); },
     });
   };
